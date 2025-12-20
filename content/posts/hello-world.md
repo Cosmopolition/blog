@@ -3,7 +3,7 @@ title: "Hello World - 欢迎来到我的博客"
 date: 2025-12-20T10:00:00+08:00
 draft: false
 tags: ["博客", "开始"]
-categories: ["随笔"]
+categories: ["日志", "年度回顾"]
 description: "这是我的第一篇文章，欢迎来到我的个人博客！"
 ---
 
