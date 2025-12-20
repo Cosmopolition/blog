@@ -1,0 +1,27 @@
+# Hugo
+public/
+.hugo_build.lock
+resources/_gen/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+
+# 临时文件和脚本（可选，如果不想提交scripts目录）
+# scripts/
+

@@ -1,0 +1,15 @@
+# Git属性配置
+
+# 确保文本文件使用正确的行尾符
+* text=auto
+
+# 脚本文件应该是可执行的
+*.sh text eol=lf
+
+# Markdown文件
+*.md text eol=lf
+
+# YAML配置文件
+*.yaml text eol=lf
+*.yml text eol=lf
+
