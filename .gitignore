@@ -22,6 +22,12 @@ resources/_gen/
 .env
 .env.local
 
+# Image mapping (contains delete URLs with sensitive info)
+image-mapping.json
+
+# Test files
+test.env
+
 # 临时文件和脚本（可选，如果不想提交scripts目录）
 # scripts/
 

@@ -25,6 +25,55 @@ hugo new posts/my-article.md
 hugo --minify
 ```
 
+### 🖼️ 图片上传到ImgBB (推荐方案)
+
+解决仓库大小和CDN访问问题，绕过Cloudflare+中国CDN限制：
+
+#### 🚀 快速开始 (3步完成)
+
+```bash
+# 1. 配置ImgBB API Key (交互式设置)
+npm run setup
+
+# 2. 测试配置和查看待上传图片
+npm run test
+
+# 3. 上传所有图片到ImgBB
+npm run upload
+
+# 4. 启用CDN (修改config.yaml)
+# 将 params.images.useCDN 设为 true
+```
+
+#### 🛠️ 手动配置 (如果需要)
+
+```bash
+# 创建.env文件
+echo "IMGBB_API_KEY=your_api_key_here" > .env
+
+# 或者直接设置环境变量
+export IMGBB_API_KEY=your_api_key_here
+```
+
+#### 🔄 备用方案 (不需要额外依赖)
+
+```bash
+# 使用纯bash脚本
+export IMGBB_API_KEY=your_api_key_here
+./batch-upload.sh
+```
+
+#### 📊 使用流程
+
+1. **本地开发**: `useCDN: false` (使用本地图片)
+2. **获取API Key**: 访问 [ImgBB API](https://api.imgbb.com/)
+3. **配置环境**: 运行 `npm run setup`
+4. **上传图片**: 运行 `npm run upload`
+5. **启用CDN**: 修改config.yaml启用ImgBB
+6. **部署上线**: 图片自动使用CDN地址
+
+详细说明：📖 [IMGBB-UPLOAD-README.md](./IMGBB-UPLOAD-README.md)
+
 ## 📁 项目结构
 
 ```

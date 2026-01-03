@@ -1,0 +1,16 @@
+{
+  "name": "blog-image-uploader",
+  "version": "1.0.0",
+  "description": "Automated image uploader for Hugo blog using ImgBB",
+  "main": "simple-upload.js",
+  "scripts": {
+    "setup": "node setup-env.js",
+    "upload": "node simple-upload.js",
+    "test": "node test-upload.js",
+    "batch": "./batch-upload.sh",
+    "preview": "echo \"发现的图片:\" && node test-upload.js"
+  },
+  "keywords": ["hugo", "imgbb", "image-upload", "cdn"],
+  "author": "MingXin Wang",
+  "license": "MIT"
+}

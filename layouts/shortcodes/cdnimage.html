@@ -1,0 +1,25 @@
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $class := .Get "class" | default "" -}}
+
+{{- $useCDN := true -}} <!-- 硬编码启用CDN -->
+
+{{- $finalSrc := $src -}}
+
+{{- if $useCDN -}}
+  {{- /* 检查是否存在image-mapping.json文件 */}}
+  {{- $mappingFile := "image-mapping.json" -}}
+  {{- if (fileExists $mappingFile) -}}
+    {{- $mappingResource := resources.Get $mappingFile | transform.Unmarshal -}}
+    {{- $mapping := $mappingResource -}}
+    {{- $localPath := strings.TrimPrefix "/images/posts/" $src -}}
+    {{- if (index $mapping $localPath) -}}
+      {{- $imageData := index $mapping $localPath -}}
+      {{- $finalSrc = $imageData.displayUrl -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $imgClass := printf "cdn-image %s" $class | strings.TrimSpace -}}
+
+<img src="{{ $finalSrc }}" alt="{{ $alt }}" class="{{ $imgClass }}" loading="lazy" />
