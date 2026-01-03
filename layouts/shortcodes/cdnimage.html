@@ -2,22 +2,40 @@
 {{- $alt := .Get "alt" | default "" -}}
 {{- $class := .Get "class" | default "" -}}
 
-{{- $useCDN := true -}} <!-- 硬编码启用CDN -->
-
 {{- $finalSrc := $src -}}
 
-{{- if $useCDN -}}
-  {{- /* 检查是否存在image-mapping.json文件 */}}
-  {{- $mappingFile := "image-mapping.json" -}}
-  {{- if (fileExists $mappingFile) -}}
-    {{- $mappingResource := resources.Get $mappingFile | transform.Unmarshal -}}
-    {{- $mapping := $mappingResource -}}
-    {{- $localPath := strings.TrimPrefix "/images/posts/" $src -}}
-    {{- if (index $mapping $localPath) -}}
-      {{- $imageData := index $mapping $localPath -}}
-      {{- $finalSrc = $imageData.displayUrl -}}
-    {{- end -}}
-  {{- end -}}
+{{- /* CDN URL映射 - 自动生成 */}}
+{{- $localPath := strings.TrimPrefix "/images/posts/" $src -}}
+{{- if eq $localPath "hanggang-park/image-01.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/MxhDfgmV/image-01.jpg" -}}
+{{- else if eq $localPath "hanggang-park/image-02.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/G3Pp77VM/image-02.jpg" -}}
+{{- else if eq $localPath "hanggang-park/image-03.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/27W57Vjy/image-03.jpg" -}}
+{{- else if eq $localPath "hanggang-park/image-04.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/CKMCcdPZ/image-04.jpg" -}}
+{{- else if eq $localPath "hanggang-park/image-05.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/Cp8QRBnG/image-05.jpg" -}}
+{{- else if eq $localPath "hanggang-park/image-06.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/23HSDRsj/image-06.jpg" -}}
+{{- else if eq $localPath "hanggang-park/image-07.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/LdjgnjND/image-07.jpg" -}}
+{{- else if eq $localPath "mengma-camp/image-01.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/Csz8BzZT/image-01.jpg" -}}
+{{- else if eq $localPath "mengma-camp/image-02.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/39XNBcL2/image-02.jpg" -}}
+{{- else if eq $localPath "mengma-camp/image-03.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/VpHPhRgd/image-03.jpg" -}}
+{{- else if eq $localPath "mengma-camp/image-04.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/x8zwY72q/image-04.jpg" -}}
+{{- else if eq $localPath "mengma-camp/image-05.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/4RGSBCJ1/image-05.jpg" -}}
+{{- else if eq $localPath "mengma-camp/image-06.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/BVwDk5cb/image-06.jpg" -}}
+{{- else if eq $localPath "jiaqiao-old-street/image-01.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/63h02Cz/image-01.jpg" -}}
+{{- else if eq $localPath "jiaqiao-old-street/image-02.jpg" -}}
+  {{- $finalSrc = "https://i.ibb.co/zW8TTd61/image-02.jpg" -}}
 {{- end -}}
 
 {{- $imgClass := printf "cdn-image %s" $class | strings.TrimSpace -}}

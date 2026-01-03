@@ -25,6 +25,9 @@ resources/_gen/
 # Image mapping (contains delete URLs with sensitive info)
 image-mapping.json
 
+# Keep data/cdn for Hugo data files
+!data/cdn/
+
 # Test files
 test.env
 

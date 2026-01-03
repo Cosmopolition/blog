@@ -242,6 +242,11 @@ async function main() {
   // 保存映射
   saveMapping(newMapping);
 
+  // 自动更新CDN shortcode
+  if (successCount > 0) {
+    await updateCDNShortcode(newMapping);
+  }
+
   // 输出统计
   console.log('=' .repeat(50));
   console.log(`📊 上传完成`);
@@ -252,16 +257,72 @@ async function main() {
   console.log(`📁 总计: ${Object.keys(newMapping).length} 张图片已映射`);
 
   if (successCount > 0) {
-    console.log('\n💡 提示: 现在可以将 config.yaml 中的 useCDN 设为 true');
+    console.log('\n💡 提示: CDN shortcode 已自动更新，图片将通过ImgBB CDN加载');
   }
+}
+
+// 重新生成CDN shortcode（用于已有映射的情况）
+async function regenerateShortcode() {
+  console.log('🔄 重新生成CDN shortcode...');
+  const mapping = loadMapping();
+  if (Object.keys(mapping).length === 0) {
+    console.log('⚠️  没有找到映射文件');
+    return;
+  }
+  await updateCDNShortcode(mapping);
+  console.log('✅ CDN shortcode 已重新生成');
 }
 
 // 如果直接运行此脚本
 if (require.main === module) {
-  main().catch(error => {
-    console.error('💥 程序执行出错:', error.message);
-    process.exit(1);
-  });
+  const args = process.argv.slice(2);
+  if (args.includes('--regenerate')) {
+    regenerateShortcode().catch(error => {
+      console.error('💥 重新生成出错:', error.message);
+      process.exit(1);
+    });
+  } else {
+    main().catch(error => {
+      console.error('💥 程序执行出错:', error.message);
+      process.exit(1);
+    });
+  }
 }
 
-module.exports = { uploadToImgBB, CONFIG };
+// 自动更新CDN shortcode
+async function updateCDNShortcode(mapping) {
+  const shortcodePath = 'layouts/shortcodes/cdnimage.html';
+
+  // 生成映射条件
+  const conditions = Object.entries(mapping)
+    .map(([path, data], index) => {
+      const prefix = index === 0 ? '{{- if' : '{{- else if';
+      return `${prefix} eq $localPath "${path}" -}}\n  {{- $finalSrc = "${data.displayUrl}" -}}`;
+    })
+    .join('\n');
+
+  const shortcodeContent = `{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $class := .Get "class" | default "" -}}
+
+{{- $finalSrc := $src -}}
+
+{{- /* CDN URL映射 - 自动生成 */}}
+{{- $localPath := strings.TrimPrefix "/images/posts/" $src -}}
+${conditions}
+{{- end -}}
+
+{{- $imgClass := printf "cdn-image %s" $class | strings.TrimSpace -}}
+
+<img src="{{ $finalSrc }}" alt="{{ $alt }}" class="{{ $imgClass }}" loading="lazy" />
+`;
+
+  try {
+    await fs.promises.writeFile(shortcodePath, shortcodeContent, 'utf8');
+    console.log('🔄 CDN shortcode 已自动更新');
+  } catch (error) {
+    console.warn('⚠️  更新CDN shortcode失败:', error.message);
+  }
+}
+
+module.exports = { uploadToImgBB, CONFIG, updateCDNShortcode };
