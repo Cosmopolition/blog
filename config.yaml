@@ -7,6 +7,7 @@ params:
   env: production
   title: '我的博客'
   description: '个人技术博客 - 分享技术、生活与思考'
+  mainSections: ['posts']
   images: []  # 全局图片配置，设为空数组避免模板错误
     # useCDN: true # 生产环境设为true使用ImgBB CDN (已在cdnimage shortcode中处理)
     # cdnBase: "https://i.ibb.co/"  # ImgBB CDN基础URL（会根据实际URL自动调整）
