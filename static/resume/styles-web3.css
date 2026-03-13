@@ -1,0 +1,259 @@
+/* Web3.0 风格样式 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #05050a;
+  --purple: #a855f7;
+  --blue: #3b82f6;
+  --cyan: #22d3ee;
+  --pink: #ec4899;
+  --text: #ffffff;
+  --text-dim: rgba(255,255,255,0.6);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'SF Pro Display', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* 自定义光标 */
+.cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--cyan);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease-out, border-color 0.3s, background 0.3s;
+  mix-blend-mode: difference;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--cyan);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.08s;
+}
+
+.cursor.hover {
+  transform: scale(2);
+  border-color: var(--pink);
+  background: rgba(236,72,153,0.1);
+}
+
+.cursor.clicking {
+  transform: scale(0.8);
+}
+
+/* 加载动画 */
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  transition: opacity 0.8s ease, visibility 0.8s;
+}
+
+.loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-ring {
+  width: 50px;
+  height: 50px;
+  border: 2px solid rgba(34,211,238,0.2);
+  border-top-color: var(--cyan);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  position: relative;
+}
+
+.loader-ring::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  border: 2px solid rgba(168,85,247,0.2);
+  border-top-color: var(--purple);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite reverse;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loader-text {
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* 滚动进度指示器 */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple), var(--pink));
+  z-index: 1000;
+  transform-origin: left;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+/* 侧边导航点 */
+.nav-dots {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nav-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-dot::before {
+  content: attr(data-label);
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.nav-dot:hover::before {
+  opacity: 1;
+}
+
+.nav-dot:hover {
+  background: rgba(255,255,255,0.5);
+  transform: scale(1.3);
+}
+
+.nav-dot.active {
+  background: var(--cyan);
+  box-shadow: 0 0 20px rgba(34,211,238,0.6);
+}
+
+/* 星光闪烁层 */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle var(--duration) ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.1; transform: scale(0.8); }
+  50% { opacity: 0.8; transform: scale(1.2); }
+}
+
+/* 粒子画布 */
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* 渐变叠加层 */
+.gradient-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(168,85,247,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(59,130,246,0.15) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+  transition: transform 0.3s ease-out;
+}
+
+/* 脉冲波纹 */
+.pulse-ring {
+  position: fixed;
+  border-radius: 50%;
+  border: 1px solid rgba(34,211,238,0.3);
+  pointer-events: none;
+  animation: pulseExpand 2s ease-out forwards;
+  z-index: 5;
+}
+
+@keyframes pulseExpand {
+  0% { width: 0; height: 0; opacity: 1; }
+  100% { width: 300px; height: 300px; opacity: 0; margin: -150px 0 0 -150px; }
+}
+
+/* 内容容器 */
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+/* 鼠标跟随光效 */
+.mouse-glow {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(34,211,238,0.08), transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s;
+}

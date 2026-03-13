@@ -1,0 +1,246 @@
+/* 响应式样式 */
+
+/* 响应式 - 平板 */
+@media (max-width: 900px) {
+  .product-item {
+    flex-direction: column !important;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .product-info { padding: 0; }
+  .product-tagline { max-width: none; }
+  .products-flow::before { display: none; }
+
+  .journey-stops {
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  .journey-path { display: none; }
+
+  .journey-stop {
+    flex-direction: column !important;
+  }
+
+  .journey-stop:nth-child(even) .journey-stop-content {
+    order: 0;
+    margin: 0;
+  }
+
+  .journey-stop-content {
+    margin-top: 20px !important;
+    max-width: none;
+  }
+
+  .skills-universe {
+    height: 500px;
+  }
+}
+
+/* 响应式 - 手机 */
+@media (max-width: 768px) {
+  .cursor, .cursor-dot, .mouse-glow { display: none; }
+  body { cursor: auto; }
+  .nav-dots { display: none; }
+  .stars { display: none; }
+
+  .section {
+    padding: 60px 20px;
+    min-height: auto;
+  }
+
+  .hero {
+    padding: 20px;
+    min-height: 100vh;
+    min-height: 100dvh; /* 动态视口高度 */
+  }
+
+  .hero-title {
+    font-size: clamp(36px, 15vw, 80px);
+  }
+
+  .hero-subtitle {
+    font-size: 15px;
+    padding: 0 10px;
+  }
+
+  .identity-tags {
+    gap: 8px;
+  }
+
+  .identity-tag {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .scroll-hint {
+    bottom: 30px;
+  }
+
+  .scroll-line {
+    height: 40px;
+  }
+
+  /* 产品区手机适配 */
+  .products-flow {
+    gap: 80px;
+  }
+
+  .product-orb {
+    width: 140px;
+    height: 140px;
+  }
+
+  .product-orb-label {
+    font-size: 12px;
+  }
+
+  .product-name {
+    font-size: 28px;
+  }
+
+  .product-tagline {
+    font-size: 15px;
+  }
+
+  /* 技能区手机适配 */
+  .skills-universe {
+    height: 400px;
+  }
+
+  .skill-float {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  /* 旅程区手机适配 - 改为垂直流动 */
+  .journey-river {
+    padding: 0 10px;
+  }
+
+  .journey-stops {
+    gap: 40px;
+    position: relative;
+  }
+
+  .journey-stops::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--cyan), var(--blue), var(--purple), var(--pink));
+    border-radius: 1px;
+  }
+
+  .journey-stop {
+    flex-direction: row !important;
+    align-items: flex-start;
+    gap: 20px;
+    text-align: left;
+  }
+
+  .journey-node {
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .journey-stop-content {
+    margin-top: 0 !important;
+  }
+
+  .journey-title {
+    font-size: 16px;
+  }
+
+  .journey-desc {
+    font-size: 13px;
+  }
+
+  /* CTA区手机适配 */
+  .cta-section {
+    padding: 100px 20px;
+  }
+
+  .cta-title {
+    font-size: 24px;
+  }
+
+  .cta-desc {
+    font-size: 15px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cta-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 32px;
+  }
+
+  .section-header {
+    margin-bottom: 50px;
+  }
+
+  .section-title {
+    font-size: clamp(24px, 7vw, 40px);
+  }
+}
+
+/* 响应式 - 小手机 */
+@media (max-width: 380px) {
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .identity-tag {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  .product-orb {
+    width: 120px;
+    height: 120px;
+  }
+
+  .skills-universe {
+    height: 350px;
+  }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) {
+  .product-orb:active {
+    transform: scale(0.95);
+  }
+
+  .skill-float:active {
+    transform: scale(1.1);
+    background: rgba(34,211,238,0.15);
+  }
+
+  .identity-tag:active {
+    background: rgba(34,211,238,0.1);
+    border-color: var(--cyan);
+  }
+
+  .cta-btn:active {
+    transform: scale(0.98);
+  }
+
+  .journey-stop:active .journey-node {
+    transform: scale(1.2);
+  }
+}
+
+/* 安全区域适配 (iPhone X+) */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  footer {
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+  }
+}

@@ -1,0 +1,422 @@
+/* 组件样式 */
+
+/* Hero 区域 */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  position: relative;
+}
+
+/* 动态标题 */
+.hero-title {
+  font-size: clamp(48px, 12vw, 140px);
+  font-weight: 800;
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, var(--purple), var(--blue), var(--cyan), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 8s ease infinite;
+  background-size: 300% 300%;
+  transition: transform 0.3s ease;
+  cursor: default;
+  position: relative;
+}
+
+.hero-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  transform: translateX(-50%) scaleX(0);
+  transition: transform 0.5s ease;
+  border-radius: 2px;
+}
+
+.hero-title:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-subtitle {
+  font-size: clamp(16px, 2.5vw, 24px);
+  color: var(--text-dim);
+  text-align: center;
+  max-width: 600px;
+  line-height: 1.6;
+  margin-bottom: 48px;
+}
+
+/* 身份标签 */
+.identity-tags {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+.identity-tag {
+  padding: 12px 24px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px;
+  font-size: 14px;
+  color: var(--text-dim);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: tagFadeIn 0.6s ease forwards;
+}
+
+.identity-tag:nth-child(1) { animation-delay: 0.1s; }
+.identity-tag:nth-child(2) { animation-delay: 0.2s; }
+.identity-tag:nth-child(3) { animation-delay: 0.3s; }
+.identity-tag:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes tagFadeIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.identity-tag:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: 0 0 30px rgba(34,211,238,0.3), inset 0 0 20px rgba(34,211,238,0.1);
+  transform: translateY(-6px) scale(1.05);
+}
+
+/* 滚动提示 */
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-dim);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: float 2s ease-in-out infinite;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--cyan), transparent);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* 区块通用样式 */
+.section {
+  min-height: 100vh;
+  padding: 120px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.section-label {
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 700;
+  background: linear-gradient(135deg, #fff, var(--text-dim));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 产品展示 - 开放式布局 */
+.products-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+}
+
+.products-flow::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(34,211,238,0.3), transparent);
+  transform: translateX(-50%);
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  position: relative;
+}
+
+.product-item:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.product-visual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-orb {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+.product-orb:hover {
+  transform: scale(1.1);
+}
+
+.product-orb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 60%);
+}
+
+.product-orb.live {
+  background: radial-gradient(circle, rgba(16,185,129,0.4), rgba(34,211,238,0.2));
+  box-shadow:
+    0 0 80px rgba(16,185,129,0.4),
+    0 0 120px rgba(16,185,129,0.2),
+    inset 0 0 60px rgba(255,255,255,0.1);
+  animation: breathe 4s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+}
+
+.product-orb.dev {
+  background: radial-gradient(circle, rgba(168,85,247,0.4), rgba(236,72,153,0.2));
+  box-shadow:
+    0 0 80px rgba(168,85,247,0.4),
+    0 0 120px rgba(168,85,247,0.2),
+    inset 0 0 60px rgba(255,255,255,0.1);
+  animation: breathe 4s ease-in-out infinite 1s, glow 2s ease-in-out infinite alternate 0.5s;
+}
+
+@keyframes glow {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.2); }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+.product-orb:hover {
+  animation-play-state: paused;
+}
+
+.product-orb-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text);
+  pointer-events: none;
+}
+
+.product-info {
+  flex: 1;
+  padding: 20px 0;
+}
+
+.product-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.product-status.live { color: #10b981; }
+.product-status.dev { color: var(--purple); }
+
+.product-status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.product-name {
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 700;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #fff, var(--text-dim));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.product-tagline {
+  font-size: 17px;
+  color: var(--text-dim);
+  margin-bottom: 28px;
+  line-height: 1.8;
+  max-width: 400px;
+}
+
+.product-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--cyan);
+  text-decoration: none;
+  font-size: 15px;
+  padding: 12px 0;
+  transition: all 0.3s;
+  border-bottom: 1px solid transparent;
+}
+
+.product-link:hover {
+  gap: 18px;
+  border-bottom-color: var(--cyan);
+}
+
+.product-link svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s;
+}
+
+.product-link:hover svg {
+  transform: translateX(4px);
+}
+
+/* CTA 区域 */
+.cta-section {
+  text-align: center;
+  padding: 160px 40px;
+  position: relative;
+}
+
+.cta-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(168,85,247,0.15), transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.cta-title {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 700;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.cta-desc {
+  font-size: 18px;
+  color: var(--text-dim);
+  max-width: 500px;
+  margin: 0 auto 48px;
+  line-height: 1.7;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-btn {
+  padding: 18px 40px;
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cta-btn.primary {
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  color: white;
+  border: none;
+}
+
+.cta-btn.primary:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(168,85,247,0.4);
+}
+
+.cta-btn.secondary {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+}
+
+.cta-btn.secondary:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-dim);
+  font-size: 13px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}

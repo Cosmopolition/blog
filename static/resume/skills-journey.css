@@ -1,0 +1,208 @@
+/* 技能和旅程样式 */
+
+/* 技能星空 - 漂浮节点 */
+.skills-section {
+  position: relative;
+  overflow: visible;
+}
+
+.skills-universe {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.skill-float {
+  position: absolute;
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 100px;
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: default;
+  transition: all 0.4s ease;
+  animation: floatRandom 6s ease-in-out infinite;
+}
+
+.skill-float::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 100px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(34,211,238,0.3), rgba(168,85,247,0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.skill-float:hover::before {
+  opacity: 1;
+}
+
+.skill-float:hover {
+  transform: scale(1.15);
+  background: rgba(34,211,238,0.1);
+  box-shadow: 0 0 40px rgba(34,211,238,0.3);
+}
+
+.skill-float.tech { color: var(--cyan); }
+.skill-float.product { color: var(--purple); }
+.skill-float.ai { color: var(--pink); }
+
+/* 不同的漂浮动画 */
+@keyframes floatRandom {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(10px, -15px); }
+  50% { transform: translate(-5px, 10px); }
+  75% { transform: translate(15px, 5px); }
+}
+
+.skill-float:nth-child(odd) { animation-duration: 7s; }
+.skill-float:nth-child(3n) { animation-duration: 8s; animation-direction: reverse; }
+.skill-float:nth-child(4n) { animation-duration: 5s; }
+
+/* 技能连接线 */
+.skills-connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 旅程 - 流动河流 */
+.journey-section {
+  padding: 120px 40px;
+  position: relative;
+}
+
+.journey-river {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 流动的路径线 */
+.journey-path {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 4px;
+  background: linear-gradient(90deg,
+    var(--cyan),
+    var(--blue),
+    var(--purple),
+    var(--pink)
+  );
+  background-size: 300% 100%;
+  animation: flowGradient 8s linear infinite;
+  border-radius: 2px;
+  opacity: 0.6;
+}
+
+@keyframes flowGradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+.journey-stops {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.journey-stop {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.journey-stop:nth-child(even) .journey-stop-content {
+  order: -1;
+  margin-bottom: 40px;
+  margin-top: 0;
+}
+
+.journey-stop:nth-child(even) .journey-node {
+  margin-top: 0;
+}
+
+.journey-node {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 3px solid;
+  position: relative;
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+
+.journey-stop:nth-child(1) .journey-node { border-color: var(--cyan); }
+.journey-stop:nth-child(2) .journey-node { border-color: var(--blue); }
+.journey-stop:nth-child(3) .journey-node { border-color: var(--purple); }
+.journey-stop:nth-child(4) .journey-node { border-color: var(--pink); }
+
+.journey-node::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.journey-stop:hover .journey-node {
+  transform: scale(1.3);
+  box-shadow: 0 0 30px currentColor;
+}
+
+.journey-stop:hover .journey-node::after {
+  opacity: 0.5;
+  inset: -16px;
+}
+
+.journey-stop-content {
+  margin-top: 40px;
+  max-width: 200px;
+}
+
+.journey-label {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.journey-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  transition: color 0.3s;
+}
+
+.journey-stop:nth-child(1):hover .journey-title { color: var(--cyan); }
+.journey-stop:nth-child(2):hover .journey-title { color: var(--blue); }
+.journey-stop:nth-child(3):hover .journey-title { color: var(--purple); }
+.journey-stop:nth-child(4):hover .journey-title { color: var(--pink); }
+
+.journey-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
