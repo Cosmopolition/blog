@@ -1,0 +1,255 @@
+/* ============================================
+   Profile Mode 两栏布局 - 现代简约风
+   ============================================ */
+
+/* 覆盖主题默认的居中布局 */
+.list .main {
+    display: block;
+    text-align: left;
+}
+
+.main .profile {
+    display: block;
+    text-align: left;
+    min-height: auto;
+}
+
+/* 两栏容器 - 紧凑布局 */
+.profile-main-wrapper {
+    display: flex;
+    gap: 48px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+/* 左侧边栏 - 固定宽度 */
+.profile-sidebar {
+    flex: 0 0 260px;
+    position: sticky;
+    top: calc(var(--header-height) + 24px);
+    height: fit-content;
+    align-self: flex-start;
+}
+
+/* 侧边栏卡片 */
+.profile-sidebar .profile {
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+}
+
+/* 头像 */
+.profile-sidebar .profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--border);
+}
+
+.profile-sidebar .avatar-wrapper {
+    margin-bottom: 20px;
+}
+
+/* 个人信息 */
+.profile-sidebar .profile_inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.profile-sidebar .profile h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--primary);
+}
+
+.profile-sidebar .profile span {
+    font-size: 14px;
+    color: var(--secondary);
+}
+
+/* 社交图标 */
+.profile-sidebar .social-icons {
+    margin-top: 12px;
+}
+
+.profile-sidebar .social-icons a {
+    padding: 6px;
+}
+
+.profile-sidebar .social-icons svg {
+    height: 20px;
+    width: 20px;
+}
+
+/* 按钮组 */
+.profile-sidebar .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.profile-sidebar .button {
+    background: var(--theme);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin: 0;
+    padding: 10px 16px;
+    transition: all 0.2s;
+}
+
+.profile-sidebar .button:hover {
+    background: var(--tertiary);
+    border-color: var(--primary);
+}
+
+.profile-sidebar .button-inner {
+    padding: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--primary);
+}
+
+/* 右侧内容区 */
+.profile-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* 区块标题 */
+.profile-section-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--border);
+}
+
+.profile-section-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--primary);
+}
+
+/* 文章卡片 */
+.profile-content .post-entry {
+    position: relative;
+    margin-bottom: 16px;
+    padding: 20px;
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+.profile-content .post-entry:hover {
+    border-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.profile-content .first-entry {
+    padding: 24px;
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+/* 文章标题 */
+.profile-content .entry-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.profile-content .entry-header h2 a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.profile-content .entry-header h2 a:hover {
+    color: var(--theme);
+}
+
+/* 文章摘要 */
+.profile-content .entry-content {
+    margin: 10px 0;
+    color: var(--secondary);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* 文章元信息 */
+.profile-content .entry-footer {
+    font-size: 12px;
+    color: var(--secondary);
+}
+
+/* 分页 */
+.profile-content .page-footer {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.profile-content .pagination {
+    display: flex;
+    gap: 12px;
+}
+
+.profile-content .pagination a {
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: var(--primary);
+}
+
+.profile-content .pagination a:hover {
+    background: var(--primary);
+    color: var(--theme);
+}
+
+/* 响应式适配 */
+
+/* 平板 */
+@media screen and (max-width: 1024px) {
+    .profile-main-wrapper {
+        gap: 32px;
+        padding: 0 20px;
+    }
+    
+    .profile-sidebar {
+        flex: 0 0 220px;
+    }
+}
+
+/* 手机 - 单栏布局 */
+@media screen and (max-width: 768px) {
+    .profile-main-wrapper {
+        flex-direction: column;
+        gap: 24px;
+        padding: 0 16px;
+    }
+    
+    .profile-sidebar {
+        position: static;
+    }
+    
+    .profile-sidebar .profile {
+        padding: 24px 20px;
+    }
+    
+    .profile-content .post-entry {
+        padding: 16px;
+    }
+}

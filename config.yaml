@@ -12,10 +12,23 @@ params:
     # useCDN: true # 生产环境设为true使用ImgBB CDN (已在cdnimage shortcode中处理)
     # cdnBase: "https://i.ibb.co/"  # ImgBB CDN基础URL（会根据实际URL自动调整）
   
-  # 首页配置
-  homeInfoParams:
-    Title: "欢迎来到我的博客"
-    Content: "分享技术、生活与思考"
+  # 首页布局模式 - 使用 Profile Mode (左侧固定 + 右侧内容)
+  profileMode:
+    enabled: true
+    title: "MingXin Wang"
+    imageUrl: "/images/avatar.jpg"  # 需要上传头像到 static/images/ 目录
+    imageWidth: 150
+    imageHeight: 150
+    subtitle: "分享技术、生活与思考"
+    buttons:
+      - name: 博客
+        url: /
+      - name: 关于
+        url: /about/
+      - name: 归档
+        url: /archives/
+      - name: 标签
+        url: /tags/
   
   # 社交链接
   socialIcons:

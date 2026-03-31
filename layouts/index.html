@@ -1,0 +1,95 @@
+{{- define "main" }}
+
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" }}
+{{- $paginator := .Paginate $pages }}
+
+<div class="profile-main-wrapper">
+    <!-- 左侧个人信息 -->
+    <aside class="profile-sidebar">
+        <div class="profile">
+            {{- with site.Params.profileMode }}
+            <div class="avatar-wrapper">
+                {{- if .imageUrl }}
+                {{- $img := "" }}
+                {{- if not (urls.Parse .imageUrl).IsAbs }}
+                    {{- $img = resources.Get .imageUrl }}
+                {{- end }}
+                {{- if $img }}
+                    {{- $img = $img.Resize (printf "%dx%d" .imageWidth .imageHeight) }}
+                    <img src="{{ $img.Permalink }}" alt="profile" />
+                {{- else }}
+                    <img src="{{ .imageUrl | absURL }}" alt="profile" />
+                {{- end }}
+                {{- else }}
+                    <img src="https://www.gravatar.com/avatar/?d=mp&s=128" alt="profile" />
+                {{- end }}
+            </div>
+            <div class="profile_inner">
+                <h1>{{ .title | default site.Title | markdownify }}</h1>
+                <span>{{ .subtitle | markdownify }}</span>
+                {{- partial "social_icons.html" -}}
+                {{- with .buttons }}
+                <div class="buttons">
+                    {{- range . }}
+                    <a class="button" href="{{ trim .url " " }}">
+                        <span class="button-inner">{{ .name }}</span>
+                    </a>
+                    {{- end }}
+                </div>
+                {{- end }}
+            </div>
+            {{- end }}
+        </div>
+    </aside>
+
+    <!-- 右侧文章列表 -->
+    <div class="profile-content">
+        <div class="profile-section-header">
+            <h2>最新文章</h2>
+        </div>
+
+        {{- range $index, $page := $paginator.Pages }}
+        {{- $class := "post-entry" }}
+        {{- if and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) }}
+        {{- $class = "post-entry first-entry" }}
+        {{- end }}
+
+        <article class="{{ $class }}">
+            {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
+            {{- partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" $isHidden) }}
+            <header class="entry-header">
+                <h2>
+                    <a href="{{ .Permalink }}">{{ .Title }}</a>
+                </h2>
+            </header>
+            {{- if not (.Param "hideSummary") }}
+            <div class="entry-content">
+                <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+            </div>
+            {{- end }}
+            {{- if not (.Param "hideMeta") }}
+            <footer class="entry-footer">
+                {{- partial "post_meta.html" . -}}
+            </footer>
+            {{- end }}
+            <a class="entry-link" href="{{ .Permalink }}"></a>
+        </article>
+        {{- end }}
+
+        {{- if gt $paginator.TotalPages 1 }}
+        <footer class="page-footer">
+            <nav class="pagination">
+                {{- if $paginator.HasPrev }}
+                <a href="{{ $paginator.Prev.URL }}">« 上一页</a>
+                {{- end }}
+                {{- if $paginator.HasNext }}
+                <a href="{{ $paginator.Next.URL }}">下一页 »</a>
+                {{- end }}
+            </nav>
+        </footer>
+        {{- end }}
+    </div>
+</div>
+
+{{- end }}
