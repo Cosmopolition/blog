@@ -2,201 +2,540 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>开发者工具集</title>
+  <title>代码压缩小工具（Dart/Flutter 优先）</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
+      margin: 0;
+      padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
       background: #0f172a;
       color: #e5e7eb;
       min-height: 100vh;
-      padding: 40px 20px;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
     }
 
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
+    .page {
+      max-width: 1200px;
+      width: 100%;
+      margin: 24px;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.2), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(167, 139, 250, 0.18), transparent 55%),
+                  #020617;
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow:
+        0 24px 80px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      padding: 20px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
     .header {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-
-    .header h1 {
-      font-size: 32px;
-      font-weight: 700;
-      background: linear-gradient(135deg, #38bdf8, #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 12px;
-    }
-
-    .header p {
-      color: #9ca3af;
-      font-size: 16px;
-    }
-
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .tool-card {
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
-      border: 1px solid rgba(55, 65, 81, 0.6);
-      border-radius: 16px;
-      padding: 24px;
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.3s ease;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
       gap: 12px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      padding-bottom: 10px;
     }
 
-    .tool-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(56, 189, 248, 0.5);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
-                  0 0 30px rgba(56, 189, 248, 0.1);
-    }
-
-    .tool-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-    }
-
-    .tool-card:nth-child(1) .tool-icon {
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.2));
-    }
-
-    .tool-card:nth-child(2) .tool-icon {
-      background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(59, 130, 246, 0.2));
-    }
-
-    .tool-card:nth-child(3) .tool-icon {
-      background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(139, 92, 246, 0.2));
-    }
-
-    .tool-card:nth-child(4) .tool-icon {
-      background: linear-gradient(135deg, rgba(251, 146, 60, 0.2), rgba(249, 115, 22, 0.2));
-    }
-
-    .tool-title {
+    .title {
       font-size: 18px;
       font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       color: #f9fafb;
     }
 
-    .tool-desc {
-      font-size: 13px;
-      color: #9ca3af;
-      line-height: 1.6;
-      flex: 1;
+    .badge {
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(96, 165, 250, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: #bfdbfe;
     }
 
-    .tool-tags {
+    .subtitle {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+
+    .back-link {
+      font-size: 13px;
+      color: #38bdf8;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .controls {
       display: flex;
       flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 12px;
+    }
+
+    .select,
+    .checkbox-label {
+      display: inline-flex;
+      align-items: center;
       gap: 6px;
-    }
-
-    .tag {
-      font-size: 11px;
-      padding: 3px 8px;
+      padding: 4px 8px;
       border-radius: 999px;
-      background: rgba(56, 189, 248, 0.15);
-      color: #7dd3fc;
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: #e5e7eb;
     }
 
-    .tag.soon {
-      background: rgba(251, 191, 36, 0.15);
-      color: #fcd34d;
-      border-color: rgba(251, 191, 36, 0.3);
+    .select select {
+      background: transparent;
+      border: none;
+      color: inherit;
+      font: inherit;
+      outline: none;
+    }
+
+    .checkbox-label input {
+      accent-color: #38bdf8;
+    }
+
+    .main {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    @media (min-width: 900px) {
+      .main {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      gap: 8px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .panel-header span.label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .panel-header .hint {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .textarea-wrapper {
+      position: relative;
+      flex: 1;
+      min-height: 180px;
+    }
+
+    textarea {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      resize: vertical;
+      min-height: 160px;
+      border-radius: 12px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.98));
+      color: #e5e7eb;
+      padding: 10px 11px 10px 11px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      outline: none;
+      white-space: pre;
+    }
+
+    textarea:focus {
+      border-color: rgba(56, 189, 248, 0.8);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5);
+    }
+
+    textarea::placeholder {
+      color: #4b5563;
     }
 
     .footer {
-      text-align: center;
-      margin-top: 48px;
-      color: #6b7280;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      margin-top: 6px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      padding: 7px 14px;
       font-size: 13px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s ease, border-color 0.15s ease;
+      white-space: nowrap;
     }
 
-    .footer a {
-      color: #38bdf8;
-      text-decoration: none;
+    button.primary {
+      background: linear-gradient(to right, #22c55e, #16a34a);
+      color: #ecfdf5;
+      box-shadow: 0 12px 30px rgba(34, 197, 94, 0.35);
     }
 
-    .footer a:hover {
-      text-decoration: underline;
+    button.primary:hover {
+      transform: translateY(-0.5px);
+      box-shadow: 0 18px 40px rgba(34, 197, 94, 0.45);
+    }
+
+    button.secondary {
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    button.secondary:hover {
+      background: rgba(31, 41, 55, 0.9);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .status {
+      font-size: 11px;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+
+    .status span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+    }
+
+    .status-count {
+      color: #9ca3af;
+    }
+
+    .status-count strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .notice {
+      font-size: 11px;
+      color: #9ca3af;
+      max-width: 520px;
+    }
+
+    .notice strong {
+      color: #e5e7eb;
+      font-weight: 500;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="page">
     <div class="header">
-      <h1>开发者工具集</h1>
-      <p>高效开发小工具集合，所有处理都在浏览器本地完成</p>
+      <div>
+        <div class="title">
+          代码空格压缩器
+          <span class="badge">Dart / Flutter 优先 · 简单规则</span>
+        </div>
+        <div class="subtitle">
+          为软著整理源码：删除空行、注释、import 等导包语句和 print 调试语句，并合并单独一行的大括号/中括号等符号，压缩多余空格，仅保留核心业务代码。当前主要针对 Dart/Flutter，后续可扩展其它语言。
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+        <a href="/tools/" class="back-link">← 返回工具集</a>
+        <div class="controls">
+          <label class="select">
+            <span>语言</span>
+            <select id="language-select">
+              <option value="dart">Dart / Flutter</option>
+              <option value="plain" disabled>其它语言（预留）</option>
+            </select>
+          </label>
+        </div>
+      </div>
     </div>
 
-    <div class="tools-grid">
-      <a href="/tools/code-compress/" class="tool-card">
-        <div class="tool-icon">📦</div>
-        <div class="tool-title">代码压缩器</div>
-        <div class="tool-desc">为软著整理源码，删除空行、注释、import 导包和 print 调试语句，压缩多余空格</div>
-        <div class="tool-tags">
-          <span class="tag">Dart / Flutter</span>
-          <span class="tag">软著</span>
+    <div class="main">
+      <section class="panel">
+        <div class="panel-header">
+          <span class="label">原始代码</span>
+          <span class="hint">直接粘贴项目里的 Dart/Flutter 源码（含缩进与空行）</span>
         </div>
-      </a>
+        <div class="textarea-wrapper">
+          <textarea id="input-code" placeholder="在这里粘贴需要压缩的源码..."></textarea>
+        </div>
+      </section>
 
-      <a href="#" class="tool-card" style="opacity: 0.6; cursor: not-allowed;">
-        <div class="tool-icon">✨</div>
-        <div class="tool-title">JSON 格式化</div>
-        <div class="tool-desc">JSON 数据格式化、压缩、语法高亮，支持错误检测</div>
-        <div class="tool-tags">
-          <span class="tag soon">即将上线</span>
+      <section class="panel">
+        <div class="panel-header">
+          <span class="label">压缩后的代码</span>
+          <span class="hint">结果可直接用于软著提交（空行、注释、import 导包、print 调试语句删除，并尽量合并仅含 {}[]() 等符号的行）</span>
         </div>
-      </a>
-
-      <a href="#" class="tool-card" style="opacity: 0.6; cursor: not-allowed;">
-        <div class="tool-icon">🔗</div>
-        <div class="tool-title">URL 编解码</div>
-        <div class="tool-desc">URL 参数编解码，中文特殊字符处理，支持批量操作</div>
-        <div class="tool-tags">
-          <span class="tag soon">即将上线</span>
+        <div class="textarea-wrapper">
+          <textarea id="output-code" placeholder="点击下方"压缩代码"后展示结果..." readonly></textarea>
         </div>
-      </a>
-
-      <a href="#" class="tool-card" style="opacity: 0.6; cursor: not-allowed;">
-        <div class="tool-icon">🔒</div>
-        <div class="tool-title">Base64 编解码</div>
-        <div class="tool-desc">Base64 字符串编解码，支持文件和文本</div>
-        <div class="tool-tags">
-          <span class="tag soon">即将上线</span>
-        </div>
-      </a>
+      </section>
     </div>
 
     <div class="footer">
-      <p>工具运行于浏览器本地 · 无需上传 · 保护隐私</p>
-      <p style="margin-top: 8px;"><a href="/">← 返回博客</a></p>
+      <div class="actions">
+        <button id="compress-btn" class="primary" type="button">
+          压缩代码
+        </button>
+        <button id="copy-btn" class="secondary" type="button">
+          复制结果
+        </button>
+        <button id="swap-btn" class="secondary" type="button">
+          用结果覆盖输入
+        </button>
+      </div>
+      <div class="status">
+        <span>
+          <span class="status-dot"></span>
+          就地处理，所有代码都在浏览器本地完成
+        </span>
+        <span id="stat-lines" class="status-count">
+          原始行数：<strong>0</strong> · 压缩后：<strong>0</strong>
+        </span>
+        <span class="notice">
+          <strong>提示：</strong>当前为简单空白压缩工具，可能会改变字符串/注释中的空格，仅用于软著整理，不建议直接覆盖正式项目代码。
+        </span>
+      </div>
     </div>
   </div>
+
+  <script>
+    const inputEl = document.getElementById('input-code');
+    const outputEl = document.getElementById('output-code');
+    const compressBtn = document.getElementById('compress-btn');
+    const copyBtn = document.getElementById('copy-btn');
+    const swapBtn = document.getElementById('swap-btn');
+    const statLinesEl = document.getElementById('stat-lines');
+
+    function updateStats(original, compressed) {
+      const origLines = original ? original.split(/\r?\n/).length : 0;
+      const compLines = compressed ? compressed.split(/\r?\n/).length : 0;
+      statLinesEl.innerHTML = `原始行数：<strong>${origLines}</strong> · 压缩后：<strong>${compLines}</strong>`;
+    }
+
+    function stripComments(text) {
+      let withoutBlock = text.replace(/\/\*[\s\S]*?\*\//g, '');
+      const lines = withoutBlock.split(/\r?\n/);
+      const result = [];
+
+      for (let raw of lines) {
+        const noLineComment = raw.replace(/\/\/.*$/, '');
+        result.push(noLineComment);
+      }
+
+      return result.join('\n');
+    }
+
+    function stripImports(text) {
+      const lines = text.split(/\r?\n/);
+      const result = [];
+
+      for (let raw of lines) {
+        const trimmed = raw.trim();
+        if (
+          trimmed.startsWith('import ') ||
+          trimmed.startsWith('export ') ||
+          trimmed.startsWith('part ') ||
+          trimmed.startsWith('library ')
+        ) {
+          continue;
+        }
+        result.push(raw);
+      }
+
+      return result.join('\n');
+    }
+
+    function stripDebugPrints(text) {
+      const lines = text.split(/\r?\n/);
+      const result = [];
+
+      for (let raw of lines) {
+        const trimmed = raw.trim();
+        if (/^(print\s*\(|debugPrint\s*\()/.test(trimmed)) {
+          continue;
+        }
+        result.push(raw);
+      }
+
+      return result.join('\n');
+    }
+
+    function joinStandaloneBraces(text) {
+      const lines = text.split(/\r?\n/);
+      const result = [];
+
+      for (let i = 0; i < lines.length; i++) {
+        const raw = lines[i];
+        const trimmed = raw.trim();
+
+        if (!trimmed) {
+          result.push(raw);
+          continue;
+        }
+
+        const isStandalone = /^[\{\}\[\]\(\);,]+$/.test(trimmed);
+
+        if (isStandalone && result.length > 0) {
+          const lastIdx = result.length - 1;
+          const prev = result[lastIdx];
+
+          if (!prev.trim()) {
+            result.push(raw);
+            continue;
+          }
+
+          result[lastIdx] = prev.replace(/\s+$/g, '') + ' ' + trimmed;
+        } else {
+          result.push(raw);
+        }
+      }
+
+      return result.join('\n');
+    }
+
+    function basicCompressLines(text) {
+      const lines = text.split(/\r?\n/);
+      const result = [];
+
+      for (let raw of lines) {
+        let line = raw.replace(/\s+$/g, '');
+        const isEmpty = line.trim() === '';
+
+        if (isEmpty) {
+          continue;
+        }
+
+        let normalized = line.replace(/\s+/g, ' ');
+        result.push(normalized);
+      }
+
+      return result.join('\n');
+    }
+
+    function compress() {
+      const input = inputEl.value || '';
+      if (!input.trim()) {
+        outputEl.value = '';
+        updateStats('', '');
+        return;
+      }
+
+      const withoutComments = stripComments(input);
+      const withoutDebug = stripDebugPrints(withoutComments);
+      const withoutImports = stripImports(withoutDebug);
+      const joinedBraces = joinStandaloneBraces(withoutImports);
+      const compressed = basicCompressLines(joinedBraces);
+
+      outputEl.value = compressed;
+      updateStats(input, compressed);
+    }
+
+    compressBtn.addEventListener('click', compress);
+
+    copyBtn.addEventListener('click', async () => {
+      const text = outputEl.value || '';
+      if (!text) {
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = '已复制 ✔';
+        setTimeout(() => {
+          copyBtn.textContent = '复制结果';
+        }, 1000);
+      } catch (e) {
+        copyBtn.textContent = '复制失败';
+        setTimeout(() => {
+          copyBtn.textContent = '复制结果';
+        }, 1000);
+      }
+    });
+
+    swapBtn.addEventListener('click', () => {
+      const text = outputEl.value || '';
+      if (!text) return;
+      inputEl.value = text;
+      compress();
+      inputEl.focus();
+    });
+
+    inputEl.addEventListener('input', () => {
+      updateStats(inputEl.value || '', outputEl.value || '');
+    });
+
+    updateStats('', '');
+  </script>
 </body>
 </html>
