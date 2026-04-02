@@ -11,5 +11,9 @@ tags: []
 # 日志：月记、年度回顾
 categories: []
 description: ""
+cover:
+  image: ""  # 封面图片路径，如 "images/cover.jpg"
+  alt: ""    # 图片描述（SEO友好，用于社交分享）
+  caption: ""  # 图片标题
 ---
 

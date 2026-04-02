@@ -48,7 +48,16 @@ params:
   UseHugoToc: true
   disableSpecial1stPost: false
   disableScrollToTop: false
-  comments: false
+  comments: false  # 启用评论设置为 true
+
+  # SEO 搜索引擎验证（请替换为您在各平台的验证码）
+  analytics:
+    google:
+      SiteVerificationTag: "juUaiINixn4jtpMF1IBJrQ5Cqq3mrilA7ECVkQnCsuQ"
+    bing:
+      SiteVerificationTag: ""  # Bing Webmaster 验证码
+    # 百度搜索资源平台需要 CNAME 验证，请使用手动方式
+
   hidemeta: false
   hideSummary: false
   showtoc: true
