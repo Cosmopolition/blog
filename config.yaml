@@ -3,6 +3,12 @@ languageCode: 'zh-cn'
 title: 'MingXin Wang'
 theme: PaperMod
 
+# 允许文章内联 HTML（如 <a target="_blank">），否则 Goldmark 会丢弃原始标签
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
 params:
   env: production
   title: '我的博客'
