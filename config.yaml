@@ -61,7 +61,7 @@ params:
     google:
       SiteVerificationTag: "juUaiINixn4jtpMF1IBJrQ5Cqq3mrilA7ECVkQnCsuQ"
     bing:
-      SiteVerificationTag: ""  # Bing Webmaster 验证码
+      SiteVerificationTag: "CD1AC14EF24142E04163644D5907FFCA"  # Bing Webmaster 验证码
     # 百度搜索资源平台需要 CNAME 验证，请使用手动方式
 
   hidemeta: false
