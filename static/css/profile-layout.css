@@ -2,6 +2,14 @@
    Profile Mode 两栏布局 - 现代简约风
    ============================================ */
 
+/* 手机端全屏布局覆盖 */
+@media screen and (max-width: 768px) {
+    .list .main {
+        padding: 0;
+        max-width: 100%;
+    }
+}
+
 /* 覆盖主题默认的居中布局 */
 .list .main {
     display: block;
@@ -233,20 +241,66 @@
     }
 }
 
-/* 手机 - 单栏布局 */
+/* 手机 - 单栏布局，全屏占满 */
 @media screen and (max-width: 768px) {
     .profile-main-wrapper {
         flex-direction: column;
-        gap: 24px;
-        padding: 0 16px;
+        gap: 0;
+        padding: 0;
+        max-width: 100%;
+        align-items: stretch;
     }
     
+    /* column 下 align-self:flex-start 会让侧栏只占内容宽度 → 中间窄条；须拉满横轴 */
     .profile-sidebar {
         position: static;
+        align-self: stretch;
+        width: 100%;
+        max-width: 100%;
+        flex: 0 0 auto;
     }
     
     .profile-sidebar .profile {
-        padding: 24px 20px;
+        padding: 0;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .profile-sidebar .avatar-wrapper {
+        margin-bottom: 16px;
+    }
+    
+    .profile-sidebar .profile img {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .profile-sidebar .profile h1 {
+        font-size: 22px;
+    }
+    
+    .profile-sidebar .profile span {
+        font-size: 13px;
+    }
+    
+    .profile-sidebar .buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 16px;
+    }
+    
+    .profile-sidebar .button {
+        padding: 8px 14px;
+    }
+    
+    .profile-content {
+        padding: 20px 16px;
     }
     
     .profile-content .post-entry {
