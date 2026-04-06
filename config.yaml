@@ -54,7 +54,7 @@ params:
   UseHugoToc: true
   disableSpecial1stPost: false
   disableScrollToTop: false
-  comments: false  # 启用评论设置为 true
+  comments: true  # 启用评论
 
   # SEO 搜索引擎验证（请替换为您在各平台的验证码）
   analytics:
