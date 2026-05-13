@@ -1,0 +1,41 @@
+{{- define "main" }}
+
+{{- $issueName := "" }}
+{{- $pathSegments := split .RelPermalink "/" }}
+{{- $len := len $pathSegments }}
+{{- if gt $len 2 }}
+    {{- $issueName = index $pathSegments (sub $len 1) }}
+{{- end }}
+
+{{- $htmlFile := "" }}
+{{- if $issueName }}
+    {{- $htmlFile = printf "qurious/%s" $issueName }}
+{{- end }}
+
+{{- $issueHtml := "" }}
+{{- if $htmlFile }}
+    {{- $raw := readFile (printf "static/%s" $htmlFile) }}
+    {{- /* 剥离 <html>、<head>、<body> 标签，保留 body 内部内容 */ -}}
+    {{- $inner := replaceRE `(?is)<html[^>]*>` "" $raw }}
+    {{- $inner = replaceRE `(?is)</html>` "" $inner }}
+    {{- $inner = replaceRE `(?is)<head>[\s\S]*?</head>` "" $inner }}
+    {{- $inner = replaceRE `(?is)<body[^>]*>` "" $inner }}
+    {{- $inner = replaceRE `(?is)</body>` "" $inner }}
+    {{- $issueHtml = $inner }}
+{{- end }}
+
+<div class="qurious-single-wrapper">
+    <nav class="qurious-back">
+        <a href="/qurious/">← Qurious 周刊列表</a>
+    </nav>
+    {{- if $issueHtml }}
+    {{ $issueHtml | safeHTML }}
+    {{- else }}
+    <div class="qurious-not-found">
+        <p>未找到该期内容。</p>
+        <a href="/qurious/">← 返回列表</a>
+    </div>
+    {{- end }}
+</div>
+
+{{- end }}

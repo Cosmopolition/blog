@@ -1,0 +1,174 @@
+/* =============================================
+   Qurious 周刊 — 列表页容器样式
+   ============================================= */
+
+.qurious-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.qurious-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e8e0d5;
+}
+
+.qurious-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #2c2416;
+}
+
+.qurious-desc {
+  color: #7a6a58;
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-top: 0.5rem;
+}
+
+.qurious-note {
+  font-size: 0.85rem;
+  color: #a8977f;
+}
+
+.qurious-note code {
+  background: #f1ece4;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+/* ── 期号徽章 ── */
+.qurious-issue-badge {
+  display: inline-block;
+  background: #c8854a;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ── 卡片网格 ── */
+.qurious-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.5rem;
+}
+
+.qurious-item {
+  background: #fefcf8;
+  border: 1px solid #e8e0d5;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+  position: relative;
+}
+
+.qurious-item:hover {
+  box-shadow: 0 6px 24px rgba(200, 133, 74, 0.12);
+  transform: translateY(-2px);
+}
+
+.qurious-item-body {
+  padding: 1.5rem 1.75rem 1.75rem;
+}
+
+.qurious-item-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.qurious-item-date {
+  font-size: 0.8rem;
+  color: #7a6a58;
+  font-style: italic;
+}
+
+.qurious-item-intro {
+  font-size: 0.9rem;
+  color: #7a6a58;
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+  font-style: italic;
+}
+
+.qurious-item-link {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #c8854a;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.qurious-item-link:hover {
+  opacity: 0.75;
+}
+
+/* ── 空状态 ── */
+.qurious-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #7a6a58;
+}
+
+.qurious-empty p {
+  margin-bottom: 0.5rem;
+}
+
+/* =============================================
+   Qurious 周刊 — 单期页外层容器
+   ============================================= */
+
+.qurious-single-wrapper {
+  /* 移除博客默认容器 padding/margin，让内嵌 HTML 完全占满宽度 */
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.qurious-back {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1.5rem 48px 0;
+}
+
+.qurious-back a {
+  color: #7a6a58;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.15s;
+}
+
+.qurious-back a:hover {
+  color: #c8854a;
+}
+
+.qurious-not-found {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #7a6a58;
+}
+
+/* 响应式 */
+@media (max-width: 600px) {
+  .qurious-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .qurious-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .qurious-back {
+    padding: 1.25rem 24px 0;
+  }
+}

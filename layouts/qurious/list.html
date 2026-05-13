@@ -1,0 +1,87 @@
+{{- define "main" }}
+
+<div class="qurious-wrapper">
+    <div class="qurious-header">
+        <h1>Qurious 周刊</h1>
+        <p class="qurious-desc">
+            AI时代，提问才是真正稀缺的东西<br>
+        </p>
+    </div>
+
+    <div class="qurious-list">
+        {{- $files := slice }}
+
+        {{- range os.ReadDir "static/qurious" }}
+            {{- if hasSuffix .Name ".js" }}
+                {{- $path := printf "static/qurious/%s" .Name }}
+                {{- $raw := readFile $path }}
+                {{- $issueNumber := "" }}
+                {{- $issueDate := "" }}
+                {{- $issueIntro := "" }}
+
+                {{- /* 从文件名提取期号: q1.js → q1 */ -}}
+                {{- $stem := strings.TrimSuffix ".js" .Name }}
+                {{- $issueNumber = $stem }}
+
+                {{- /* 解析 ISSUE.num: 提取引号内的数字 */ -}}
+                {{- $numRaw := replaceRE `(?s).*?num:\s*['"](\d+)['"].*` "$1" $raw }}
+                {{- if and (ne $numRaw "") (ne $numRaw $raw) }}
+                    {{- $issueNumber = $numRaw }}
+                {{- end }}
+
+                {{- /* 解析 ISSUE.date */ -}}
+                {{- $dateRaw := replaceRE `(?s).*?date:\s*['"]([^'"]+)['"].*` "$1" $raw }}
+                {{- if and (ne $dateRaw "") (ne $dateRaw $raw) }}
+                    {{- $issueDate = $dateRaw }}
+                {{- end }}
+
+                {{- /* 解析 ISSUE.intro */ -}}
+                {{- $introRaw := replaceRE `(?s).*?intro:\s*['"]([^'"]+)['"].*` "$1" $raw }}
+                {{- if and (ne $introRaw "") (ne $introRaw $raw) }}
+                    {{- $issueIntro = $introRaw }}
+                {{- end }}
+
+                {{- $htmlFile := printf "%s.html" $stem }}
+
+                {{- $files = $files | append (dict
+                    "number" $issueNumber
+                    "date" $issueDate
+                    "intro" $issueIntro
+                    "htmlFile" $htmlFile
+                ) }}
+            {{- end }}
+        {{- end }}
+
+        {{- $sorted := sort $files "number" "desc" }}
+
+        {{- if eq (len $sorted) 0 }}
+        <div class="qurious-empty">
+            <p>暂无周刊内容。</p>
+            <p>请在 <code>static/qurious/</code> 目录下添加 <code>.html</code> 和 <code>.js</code> 文件。</p>
+        </div>
+        {{- else }}
+        <div class="qurious-grid">
+            {{- range $sorted }}
+            <article class="qurious-item">
+                <div class="qurious-item-body">
+                    <header class="qurious-item-header">
+                        <span class="qurious-issue-badge">第 {{ .number }} 期</span>
+                        {{- if .date }}
+                        <time class="qurious-item-date">{{ .date }}</time>
+                        {{- end }}
+                    </header>
+                    {{- if .intro }}
+                    <p class="qurious-item-intro">{{ .intro }}</p>
+                    {{- end }}
+                    <a class="qurious-item-link" href="/qurious/{{ .htmlFile }}">
+                        阅读全文 →
+                    </a>
+                </div>
+            </article>
+            {{- end }}
+        </div>
+        {{- end }}
+    </div>
+</div>
+
+{{- end }}
