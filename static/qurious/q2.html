@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qurious 周刊 · 第002期</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f3ec;
+  --card: #fefcf8;
+  --ink: #2c2416;
+  --muted: #7a6a58;
+  --light: #a8977f;
+  --accent: #c8854a;
+  --border: #e8e0d5;
+  --drawer-w: 500px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Noto Sans SC', 'Source Sans 3', sans-serif;
+  font-weight: 400;
+  line-height: 1.75;
+  min-height: 100vh;
+}
+/* ── HEADER ── */
+.site-header {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 48px 48px;
+}
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 32px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  line-height: 1;
+}
+.logo em {
+  font-style: italic;
+  color: var(--accent);
+}
+.issue-meta {
+  text-align: right;
+  line-height: 1.5;
+}
+.issue-tag {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--accent);
+}
+.issue-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  display: block;
+  margin-top: 2px;
+}
+.issue-date {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+  display: block;
+  margin-top: 2px;
+}
+.intro {
+  margin-top: 32px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.65;
+  padding-left: 20px;
+  border-left: 2px solid var(--accent);
+}
+/* ── MAIN ── */
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+.question-card {
+  padding: 52px 0;
+  border-bottom: 1px solid var(--border);
+}
+.q-number {
+  font-size: 0.68rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.q-number::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 32px;
+  background: var(--border);
+}
+.q-text {
+  font-family: 'Playfair Display', 'Noto Sans SC', serif;
+  font-size: 1.55rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--ink);
+  margin-bottom: 28px;
+  text-wrap: pretty;
+}
+.q-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.source-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  letter-spacing: 0.04em;
+  background: transparent;
+}
+.source-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.thinking-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  transition: gap 0.25s ease;
+  white-space: nowrap;
+}
+.thinking-btn:hover { gap: 16px; }
+.thinking-btn .arrow {
+  font-style: normal;
+  display: inline-block;
+  transition: transform 0.25s ease;
+  font-size: 0.9rem;
+}
+.thinking-btn:hover .arrow { transform: translateX(3px); }
+/* ── FOOTER ── */
+site-footer, .site-footer {
+  display: block;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 48px 72px;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.footer-tagline {
+  font-size: 0.83rem;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 260px;
+}
+.footer-right {
+  text-align: right;
+  flex-shrink: 0;
+}
+.footer-legal {
+  font-size: 0.78rem;
+  color: var(--light);
+  line-height: 1.8;
+}
+.footer-legal strong {
+  color: var(--muted);
+  font-weight: 500;
+}
+/* ── BACKDROP ── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 36, 22, 0.4);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  backdrop-filter: blur(1px);
+}
+.backdrop.open {
+  opacity: 1;
+  pointer-events: all;
+}
+/* ── DRAWER ── */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: var(--drawer-w);
+  max-width: 96vw;
+  height: 100dvh;
+  background: var(--card);
+  z-index: 201;
+  transform: translateX(100%);
+  transition: transform 0.48s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.drawer.open { transform: translateX(0); }
+.drawer-head {
+  padding: 36px 36px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.drawer-head-content { flex: 1; min-width: 0; }
+.drawer-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.drawer-q {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.close-btn {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  margin-top: 2px;
+}
+.close-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: var(--bg);
+}
+.drawer-body {
+  padding: 36px;
+  overflow-y: auto;
+  flex: 1;
+}
+.thinking-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.thinking-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.thinking-content {
+  font-size: 0.96rem;
+  color: var(--ink);
+  line-height: 1.85;
+}
+.thinking-content p + p { margin-top: 18px; }
+.thinking-content em {
+  font-family: 'Playfair Display', serif;
+  color: var(--accent);
+}
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .site-header, main, .site-footer { padding-left: 24px; padding-right: 24px; }
+  .logo { font-size: 2.4rem; }
+  .q-text { font-size: 1.3rem; }
+  .masthead { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .issue-meta { text-align: left; }
+  .footer-inner { flex-direction: column; gap: 28px; }
+  .footer-right { text-align: left; }
+  :root { --drawer-w: 100vw; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="masthead">
+<div class="logo">Qu<em>r</em>ious</div>
+<div class="issue-meta">
+<span class="issue-tag">周刊</span>
+<span class="issue-num" id="issue-num"></span>
+<span class="issue-date" id="issue-date"></span>
+</div>
+</div>
+<p class="intro" id="intro-text"></p>
+</header>
+<main id="questions-container"></main>
+<div class="site-footer">
+<div class="footer-inner">
+<div class="footer-left">
+<div class="footer-logo">Qurious</div>
+<p class="footer-tagline">
+每期收录当周最值得停下来想一想的内容。
+</p>
+</div>
+<div class="footer-right">
+<div class="footer-legal">
+<strong>© 2026 Qurious · 保留所有权利</strong><br>
+内容转载须事先获得授权<br>
+如有侵权或异议，欢迎联系
+</div>
+</div>
+</div>
+</div>
+<div class="backdrop" id="backdrop" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="思维过程">
+<div class="drawer-head">
+<div class="drawer-head-content">
+<div class="drawer-eyebrow">思维过程</div>
+<div class="drawer-q" id="drawer-q-text"></div>
+</div>
+<button class="close-btn" onclick="closeDrawer()" aria-label="关闭">✕</button>
+</div>
+<div class="drawer-body">
+<div class="thinking-label">展开思路</div>
+<div class="thinking-content" id="drawer-thinking"></div>
+</div>
+</aside>
+<script src="q2.js"></script>
+<script>
+document.getElementById('issue-num').textContent = `第 ${ISSUE.num} 期`;
+document.getElementById('issue-date').textContent = ISSUE.weekday + ' · ' + ISSUE.date;
+document.getElementById('intro-text').textContent = ISSUE.intro;
+const container = document.getElementById('questions-container');
+container.innerHTML = ISSUE.questions.map((q, i) => `
+<article class="question-card">
+<div class="q-number">Q. ${String(i + 1).padStart(2, '0')}</div>
+<p class="q-text">${q.text}</p>
+<div class="q-footer">
+<span class="source-tag"><span class="source-dot"></span>${q.source}</span>
+<button class="thinking-btn" onclick="openDrawer(${i})">
+思维过程 <span class="arrow">→</span>
+</button>
+</div>
+</article>
+`).join('');
+function openDrawer(idx) {
+  const q = ISSUE.questions[idx];
+  document.getElementById('drawer-q-text').textContent = q.text;
+  document.getElementById('drawer-thinking').innerHTML =
+    q.thinking.map(p => `<p>${p}</p>`).join('');
+  document.getElementById('backdrop').classList.add('open');
+  document.getElementById('drawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.querySelector('.drawer-body').scrollTop = 0;
+}
+function closeDrawer() {
+  document.getElementById('backdrop').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeDrawer();
+});
+</script>
+</body>
+</html>
