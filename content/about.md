@@ -25,7 +25,21 @@ layout: "about"
 
 在信息过载的时代，帮助用户重新连接身体感知，创造一个「慢下来」的空间。
 
-[在 App Store 体验](https://apps.apple.com/cn/app/%E6%84%9F%E5%88%BB-%E6%84%9F%E5%AE%98%E5%88%9B%E4%BD%9C-%E7%9C%8B%E8%A7%81%E8%87%AA%E5%B7%B1/id6756660625)
+<a href="https://apps.apple.com/cn/app/%E6%84%9F%E5%88%BB-%E6%84%9F%E5%AE%98%E5%88%9B%E4%BD%9C-%E7%9C%8B%E8%A7%81%E8%87%AA%E5%B7%B1/id6756660625" target="_blank" rel="noopener">在 App Store 体验</a>
+
+### 梦影 Dreamur
+
+**已上线** · AI 解梦 · 潜意识探索
+
+端侧 AI 驱动的梦境记录与潜意识探索应用。语音或文字记录梦境，AI 将其转化为一幅大阿卡纳塔罗牌，集齐 22 张，绘制你的潜意识地图。
+
+**核心价值**
+
+- **端侧 AI** - Qwen3.5-0.8B 模型跑在本地，数据永远不出 iPhone
+- **荣格框架** - 用心理学原型而非占卜解读梦境
+- **长期追踪** - 发现潜意识的规律与曲线
+
+<a href="https://apps.apple.com/cn/app/%E6%A2%A6%E5%BD%B1-ai-%E8%A7%A3%E6%A2%A6%E6%97%A5%E8%AE%B0/id6757799220" target="_blank" rel="noopener">在 App Store 体验</a>
 
 ### 语生 Amurmur
 
@@ -40,7 +54,7 @@ layout: "about"
 - **想法变行动** - 自动提取行动项，推动执行闭环
 
 
-[在 App Store 体验](https://apps.apple.com/cn/app/%E8%AF%AD%E7%94%9F-ai-%E8%AF%AD%E9%9F%B3%E6%97%A5%E8%AE%B0/id6759279951)
+<a href="https://apps.apple.com/cn/app/%E8%AF%AD%E7%94%9F-ai-%E8%AF%AD%E9%9F%B3%E6%97%A5%E8%AE%B0/id6759279951" target="_blank" rel="noopener">在 App Store 体验</a>
 
 ### 为啥
 
@@ -50,15 +64,15 @@ layout: "about"
 
 「为啥」帮你找回那个一直追问"为什么"的自己——每天自由记录问题，用四种场景训练打破"我已经知道了"的幻觉。AI 以苏格拉底、孩子、批判者、科学家、诗人、历史学家、工程师七种视角追问你记录的问题。所有问题完全本地存储，不上传、不联网，只属于你。
 
-[在 App Store 体验](https://apps.apple.com/cn/app/%E4%B8%BA%E5%95%A5/id6767553566)
+<a href="https://apps.apple.com/cn/app/%E4%B8%BA%E5%95%A5/id6767553566" target="_blank" rel="noopener">在 App Store 体验</a>
 
 ## 成长轨迹
 
 - **起点** - 技术深耕：软件工程专业，扎实的工程能力底色
 - **转折** - 产品觉醒：对「为什么做」比「怎么做」更感兴趣
 - **实践** - 从零到一：把想法变成产品，打造感刻
-- **现在** - AI 产品：开发语生 Amurmur、为啥，对抗信息熵增
-- **未来** - 持续探索：把更多想法变成产品
+- **探索** - 语音与思考：开发语生、为啥，对抗信息熵增
+- **深入** - 潜意识与 AI：梦影 Dreamur，用端侧 AI 探索内心世界
 
 ## 联系我
 
