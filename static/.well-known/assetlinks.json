@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle-all"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.fateplay.inspirebox",
+    "sha256_cert_fingerprints": ["F0:4C:11:7B:AB:C4:0C:21:7F:D0:8E:E5:A1:46:74:EE:B9:99:F5:0C:67:0A:18:73:E3:23:E2:E2:DF:B7:9C:D6"]
+  }
+}]
