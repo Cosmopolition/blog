@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#15093A">
+  <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID, app-argument=https://mingxinwang.com/bind/">
+  <title>异想盒 - 绑定 NFC 标签</title>
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", sans-serif;
+      color: #fff;
+      background:
+        radial-gradient(circle at 70% 30%, rgba(255, 184, 77, 0.22) 0%, transparent 50%),
+        radial-gradient(circle at 30% 70%, rgba(91, 35, 181, 0.35) 0%, transparent 50%),
+        linear-gradient(135deg, #2D1B5A 0%, #15093A 50%, #050217 100%);
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      max-width: 380px;
+      width: 100%;
+      padding: 36px 28px;
+      background: rgba(45, 31, 110, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 28px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      text-align: center;
+    }
+    .avatar {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FFB84D, #FF6B9D);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      box-shadow: 0 8px 32px rgba(255, 107, 157, 0.5);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 8px 32px rgba(255, 107, 157, 0.5); }
+      50% { transform: scale(1.04); box-shadow: 0 8px 48px rgba(255, 184, 77, 0.7); }
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .subtitle {
+      margin: 0 0 24px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+    }
+    .loader {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .status {
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 16px 24px;
+      margin-top: 8px;
+      background: linear-gradient(135deg, #FFB84D, #FF6B9D);
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 28px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 4px 16px rgba(255, 107, 157, 0.4);
+    }
+    .fallback-appstore {
+      display: none;
+      margin-top: 16px;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="avatar">🏷️</div>
+    <h1>正在打开异想盒…</h1>
+    <p class="subtitle">绑定 NFC 标签</p>
+    <p class="status" id="status"><span class="loader"></span>正在唤起 App</p>
+    <button id="retryBtn" class="btn" type="button">打开异想盒</button>
+    <div class="fallback-appstore" id="appstoreHint">
+      没有安装异想盒？<br>
+      前往 App Store 搜索「异想盒」下载
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var targetUrl = window.location.href;
+      var statusEl = document.getElementById('status');
+      var retryBtn = document.getElementById('retryBtn');
+      var appstoreHint = document.getElementById('appstoreHint');
+
+      function showManualTrigger() {
+        statusEl.innerHTML = '未能自动打开';
+        retryBtn.style.display = 'block';
+      }
+
+      setTimeout(function () {
+        if (document.visibilityState === 'visible') {
+          showManualTrigger();
+        }
+      }, 1200);
+
+      function trigger() {
+        statusEl.innerHTML = '<span class="loader"></span>正在唤起 App';
+        retryBtn.style.display = 'none';
+        window.location.href = targetUrl;
+        setTimeout(function () {
+          if (document.visibilityState === 'visible') {
+            statusEl.innerHTML = '未能打开 App，请检查是否已安装';
+            retryBtn.style.display = 'block';
+            appstoreHint.style.display = 'block';
+          }
+        }, 1500);
+      }
+
+      retryBtn.addEventListener('click', trigger);
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') {
+          showManualTrigger();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

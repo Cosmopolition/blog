@@ -1,0 +1,12 @@
+# Cloudflare Pages rewrite rules — see https://developers.cloudflare.com/pages/configuration/redirects/
+#
+# All NFC visit URLs (https://mingxinwang.com/nfc/{userCode}/) get rewritten
+# to the landing page at /nfc/. We use status 200 (rewrite, not redirect)
+# so the browser keeps the original URL in the address bar — the user
+# taps the "打开异想盒" button on the landing page and iOS re-attempts
+# the Universal Link with the full original URL preserved.
+#
+# Without this rewrite, /nfc/{userCode}/ would 404 because Hugo only
+# has content at /nfc/, not at every possible userCode.
+/nfc/*   /nfc/   200
+/bind/*  /bind/  200

@@ -1,8 +1,11 @@
 {
   "applinks": {
-    "details": [{
-      "appID": "9MGTGHFCNF.com.fateplay.inspirebox",
-      "paths": ["/nfc/*", "/visit/*", "/bind/*", "/"]
-    }]
+    "details": [
+      {
+        "appID": "9MGTGHFCNF.com.fateplay.inspirebox",
+        "paths": ["/nfc/*", "/visit/*", "/bind/*", "/"],
+        "comment": "NFC visit-room + bind-tag universal links. Wildcards cover /nfc/{userCode} and /bind/{userCode}."
+      }
+    ]
   }
 }
