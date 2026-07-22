@@ -2,7 +2,7 @@
   "applinks": {
     "details": [{
       "appID": "9MGTGHFCNF.com.fateplay.inspirebox",
-      "paths": ["/nfc/*", "/visit/*", "/bind/*"]
+      "paths": ["/nfc/*", "/visit/*", "/bind/*", "/"]
     }]
   }
 }
