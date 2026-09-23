@@ -1,0 +1,88 @@
+{{- define "main" }}
+
+{{- /* —— 上下篇 —— */ -}}
+{{- $prev := .PrevInSection }}
+{{- $next := .NextInSection }}
+
+<main class="bl-scope">
+
+  <article class="bl-post">
+
+    <!-- 返回列表 -->
+    <a href="/posts/" class="bl-back">所有笔记</a>
+
+    <!-- 头部:fee 章标 / 标题 / 元数据 -->
+    <header class="bl-post-head">
+      <div class="bl-post-folio">
+        <span class="folio-mark">Essay</span>
+        <span class="folio-sep">·</span>
+        <time>{{ .Date.Format "2006.01.02" }}</time>
+        {{- if .ReadingTime }}
+        <span class="folio-sep">·</span>
+        <span>{{ .ReadingTime }} min read</span>
+        {{- end }}
+        <span class="folio-sep">·</span>
+        <span>{{ .WordCount }} 字</span>
+      </div>
+      <h1 class="bl-post-title">{{ .Title }}</h1>
+      {{- with .Description }}
+      <p class="bl-post-deck">{{ . }}</p>
+      {{- end }}
+      {{- if .Params.tags }}
+      <div class="bl-post-tags bl-post-tags--head">
+        {{- range .Params.tags }}
+        <a href="/tags/{{ . | urlize }}/" class="bl-tag-chip">{{ . }}</a>
+        {{- end }}
+      </div>
+      {{- end }}
+    </header>
+
+    <!-- 正文 -->
+    <div class="bl-post-body">
+      {{- if not (.Param "disableAnchoredHeadings") }}
+        {{- partial "anchored_headings.html" .Content -}}
+      {{- else }}{{ .Content }}{{ end }}
+    </div>
+
+    <!-- 文末:印章 + 签名 -->
+    <footer class="bl-post-foot">
+      <div class="bl-post-seal" aria-hidden="true">
+        <div class="seal-inner">
+          <span class="seal-char">铭</span>
+        </div>
+      </div>
+      <p class="bl-post-end-line">写于 {{ .Date.Format "2006" }} · Hangzhou</p>
+      <p class="bl-post-sig">— MingXin Wang</p>
+      {{- if .Params.tags }}
+      <div class="bl-post-tags bl-post-tags--foot">
+        <span class="bl-tag-label">Filed under</span>
+        {{- range .Params.tags }}
+        <a href="/tags/{{ . | urlize }}/" class="bl-tag-chip">{{ . }}</a>
+        {{- end }}
+      </div>
+      {{- end }}
+    </footer>
+
+  </article>
+
+  <!-- 上一篇 / 下一篇 -->
+  {{- if or $prev $next }}
+  <nav class="bl-post-nav">
+    {{- with $prev }}
+    <a class="bl-post-nav-link prev" href="{{ .Permalink }}">
+      <span class="dir">← 上一篇</span>
+      <span class="ttl">{{ .Title }}</span>
+    </a>
+    {{- end }}
+    {{- with $next }}
+    <a class="bl-post-nav-link next" href="{{ .Permalink }}">
+      <span class="dir">下一篇 →</span>
+      <span class="ttl">{{ .Title }}</span>
+    </a>
+    {{- end }}
+  </nav>
+  {{- end }}
+
+</main>
+
+{{- end }}

@@ -1,0 +1,195 @@
+/* ==========================================================
+   PaperMod 主题覆盖
+   把 PaperMod 的默认变量替换为 Renaissance × Rococo 视觉
+   ========================================================== */
+
+:root {
+  /* 颜色覆盖 */
+  --theme:       #ebe2cc;
+  --entry:       #f1ead7;
+  --primary:     #221b14;
+  --secondary:   #6e5e44;
+  --tertiary:    #d2c4a4;
+  --content:     #221b14;
+  --code-block-bg: #1c1814;
+  --code-bg:     #2a1f17;
+  --border:      #d8cdb6;
+
+  /* 字体覆盖 */
+  --font-family-base:    'Inter', 'Noto Sans SC', system-ui, sans-serif;
+  --font-family-heading: 'Spectral', 'Noto Serif SC', 'Songti SC', serif;
+}
+
+/* —— 强制覆盖 PaperMod 暗色主题(避免 OS 暗色模式污染新页面)—— */
+:root[data-theme="dark"] {
+  --theme:       #ebe2cc;
+  --entry:       #f1ead7;
+  --primary:     #221b14;
+  --secondary:   #6e5e44;
+  --tertiary:    #d2c4a4;
+  --content:     #221b14;
+  --border:      #d8cdb6;
+}
+html[data-theme="dark"] body { background: var(--theme); color: var(--primary); }
+
+/* 全局微调 */
+body {
+  font-family: var(--font-family-base);
+}
+
+/* PaperMod 默认的 profile 头像区、post entry 卡片等需要替换 */
+.first-entry, .post-entry {
+  background: var(--entry);
+  border: 1px solid rgba(74, 62, 44, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 8px 20px -10px rgba(34, 27, 20, 0.18);
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.first-entry:hover, .post-entry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -8px rgba(34, 27, 20, 0.22);
+}
+
+/* Nav 字体 */
+.nav a {
+  font-family: var(--font-family-heading);
+  letter-spacing: -0.005em;
+}
+
+/* Logo */
+.logo a {
+  font-family: var(--font-family-heading);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* 顶部 progress bar */
+.top-link {
+  background: var(--accent);
+  color: var(--entry);
+}
+
+/* Search */
+.search-by-algolia, .searchBox {
+  background: var(--entry);
+  border: 1px solid rgba(74, 62, 44, 0.15);
+}
+
+/* Selection */
+::selection {
+  background: var(--accent);
+  color: var(--entry);
+}
+
+/* Code block */
+pre {
+  background: var(--code-block-bg);
+  color: #e3d8be;
+  border-radius: 8px;
+}
+:not(pre) > code {
+  background: var(--code-bg);
+  color: #e3d8be;
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-size: 0.9em;
+}
+
+/* 链接 hover */
+a:hover {
+  color: var(--accent);
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--border);
+  background: transparent;
+  color: var(--secondary);
+  font-family: var(--font-family-base);
+}
+
+/* Page header */
+.page-header h1 {
+  font-family: var(--font-family-heading);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.025em;
+}
+
+/* Pagination */
+.pagination a {
+  background: var(--entry);
+  border: 1px solid var(--border);
+  color: var(--primary);
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+.pagination a:hover {
+  background: var(--primary);
+  color: var(--theme);
+}
+
+/* Tag chip */
+.post-tags a, .tag {
+  background: var(--bg-soft, var(--tertiary));
+  color: var(--primary);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-family: var(--font-family-base);
+}
+
+/* —— Qurious 页面不应用 PaperMod 的 post-entry 卡片样式 —— */
+.qurious-scope .first-entry,
+.qurious-scope .post-entry,
+.home-scope .first-entry,
+.home-scope .post-entry,
+.bl-scope .first-entry,
+.bl-scope .post-entry {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+/* —— 全宽:主页 / Qurious / 博客列表 绕过 PaperMod main 容器限制 —— */
+body main.main:has(> .qurious-scope),
+body main.main:has(> .home-scope),
+body main.main:has(> .bl-scope),
+body main.main:has(> .bl-list-wrap) {
+  max-width: none;
+  padding: 0;
+}
+
+/* —— 隐藏 PaperMod 默认顶部导航(新页面用自己的 nav)—— */
+/* 方案 1: :has() 适配(现代浏览器) */
+body:has(.home-scope) .header,
+body:has(.qurious-scope) .header,
+body:has(.bl-scope) .header,
+body:has(.bl-list-wrap) .header {
+  display: none !important;
+}
+body:has(.home-scope) main.main,
+body:has(.qurious-scope) main.main,
+body:has(.bl-scope) main.main,
+body:has(.bl-list-wrap) main.main {
+  margin-top: 0;
+}
+
+/* 方案 2: 直接对所有页面隐藏 PaperMod 默认 header(全站统一无 header) */
+header.header,
+body.list .header,
+body.section-qurious .header {
+  display: none !important;
+}
+body.list main.main,
+body.section-qurious main.main {
+  margin-top: 0;
+}
+
+/* —— 兜底:即使 :has() 不命中,也强制 PaperMod header 透明(防止暗色泄漏)—— */
+body.list .header {
+  background: var(--theme) !important;
+  color: var(--primary) !important;
+}

@@ -1,95 +1,274 @@
 {{- define "main" }}
 
-{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
-{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" }}
-{{- $paginator := .Paginate $pages }}
+{{- /* —— 取最新 5 篇博客 —— */ -}}
+{{- $latestPosts := first 5 (where site.RegularPages "Section" "posts") -}}
 
-<div class="profile-main-wrapper">
-    <!-- 左侧个人信息 -->
-    <aside class="profile-sidebar">
-        <div class="profile">
-            {{- with site.Params.profileMode }}
-            <div class="avatar-wrapper">
-                {{- if .imageUrl }}
-                {{- $img := "" }}
-                {{- if not (urls.Parse .imageUrl).IsAbs }}
-                    {{- $img = resources.Get .imageUrl }}
-                {{- end }}
-                {{- if $img }}
-                    {{- $img = $img.Resize (printf "%dx%d" .imageWidth .imageHeight) }}
-                    <img src="{{ $img.Permalink }}" alt="profile" />
-                {{- else }}
-                    <img src="{{ .imageUrl | absURL }}" alt="profile" />
-                {{- end }}
-                {{- else }}
-                    <img src="https://www.gravatar.com/avatar/?d=mp&s=128" alt="profile" />
-                {{- end }}
-            </div>
-            <div class="profile_inner">
-                <h1>{{ .title | default site.Title | markdownify }}</h1>
-                <span>{{ .subtitle | markdownify }}</span>
-                {{- partial "social_icons.html" -}}
-                {{- with .buttons }}
-                <div class="buttons">
-                    {{- range . }}
-                    <a class="button" href="{{ trim .url " " }}">
-                        <span class="button-inner">{{ .name }}</span>
-                    </a>
-                    {{- end }}
+{{- /* —— 取最近 3 期 Qurious —— */ -}}
+{{- $qurIssues := first 3 (where site.RegularPages "Section" "qurious") -}}
+
+<main class="home-scope">
+
+  <!-- Candle light overlay (mouse-following) -->
+  <div class="candle-light" id="candleLight"></div>
+
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress"><div class="scroll-progress-bar" id="scrollBar"></div></div>
+
+  <div class="home-wrap">
+
+    <!-- ====== EYEBROW ====== -->
+    <div class="home-eyebrow">
+      <span>野蛮其身体，文明其精神</span>
+    </div>
+
+    <!-- ====== FOCAL: MANUSCRIPT + BOOKCASE ====== -->
+    <section class="home-stage">
+
+      <!-- ===== Left: Manuscript (3D tilt) ===== -->
+      <div class="manuscript-wrap" id="manuscriptWrap">
+        <article class="manuscript" id="manuscript">
+          <header class="ms-head">
+            <span class="chapter">序章 <em>Prologue</em></span>
+            <span class="folio">第一页 · {{ now.Format "2006" }}</span>
+          </header>
+
+          <div class="ms-body">
+            <p class="ms-lede">
+              我叫王铭鑫。
+            </p>
+            <p>
+              这是我的笔记本，写产品、<em>AI</em>、独立开发的想法，也写一些生活里<em>值得记下来的东西</em>。
+            </p>
+            <p class="ms-last">
+              更新不固定，不写教程。
+            </p>
+          </div>
+
+          <footer class="ms-sig">
+            <span>· MingXin Wang · Hangzhou ·</span>
+            <span class="right">
+              <span>{{ now.Format "2006.01.02" }}</span>
+              <span class="arrow">→</span>
+            </span>
+          </footer>
+        </article>
+      </div>
+
+      <!-- ===== Right: Bookcase (Atelier Shelf) ===== -->
+      <div class="shelf-section">
+
+        <div class="shelf-meta">
+          <span class="shelf-eyebrow">作品集 <em>· Atelier</em></span>
+          <span class="shelf-total"><em>{{ sub (len (where site.RegularPages "Section" "in" (slice "qurious" "posts"))) 0 }}</em> works</span>
+        </div>
+
+        <div class="bookcase">
+
+          <!-- ============== 上层 ============== -->
+          <div class="shelf-level">
+            <div class="shelf-back"></div>
+            <div class="shelf-row">
+
+              <!-- 左书立 -->
+              <div class="bookend bookend-l"></div>
+
+              <!-- 书 1: 梦影 -->
+              <a href="https://apps.apple.com/cn/app/%E6%A2%A6%E5%BD%B1-ai-%E8%A7%A3%E6%A2%A6%E6%97%A5%E8%AE%B0/id6757799220" target="_blank" rel="noopener" class="bk bk-1">
+                <div class="bk-spine">
+                  <span class="bk-title">梦影<em>·Dreamur</em></span>
                 </div>
+                <div class="bk-popup">
+                  <h4>梦影 <em>Dreamur</em></h4>
+                  <div class="role">AI 解梦 · 潜意识</div>
+                  <span class="live">App Store · 已上线</span>
+                  <p>端侧 AI 把梦境变成一幅大阿卡纳塔罗牌 —— 集齐 22 张，绘制你的潜意识地图。</p>
+                  <div class="go">在 App Store 打开</div>
+                </div>
+              </a>
+
+              <!-- 书 2: 感刻 -->
+              <a href="https://apps.apple.com/cn/app/%E6%84%9F%E5%88%BB-%E6%84%9F%E5%AE%98%E5%88%9B%E4%BD%9C-%E7%9C%8B%E8%A7%81%E8%87%AA%E5%B7%B1/id6756660625" target="_blank" rel="noopener" class="bk bk-2">
+                <div class="bk-spine">
+                  <span class="bk-title">感刻</span>
+                </div>
+                <div class="bk-popup">
+                  <h4>感刻 <em>AIVO Awaken</em></h4>
+                  <div class="role">感官创作 · 看见自己</div>
+                  <span class="live">App Store · 已上线</span>
+                  <p>在信息过载的时代，重新连接身体感知 —— 创造一个「慢下来」的空间。</p>
+                  <div class="go">在 App Store 打开</div>
+                </div>
+              </a>
+
+              <!-- 书 3: 为啥 -->
+              <a href="https://apps.apple.com/cn/app/%E4%B8%BA%E5%95%A5/id6767553566" target="_blank" rel="noopener" class="bk bk-3">
+                <div class="bk-spine">
+                  <span class="bk-title">为啥</span>
+                </div>
+                <div class="bk-popup">
+                  <h4>为啥 <em>Weisha</em></h4>
+                  <div class="role">深度思考 · 找回提问能力</div>
+                  <span class="live">App Store · 已上线</span>
+                  <p>用四种场景训练打破惯性，AI 以七种视角追问 —— 全本地存储，不上传、不联网。</p>
+                  <div class="go">在 App Store 打开</div>
+                </div>
+              </a>
+
+              <!-- 书 4: 语生 -->
+              <a href="https://apps.apple.com/cn/app/%E8%AF%AD%E7%94%9F-ai-%E8%AF%AD%E9%9F%B3%E6%97%A5%E8%AE%B0/id6759279951" target="_blank" rel="noopener" class="bk bk-4">
+                <div class="bk-spine">
+                  <span class="bk-title">语生</span>
+                </div>
+                <div class="bk-popup">
+                  <h4>语生 <em>Amurmur</em></h4>
+                  <div class="role">语音记录 · 个人知识库</div>
+                  <span class="live">App Store · 已上线</span>
+                  <p>说完就分类，AI 把碎片想法变成可理解、可回顾、可执行的个人知识库。</p>
+                  <div class="go">在 App Store 打开</div>
+                </div>
+              </a>
+
+              <!-- 3 本横叠 = Qurious 1-3 期 -->
+              <div class="books-stack">
+                <div class="stack-top">
+                  <div class="glasses"><span></span></div>
+                </div>
+                {{- /* 3 本横叠 = Qurious 最近 3 期 */ -}}
+                {{- range $i, $q := first 3 $qurIssues }}
+                <a href="{{ $q.Permalink }}" class="stack-book s{{ sub 4 (add $i 1) }}" data-title="Qurious · {{ $q.Params.issue_number }}"></a>
                 {{- end }}
+              </div>
+
+              <!-- 上层摆件 -->
+              <div class="knick plant"></div>
+              <div class="knick paperweight"></div>
+
+              <!-- 右书立 -->
+              <div class="bookend bookend-r"></div>
             </div>
-            {{- end }}
-        </div>
-    </aside>
+            <div class="shelf-plank"></div>
+          </div>
 
-    <!-- 右侧文章列表 -->
-    <div class="profile-content">
-        <div class="profile-section-header">
-            <h2>最新文章</h2>
-        </div>
+          <!-- ============== 下层 ============== -->
+          <div class="shelf-level shelf-level-2">
+            <div class="shelf-back"></div>
+            <div class="shelf-row">
 
-        {{- range $index, $page := $paginator.Pages }}
-        {{- $class := "post-entry" }}
-        {{- if and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) }}
-        {{- $class = "post-entry first-entry" }}
-        {{- end }}
+              <!-- 4 个笔记本(链到标签页) -->
+              <a href="/posts/" class="nbk nbk-1">
+                <div class="nbk-cover"><span class="nbk-label">Essay · 01</span></div>
+              </a>
+              <a href="/tags/ai/" class="nbk nbk-2">
+                <div class="nbk-cover"><span class="nbk-label">AI Notes</span></div>
+              </a>
+              <a href="/tags/%E4%BA%A7%E5%93%81/" class="nbk nbk-3">
+                <div class="nbk-cover"><span class="nbk-label">Product</span></div>
+              </a>
+              <a href="/tags/%E6%97%85%E8%A1%8C/" class="nbk nbk-4">
+                <div class="nbk-cover"><span class="nbk-label">旅行</span></div>
+              </a>
 
-        <article class="{{ $class }}">
-            {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
-            {{- partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" $isHidden) }}
-            <header class="entry-header">
-                <h2>
-                    <a href="{{ .Permalink }}">{{ .Title }}</a>
-                </h2>
-            </header>
-            {{- if not (.Param "hideSummary") }}
-            <div class="entry-content">
-                <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+              <!-- 叠放的信纸 -->
+              <div class="letter-stack">
+                <div class="letter-sheet"></div>
+                <div class="letter-sheet"></div>
+                <div class="letter-sheet"></div>
+              </div>
+
+              <!-- 墨水瓶 + 羽毛笔 -->
+              <div style="position:relative; align-self:flex-end; margin-left:4px;">
+                <div class="ink-bottle"></div>
+                <div class="quill"></div>
+              </div>
+
+              <!-- 相框 -->
+              <div class="photo-frame">
+                <div class="photo-frame-inner"></div>
+              </div>
+
+              <!-- 复古相机 -->
+              <div class="vintage-cam">
+                <div class="vintage-cam-finder"></div>
+              </div>
+
+              <!-- 咖啡杯(冒蒸汽) -->
+              <div class="coffee-cup">
+                <div class="coffee-steam">
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
+
+              <!-- 小植物 -->
+              <div class="plant-sm"></div>
+
             </div>
+            <div class="shelf-plank"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====== RECENT ESSAYS (不对称瀑布) ====== -->
+    <section class="recent">
+      <header class="recent-head">
+        <h2>近期笔记</h2>
+        <a href="/posts/" class="all"><span class="all-mark">·</span> 查看全部 <span class="all-arrow">→</span></a>
+      </header>
+
+      <div class="recent-grid">
+        {{- range $i, $page := $latestPosts }}
+        {{- $n := add $i 1 -}}
+        <article class="note n-{{ $n }}{{ if eq $i 0 }} note-featured{{ end }}">
+          <div class="note-head">
+            <time class="note-date">{{ $page.Date.Format "01.02" }} · {{ $page.Date.Format "2006" }}</time>
+            {{- with index $page.Params.tags 0 }}
+            <span class="note-tag">{{ . }}</span>
             {{- end }}
-            {{- if not (.Param "hideMeta") }}
-            <footer class="entry-footer">
-                {{- partial "post_meta.html" . -}}
-            </footer>
-            {{- end }}
-            <a class="entry-link" href="{{ .Permalink }}"></a>
+          </div>
+          <h3 class="note-title">{{ $page.Title }}</h3>
+          <p class="note-excerpt">{{ $page.Summary | plainify | htmlUnescape | truncate 90 }}</p>
+          <div class="note-foot">
+            <span>{{ if $page.ReadingTime }}{{ $page.ReadingTime }} min · {{ end }}{{ $page.WordCount }} 字</span>
+            <span class="read">Read →</span>
+          </div>
+          <a class="note-link" href="{{ $page.Permalink }}" aria-label="阅读全文：{{ $page.Title }}"></a>
         </article>
         {{- end }}
+      </div>
+    </section>
 
-        {{- if gt $paginator.TotalPages 1 }}
-        <footer class="page-footer">
-            <nav class="pagination">
-                {{- if $paginator.HasPrev }}
-                <a href="{{ $paginator.Prev.URL }}">« 上一页</a>
-                {{- end }}
-                {{- if $paginator.HasNext }}
-                <a href="{{ $paginator.Next.URL }}">下一页 »</a>
-                {{- end }}
-            </nav>
-        </footer>
-        {{- end }}
+  </div>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="home-foot">
+    <div>
+      <div class="home-foot-brand">Ming<em>Xin</em> Wang</div>
+      <p class="home-foot-tagline">
+        一个可以写点想法的地方。
+      </p>
     </div>
-</div>
+    <div class="home-foot-col">
+      <h4>内容</h4>
+      <ul>
+        <li><a href="/posts/">博客</a></li>
+        <li><a href="/qurious/">Qurious 周刊</a></li>
+        <li><a href="/archives/">归档</a></li>
+      </ul>
+    </div>
+    <div class="home-foot-col">
+      <h4>订阅</h4>
+      <ul>
+        <li><a href="/qurious/index.xml">RSS</a></li>
+        <li><a href="mailto:peer2peer.wang@gmail.com">Email</a></li>
+      </ul>
+    </div>
+  </footer>
+  <div class="home-foot-end">
+    <span>© MMXXVI · MingXin Wang · Hangzhou</span>
+    <span>Built with Hugo · 设计于 Renaissance × Rococo</span>
+  </div>
+
+</main>
 
 {{- end }}

@@ -2,13 +2,46 @@
 {{- /*     Insert any custom code (web-analytics, resources, etc.) - it will appear in the <head></head> section of every page. */ -}}
 {{- /*     Can be overwritten by partial with the same name in the global layouts. */ -}}
 
+<!-- 强制浅色主题(在 PaperMod JS 之前锁定,防止 OS 暗色模式污染) -->
+<script>document.documentElement.dataset.theme="light";try{localStorage.setItem("pref-theme","light")}catch(e){}</script>
+
+<!-- Renaissance × Rococo 全站视觉系统 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- PaperMod 主题覆盖(全站) -->
+<link rel="stylesheet" href="/css/paper-mod-overrides.css">
+
+<!-- 主页视觉系统(全站,主页专属) -->
+<link rel="stylesheet" href="/css/home-system.css">
+
+<!-- 博客视觉系统(全站) -->
+<link rel="stylesheet" href="/css/blog-system.css">
+
+<!-- Qurious 视觉系统(仅 Qurious 页面引入) -->
+{{- if or (eq .Section "qurious") (eq .Type "qurious") (eq .Section "qurious-list") }}
+<link rel="stylesheet" href="/css/qurious-system.css">
+{{- end }}
+
 <!-- CDN图片降级处理 -->
 <script src="/js/image-fallback.js"></script>
 
-<!-- Profile Mode 两栏布局样式 -->
-<link rel="stylesheet" href="/css/profile-layout.css">
+<!-- 主页交互(tilt / candle light / scroll progress / note reveal) -->
+<script src="/js/home-interactions.js" defer></script>
 
-<!-- Qurious 周刊样式 -->
-<link rel="stylesheet" href="/css/qurious.css">
+<!-- 兜底:在新页面用 JS 强制删除 PaperMod 默认 header(防止 :has() 不命中导致暗色泄漏) -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var scopes = ['.home-scope', '.qurious-scope', '.bl-scope'];
+  for (var i = 0; i < scopes.length; i++) {
+    if (document.querySelector(scopes[i])) {
+      var h = document.querySelector('header.header');
+      if (h) h.parentNode.removeChild(h);
+      break;
+    }
+  }
+});
+</script>
 
 {{- /* Head custom content area end */ -}}

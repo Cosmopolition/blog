@@ -1,0 +1,66 @@
+{{- define "main" }}
+{{- /* —— 取该 section/taxonomy 下所有页面 —— */ -}}
+{{- $pages := .Pages }}
+{{- if .IsHome }}
+  {{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- end }}
+{{- $paginator := .Paginate $pages }}
+
+<main class="bl-scope">
+
+  <!-- 章节标题区 -->
+  <header class="bl-hero" data-folio="MMXXVI">
+    <div class="bl-chapter-mark">
+      <span>Collected Notes</span>
+      <span class="count">· {{ len $pages }} pieces</span>
+    </div>
+    <h1>{{ .Title | default "All Notes" }}</h1>
+    {{- with .Description }}
+    <p class="bl-sub">{{ . }}</p>
+    {{- end }}
+  </header>
+
+  <!-- 不对称瀑布列表 -->
+  <div class="bl-list">
+    {{- range $i, $page := $paginator.Pages }}
+    {{- $class := printf "bl-card c-%d" (add (mod $i 5) 1) -}}
+    <article class="{{ $class }}">
+      <div class="bl-card-head">
+        <time class="bl-card-date">{{ $page.Date.Format "01.02" }} · {{ $page.Date.Format "2006" }}</time>
+        {{- with index $page.Params.tags 0 }}
+        <span class="bl-card-tag">{{ . }}</span>
+        {{- end }}
+      </div>
+      <h3 class="bl-card-title">
+        <a href="{{ $page.Permalink }}">{{ $page.Title }}</a>
+      </h3>
+      <p class="bl-card-excerpt">{{ $page.Summary | plainify | htmlUnescape | truncate 100 }}</p>
+      <div class="bl-card-foot">
+        <span>{{ if $page.ReadingTime }}{{ $page.ReadingTime }} min · {{ end }}{{ $page.WordCount }} 字</span>
+        <span>Read →</span>
+      </div>
+    </article>
+    {{- end }}
+  </div>
+
+  <!-- 分页 -->
+  {{- if gt $paginator.TotalPages 1 }}
+  <nav class="bl-pagination">
+    {{- if $paginator.HasPrev }}
+    <a href="{{ $paginator.Prev.URL }}">← 上一页</a>
+    {{- end }}
+    {{- range $paginator.Pagers }}
+    {{- if eq . $paginator }}
+    <span class="is-current">{{ .PageNumber }}</span>
+    {{- else }}
+    <a href="{{ .URL }}">{{ .PageNumber }}</a>
+    {{- end }}
+    {{- end }}
+    {{- if $paginator.HasNext }}
+    <a href="{{ $paginator.Next.URL }}">下一页 →</a>
+    {{- end }}
+  </nav>
+  {{- end }}
+
+</main>
+{{- end }}

@@ -1,41 +1,96 @@
 {{- define "main" }}
+<main class="qurious-scope">
 
-{{- $issueName := "" }}
-{{- $pathSegments := split .RelPermalink "/" }}
-{{- $len := len $pathSegments }}
-{{- if gt $len 2 }}
-    {{- $issueName = index $pathSegments (sub $len 1) }}
-{{- end }}
+  <!-- 顶部导航 -->
+  <nav class="qr-nav">
+    <a href="/" class="brand">Ming<em>Xin</em> Wang</a>
+    <div class="links">
+      <a href="/">Atelier</a>
+      <a href="/posts/">Essays</a>
+      <a href="/qurious/" class="is-active">Qurious</a>
+      <a href="/about/">About</a>
+    </div>
+  </nav>
 
-{{- $htmlFile := "" }}
-{{- if $issueName }}
-    {{- $htmlFile = printf "qurious/%s" $issueName }}
-{{- end }}
+  <article class="qr-single">
 
-{{- $issueHtml := "" }}
-{{- if $htmlFile }}
-    {{- $raw := readFile (printf "static/%s" $htmlFile) }}
-    {{- /* 剥离 <html>、<head>、<body> 标签，保留 body 内部内容 */ -}}
-    {{- $inner := replaceRE `(?is)<html[^>]*>` "" $raw }}
-    {{- $inner = replaceRE `(?is)</html>` "" $inner }}
-    {{- $inner = replaceRE `(?is)<head>[\s\S]*?</head>` "" $inner }}
-    {{- $inner = replaceRE `(?is)<body[^>]*>` "" $inner }}
-    {{- $inner = replaceRE `(?is)</body>` "" $inner }}
-    {{- $issueHtml = $inner }}
-{{- end }}
+    <a href="/qurious/" class="qr-back">回到 Qurious 周刊</a>
 
-<div class="qurious-single-wrapper">
-    <nav class="qurious-back">
-        <a href="/qurious/">← Qurious 周刊列表</a>
-    </nav>
-    {{- if $issueHtml }}
-    {{ $issueHtml | safeHTML }}
-    {{- else }}
-    <div class="qurious-not-found">
-        <p>未找到该期内容。</p>
-        <a href="/qurious/">← 返回列表</a>
+    <div class="qr-masthead">
+      <span class="mark">Qurious<em>.</em></span>
+      <div class="meta">
+        ISSUE
+        <strong>第 {{ .Params.issue_number }} 期</strong>
+        <span style="display:block; margin-top:2px;">
+          {{ .Date.Format "2006.01.02" }} ·
+          {{- if .Params.weekday }} {{ .Params.weekday }}{{- else }}
+            {{- $w := "" -}}
+            {{- $wd := .Date.Weekday -}}
+            {{- if eq $wd 0 }}周日{{- end -}}
+            {{- if eq $wd 1 }}周一{{- end -}}
+            {{- if eq $wd 2 }}周二{{- end -}}
+            {{- if eq $wd 3 }}周三{{- end -}}
+            {{- if eq $wd 4 }}周四{{- end -}}
+            {{- if eq $wd 5 }}周五{{- end -}}
+            {{- if eq $wd 6 }}周六{{- end -}}
+          {{- end }}
+        </span>
+      </div>
+    </div>
+
+    <p class="qr-intro">{{ .Params.intro | default .Title }}</p>
+
+    <!-- 音频条(预留) -->
+    <div class="qr-audio">
+      <div class="play-btn" aria-label="播放">▶</div>
+      <div class="meta">
+        {{- if .Params.audio_url }}
+          <strong>收听本期内文</strong>
+          <span>{{ .Params.duration | default "18 min" }} · 中文</span>
+        {{- else }}
+          <strong>本期为文字版</strong>
+          <span class="placeholder">音频版即将上线 · 预计阅读时间 {{ .Params.duration | default "18 min" }}</span>
+        {{- end }}
+      </div>
+    </div>
+
+    <!-- 五个问题 -->
+    {{- if .Params.questions }}
+    <div id="q-questions">
+      {{- range $i, $q := .Params.questions }}
+      <article class="qr-question" data-q-idx="{{ $i }}">
+        <div class="qr-question-num">
+          QUESTION {{ printf "%02d" (add $i 1) }} / {{ printf "%02d" (len $.Params.questions) }}
+        </div>
+        <h3 class="qr-question-text">{{ $q.text }}</h3>
+        <div class="qr-question-foot">
+          <span class="qr-question-source">
+            {{ $q.source | default "未注明" }}
+            {{- if $q.difficulty }}
+              <span class="qr-question-difficulty">{{ $q.difficulty }}</span>
+            {{- end }}
+          </span>
+          <span class="qr-thinking-btn" data-toggle>展开思考</span>
+        </div>
+        {{- if $q.thinking }}
+        <div class="qr-thinking-detail">
+          {{- range $j, $step := $q.thinking }}
+          <p>{{ $step | safeHTML }}</p>
+          {{- end }}
+        </div>
+        {{- end }}
+      </article>
+      {{- end }}
     </div>
     {{- end }}
-</div>
 
+    <!-- 结尾 -->
+    <div class="qr-foot">
+      <div class="sig">— fin —</div>
+      <div class="meta">下期持续更新 · 主题征集中</div>
+    </div>
+  </article>
+
+  <script src="/js/qurious-thinking.js"></script>
+</main>
 {{- end }}
