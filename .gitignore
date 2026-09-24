@@ -34,3 +34,9 @@ test.env
 # 临时文件和脚本（可选，如果不想提交scripts目录）
 # scripts/
 
+# 本地规划草稿
+_plans/
+
+# 设计稿参考（仅供开发参考，不部署到生产）
+static/_design/
+
