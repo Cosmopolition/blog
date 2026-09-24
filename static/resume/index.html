@@ -2,18 +2,50 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>产品工程师</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#FAF8F5" />
+
+  <title data-i18n="doc-title">产品工程师 · MingXin Wang</title>
+  <meta name="description" data-i18n-attr="content|doc-desc"
+        content="产品工程师 · AI Native · 独立开发者 · 四款独立 App 已上线" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:url" content="https://mingxinwang.com/resume/" />
+  <meta property="og:title" data-i18n-attr="content|og-title" content="产品工程师 · MingXin Wang" />
+  <meta property="og:description" data-i18n-attr="content|og-desc"
+        content="产品工程师 · AI Native · 独立开发者 · 四款独立 App 已上线" />
+  <meta property="og:image" content="https://mingxinwang.com/resume/bg.jpeg" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:locale:alternate" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" data-i18n-attr="content|og-title" content="产品工程师 · MingXin Wang" />
+  <meta name="twitter:description" data-i18n-attr="content|og-desc"
+        content="产品工程师 · AI Native · 独立开发者 · 四款独立 App 已上线" />
+  <meta name="twitter:image" content="https://mingxinwang.com/resume/bg.jpeg" />
+
+  <link rel="canonical" href="https://mingxinwang.com/resume/" />
+  <link rel="alternate" hreflang="zh-CN" href="https://mingxinwang.com/resume/?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://mingxinwang.com/resume/?lang=en" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500;700;800&family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet">
+
+  <link rel="preload" as="image" href="/resume/bg.jpeg" fetchpriority="high" />
 
   <style>
-    /* ============================================
-       WARM EDITORIAL RESUME — All styles inline
-       ============================================ */
-
-    /* ---- Reset & Variables ---- */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ============================================================
+       RESUME — WARM × Rethinking (production)
+       Build on resume-v2 prototype:
+       · Strict zh / en separation (no mixing)
+       · Mobile adaptation (hamburger menu / safe-area / touch targets)
+       ============================================================ */
 
     :root {
+      /* Palette — WARM EDITORIAL */
       --bg:           #FAF8F5;
       --bg-alt:       #F3F0EB;
       --ink:          #1C1A18;
@@ -25,538 +57,607 @@
       --sage-light:   #EDF0EC;
       --border:       #E2DDD8;
       --border-soft:  #EDE9E4;
-      --white:        #FFFFFF;
-      --radius:       12px;
-      --radius-sm:    6px;
 
+      /* Per-app brand colors */
+      --app-1: #B85C38;
+      --app-2: #D4836A;
+      --app-3: #7A9178;
+      --app-4: #3D3835;
+
+      /* Typography */
+      --font-display: 'Josefin Sans', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+      --font-cn:      'Noto Serif SC', Georgia, 'Songti SC', 'SimSun', serif;
       --font-serif:   Georgia, 'Times New Roman', 'Noto Serif SC', serif;
       --font-sans:    -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Noto Sans SC', sans-serif;
-      --font-mono:    'Courier New', 'Nimbus Mono L', monospace;
+      --font-mono:    'JetBrains Mono', 'SF Mono', 'Courier New', monospace;
 
       --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+      --ease-soft:    cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { scroll-behavior: smooth; font-size: 16px; -webkit-text-size-adjust: 100%; }
     body {
       font-family: var(--font-sans);
       background: var(--bg);
       color: var(--ink);
       line-height: 1.7;
-      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
+    ::selection { background: var(--accent); color: #fff; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; cursor: pointer; border: 0; background: transparent; }
+    img { max-width: 100%; height: auto; display: block; }
 
-    ::selection {
-      background: var(--accent);
-      color: #fff;
+    /* ----- Section H2: outlined signature (English) / solid serif (Chinese) ----- */
+    h2.outlined {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(40px, 6vw, 76px);
+      line-height: 1.1;
+      letter-spacing: -3px;
+      -webkit-text-stroke: 1.4px var(--ink);
+      color: transparent;
+      margin: 0;
+      word-break: break-word;
     }
-
-    /* ---- Typography ---- */
-    h1, h2, h3 {
+    h2.outlined em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 0.42em;
+      letter-spacing: 0;
+      -webkit-text-stroke: 0;
+      color: var(--ink-3);
+      margin-left: 14px;
+      vertical-align: 12px;
+      word-break: keep-all;
+    }
+    /* Chinese mode: solid Noto Serif SC (outlined doesn't read well on CJK strokes) */
+    body.lang-zh h2.outlined {
+      font-family: var(--font-cn);
+      font-weight: 900;
+      -webkit-text-stroke: 0;
+      color: var(--ink);
+      letter-spacing: -2px;
+    }
+    body.lang-zh h2.outlined em {
       font-family: var(--font-serif);
       font-weight: 400;
-      line-height: 1.2;
-      letter-spacing: -0.01em;
+      vertical-align: 8px;
+      letter-spacing: 0;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 40px; }
+    @media (max-width: 768px) { .container { padding: 0 24px; } }
+    @media (max-width: 420px) { .container { padding: 0 20px; } }
 
-    /* ---- Scroll Progress ---- */
-    .progress-bar {
-      position: fixed;
-      top: 0; left: 0;
-      height: 2px;
-      background: var(--accent);
-      width: 0%;
-      z-index: 200;
-      transition: width 0.1s linear;
-    }
-
-    /* ---- Layout ---- */
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-
-    @media (max-width: 640px) {
-      .container { padding: 0 24px; }
-    }
-
-    /* ============================================
-       NAVIGATION
-       ============================================ */
-    .site-nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 20px 0;
-      background: rgba(250, 248, 245, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-soft);
-      transition: background 0.3s;
-    }
-
-    .site-nav .container {
+    /* ============================================================
+       HEADER
+       ============================================================ */
+    .site-header {
+      position: relative;
+      z-index: 5;
+      padding: 22px 5%;
+      padding-top: max(22px, env(safe-area-inset-top));
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 16px;
+      max-width: 1440px;
+      margin: 0 auto;
     }
 
-    .nav-logo {
+    .brand {
       font-family: var(--font-serif);
-      font-size: 17px;
+      font-size: 18px;
+      font-weight: 400;
       color: var(--ink);
       letter-spacing: 0.02em;
+      flex: none;
     }
+    body.lang-zh .brand { font-family: var(--font-cn); font-weight: 600; }
 
-    .nav-links {
+    .site-nav {
       display: flex;
-      gap: 32px;
-      list-style: none;
+      align-items: center;
+      gap: 28px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .site-nav a { color: var(--ink-2); transition: color 0.2s; }
+    .site-nav a:hover { color: var(--accent); }
+    body.lang-zh .site-nav { font-family: var(--font-cn); letter-spacing: 0.08em; font-weight: 600; }
+
+    .header-right { display: flex; align-items: center; gap: 8px; flex: none; }
+
+    /* ----- Language picker ----- */
+    .lang-picker { position: relative; }
+    .lang-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 10px;
+      min-height: 40px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      font-size: 12px;
+      line-height: 1.2;
+      font-weight: 500;
+      white-space: nowrap;
+      text-transform: none;
+      letter-spacing: 0;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .lang-trigger:hover,
+    .lang-trigger[aria-expanded="true"] {
+      background: #F7F2EA;
+      border-color: #E8DFD0;
+    }
+    .lang-trigger svg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+    .lang-globe { width: 16px; height: 16px; }
+    .lang-chevron { width: 12px; height: 12px; color: var(--ink-3); transition: transform 0.18s; }
+    .lang-trigger[aria-expanded="true"] .lang-chevron { transform: rotate(180deg); }
+
+    .lang-menu {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 8px);
+      width: 180px;
+      padding: 6px;
+      background: #fff;
+      border: 1px solid #E2DDD8;
+      border-radius: 12px;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.06), 0 2px 5px rgba(0,0,0,0.02);
+      animation: langMenuIn 0.16s ease-out;
+      z-index: 50;
+    }
+    .lang-menu[hidden] { display: none; }
+    .lang-menu button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.4;
+      font-weight: 500;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--ink);
+    }
+    .lang-menu button:hover { background: #F4EFE7; }
+    .lang-menu button[aria-checked="true"] { background: #F7F2EA; }
+    .lang-menu button svg { width: 16px; height: 16px; opacity: 0; }
+    .lang-menu button[aria-checked="true"] svg { opacity: 1; color: var(--accent); }
+    .lang-trigger:focus-visible { outline: 1.5px solid var(--accent); outline-offset: 3px; }
+    @keyframes langMenuIn {
+      0%   { opacity: 0; transform: translateY(-4px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
-    .nav-links a {
-      font-size: 13px;
-      color: var(--ink-2);
-      letter-spacing: 0.04em;
-      transition: color 0.2s;
+    /* ----- Hamburger (mobile only) ----- */
+    .nav-toggle {
+      display: none;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9px;
+      color: var(--ink);
+      transition: background 0.15s;
     }
+    .nav-toggle:hover { background: #F7F2EA; }
+    .nav-toggle svg { width: 22px; height: 22px; }
+    .nav-toggle .icon-open { display: block; }
+    .nav-toggle .icon-close { display: none; }
+    .nav-toggle[aria-expanded="true"] .icon-open { display: none; }
+    .nav-toggle[aria-expanded="true"] .icon-close { display: block; }
 
-    .nav-links a:hover { color: var(--accent); }
-
-    @media (max-width: 640px) {
-      .nav-links { display: none; }
-    }
-
-    /* ============================================
-       HERO
-       ============================================ */
-    .hero {
-      min-height: 100vh;
+    /* ----- Mobile drawer ----- */
+    .nav-drawer {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: var(--bg);
+      padding: 80px 28px 32px;
+      padding-top: calc(80px + env(safe-area-inset-top));
+      padding-bottom: calc(32px + env(safe-area-inset-bottom));
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 120px 0 100px;
-      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(-12px);
+      pointer-events: none;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+    .nav-drawer[data-open="true"] {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+    .nav-drawer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+    .nav-drawer-links a {
+      display: block;
+      padding: 18px 8px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      border-bottom: 1px solid var(--border-soft);
+      min-height: 56px;
+    }
+    .nav-drawer-links a:active { background: #F4EFE7; }
+    body.lang-zh .nav-drawer-links a {
+      font-family: var(--font-cn);
+      font-weight: 600;
+      letter-spacing: 0;
+      font-size: 26px;
+    }
+    .nav-drawer-foot {
+      display: flex;
+      gap: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .nav-drawer-foot .lang-trigger { flex: 1; justify-content: center; }
+
+    body.no-scroll { overflow: hidden; }
+
+    @media (max-width: 768px) {
+      .site-header { padding-left: 6%; padding-right: 6%; }
+      .site-nav { display: none; }
+      .nav-toggle { display: inline-flex; }
+    }
+    @media (min-width: 769px) {
+      .nav-drawer { display: none !important; }
     }
 
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 80px);
+      padding: 24px 0 56px;
+      overflow: hidden;
+    }
+    .hero-copy {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      padding: 16px 24px 0;
+      max-width: 720px;
+      margin: 0 auto;
+    }
     .hero-eyebrow {
       font-family: var(--font-mono);
       font-size: 11px;
-      letter-spacing: 0.14em;
-      color: var(--accent);
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      margin-bottom: 28px;
-      opacity: 0;
-      transform: translateY(12px);
-      animation: fadeUp 0.8s var(--ease-out) 0.2s forwards;
+      color: var(--accent);
+      margin-bottom: 24px;
     }
-
-    .hero-name {
-      font-size: clamp(48px, 9vw, 96px);
-      color: var(--ink);
-      margin-bottom: 8px;
-      opacity: 0;
-      transform: translateY(16px);
-      animation: fadeUp 0.9s var(--ease-out) 0.35s forwards;
+    body.lang-zh .hero-eyebrow {
+      font-family: var(--font-cn);
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      text-transform: none;
+      font-size: 13px;
     }
-
     .hero-title {
       font-family: var(--font-serif);
-      font-size: clamp(22px, 4vw, 36px);
       font-weight: 400;
-      color: var(--ink-2);
-      font-style: italic;
-      margin-bottom: 40px;
-      opacity: 0;
-      transform: translateY(16px);
-      animation: fadeUp 0.9s var(--ease-out) 0.5s forwards;
-    }
-
-    .hero-divider {
-      width: 48px;
-      height: 1px;
-      background: var(--accent);
-      margin-bottom: 32px;
-      opacity: 0;
-      animation: fadeIn 0.8s ease 0.7s forwards;
-    }
-
-    .hero-desc {
-      font-size: clamp(15px, 2vw, 18px);
-      color: var(--ink-2);
-      max-width: 560px;
-      line-height: 1.8;
-      margin-bottom: 48px;
-      opacity: 0;
-      transform: translateY(12px);
-      animation: fadeUp 0.9s var(--ease-out) 0.65s forwards;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      opacity: 0;
-      animation: fadeIn 0.8s ease 0.85s forwards;
-    }
-
-    .hero-tag {
-      padding: 8px 18px;
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      font-size: 13px;
-      color: var(--ink-2);
-      transition: all 0.25s var(--ease-out);
-      cursor: default;
-    }
-
-    .hero-tag:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(184, 92, 56, 0.04);
-    }
-
-    /* Scroll hint */
-    .scroll-hint {
-      position: absolute;
-      bottom: 48px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      opacity: 0;
-      animation: fadeIn 0.8s ease 1.2s forwards;
-    }
-
-    .scroll-hint span {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-    }
-
-    .scroll-hint .scroll-line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--ink-3), transparent);
-    }
-
-    /* ============================================
-       ABOUT
-       ============================================ */
-    .about-section {
-      padding: 100px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .section-label {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ink-3);
+      font-size: clamp(32px, 6vw, 72px);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--ink);
       margin-bottom: 20px;
     }
+    body.lang-zh .hero-title {
+      font-family: var(--font-cn);
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+    .hero-title em { font-style: italic; color: var(--accent); }
+    body.lang-zh .hero-title em { font-style: normal; }
+    .hero-sub {
+      font-size: 14px;
+      color: var(--ink-2);
+      letter-spacing: 0.04em;
+      line-height: 1.85;
+      max-width: 460px;
+      margin: 0 auto 24px;
+    }
+    body.lang-zh .hero-sub {
+      letter-spacing: 0;
+      line-height: 1.9;
+      font-size: 14px;
+    }
 
-    .about-intro {
+    /* ---- Valley ---- */
+    .valley {
+      position: relative;
+      width: 100%;
+      max-width: 1100px;
+      aspect-ratio: 4096 / 2336;
+      max-height: 660px;
+      margin: 24px auto 0;
+      cursor: pointer;
+      user-select: none;
+      overflow: hidden;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,0.04),
+        0 18px 48px rgba(0,0,0,0.08),
+        0 4px 12px rgba(0,0,0,0.04);
+    }
+    .valley-bg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.6s var(--ease-out);
+      animation: valleyDrift 9s ease-in-out infinite;
+    }
+    .valley:hover .valley-bg { transform: scale(1.015); }
+    .valley.jump .valley-bg { animation: valleyJump 0.7s cubic-bezier(0.2, 0.7, 0.3, 1); }
+
+    /* Mobile valley: keep aspect-ratio, cap height so it stays landscape */
+    @media (max-width: 768px) {
+      .valley {
+        margin: 20px auto 0;
+        max-height: 340px;
+        border-radius: 8px;
+      }
+    }
+    @media (max-width: 480px) {
+      .valley {
+        max-height: 240px;
+      }
+    }
+    @media (max-width: 380px) {
+      .valley {
+        max-height: 200px;
+      }
+    }
+
+    /* ============================================================
+       ABOUT
+       ============================================================ */
+    .about {
+      padding: 96px 0 80px;
+      border-top: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
+    }
+    @media (max-width: 768px) { .about { padding: 72px 0 64px; } }
+    .about-head { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+    .about-head h2 { margin-bottom: 24px; }
+    .about-manifesto {
       font-family: var(--font-serif);
-      font-size: clamp(20px, 3.5vw, 30px);
-      line-height: 1.6;
+      font-size: clamp(18px, 2.4vw, 28px);
+      line-height: 1.65;
       color: var(--ink);
       max-width: 680px;
-      margin-bottom: 56px;
+      margin: 0 auto;
+    }
+    body.lang-zh .about-manifesto {
+      font-family: var(--font-cn);
+      font-weight: 600;
+      letter-spacing: 0;
     }
 
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 48px 64px;
+      gap: 44px 56px;
+      max-width: 880px;
+      margin: 0 auto;
     }
-
-    @media (max-width: 640px) {
-      .about-grid { grid-template-columns: 1fr; gap: 36px; }
-    }
-
+    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 28px; } }
     .about-item h3 {
       font-family: var(--font-sans);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--ink-3);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
-
-    .about-item p {
-      font-size: 15px;
-      color: var(--ink-2);
-      line-height: 1.75;
+    body.lang-zh .about-item h3 {
+      font-family: var(--font-cn);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: none;
+      font-size: 14px;
     }
+    .about-item p { font-size: 15px; color: var(--ink-2); line-height: 1.75; }
+    .about-link { color: var(--accent); border-bottom: 1px solid transparent; transition: border-color 0.2s; word-break: break-all; }
+    .about-link:hover { border-bottom-color: var(--accent); }
 
-    /* ============================================
+    /* ============================================================
        PRODUCTS
-       ============================================ */
-    .products-section {
-      padding: 100px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .products-header {
-      margin-bottom: 72px;
-    }
-
-    .products-header h2 {
-      font-size: clamp(28px, 5vw, 44px);
-      color: var(--ink);
-    }
-
-    .products-header p {
-      margin-top: 12px;
+       ============================================================ */
+    .products { padding: 96px 0; border-top: 1px solid var(--border); }
+    @media (max-width: 768px) { .products { padding: 72px 0; } }
+    .products-head { text-align: center; margin-bottom: 64px; }
+    @media (max-width: 768px) { .products-head { margin-bottom: 48px; } }
+    .products-head h2 { margin-bottom: 14px; }
+    .products-head p {
       font-size: 15px;
       color: var(--ink-2);
-      max-width: 480px;
+      letter-spacing: 0.04em;
+      max-width: 460px;
+      margin: 0 auto;
     }
+    body.lang-zh .products-head p { letter-spacing: 0; }
 
-    .product-card {
+    .product-grid {
       display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 64px;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px 48px;
       align-items: start;
-      padding: 64px 0;
-      border-top: 1px solid var(--border);
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .product-grid .product:nth-child(2n) { margin-top: 110px; }
+    @media (max-width: 900px) {
+      .product-grid { grid-template-columns: 1fr; gap: 48px; max-width: 480px; margin: 0 auto; }
+      .product-grid .product:nth-child(2n) { margin-top: 0; }
+    }
+    @media (max-width: 480px) {
+      .product-grid { gap: 40px; }
     }
 
-    .product-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .product { display: block; min-width: 0; }
 
-    .product-card:nth-child(2) {
-      transition-delay: 0.1s;
-    }
-
-    .product-card:nth-child(3) {
-      transition-delay: 0.2s;
-    }
-
-    .product-card:nth-child(4) {
-      transition-delay: 0.3s;
-    }
-
-    @media (max-width: 768px) {
-      .product-card {
-        grid-template-columns: 1fr;
-        gap: 32px;
-        padding: 48px 0;
-      }
-    }
-
-    /* App phone frame */
-    .app-frame {
+    .product-visual {
       position: relative;
-      width: 240px;
-    }
-
-    .app-frame-inner {
-      position: relative;
-      border-radius: 36px;
+      aspect-ratio: 1 / 1;
+      width: 100%;
+      background: var(--bg);
+      border: 2px solid transparent;
+      border-radius: 18px;
       overflow: hidden;
-      background: #111;
-      box-shadow:
-        0 0 0 1px rgba(0,0,0,0.08),
-        0 24px 64px rgba(0,0,0,0.18),
-        0 4px 16px rgba(0,0,0,0.1);
-      transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+      transition: border-color 0.3s, transform 0.4s var(--ease-out);
     }
+    @media (max-width: 900px) { .product-visual { max-width: 380px; margin: 0 auto; } }
+    .product-visual:hover { border-color: var(--ink); transform: translateY(-4px); }
+    @media (hover: none) { .product-visual:hover { transform: none; } }
 
-    .app-frame-inner::before {
-      content: '';
-      display: block;
-      padding-top: 208%;
-    }
-
-    .app-frame-inner img {
+    .product-doodle,
+    .product-real {
       position: absolute;
       inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.4s, transform 0.45s var(--ease-soft);
+    }
+    .product-doodle { opacity: 1; background: #F5EFE6; }
+    .product-doodle img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: top center;
+      object-position: center;
       display: block;
+      transition: transform 0.6s var(--ease-soft);
     }
+    .product-visual:hover .product-doodle img { transform: scale(1.04); }
+    @media (hover: none) { .product-visual:hover .product-doodle img { transform: none; } }
 
-    .app-frame-inner:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow:
-        0 0 0 1px rgba(0,0,0,0.12),
-        0 36px 80px rgba(0,0,0,0.22),
-        0 8px 24px rgba(0,0,0,0.12);
+    .product-real {
+      background: var(--card-color);
+      opacity: 0;
+      transform: translateY(8px);
+      padding: 24px;
     }
-
-    /* Status pill */
-    .status-pill {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 10px;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(8px);
-      border-radius: 100px;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: #fff;
-      letter-spacing: 0.06em;
-      z-index: 2;
-    }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #4ADE80;
-      box-shadow: 0 0 6px #4ADE80;
-      animation: blink 2s ease-in-out infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    /* Product info */
-    .product-meta {
-      padding-top: 8px;
-    }
-
-    .product-index {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      color: var(--ink-3);
-      margin-bottom: 16px;
-    }
-
-    .product-name {
-      font-family: var(--font-serif);
-      font-size: clamp(24px, 3.5vw, 36px);
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
-
-    .product-subtitle {
-      font-family: var(--font-serif);
-      font-size: 16px;
-      color: var(--ink-3);
-      font-style: italic;
-      margin-bottom: 24px;
-    }
-
-    .product-desc {
-      font-size: 16px;
-      color: var(--ink-2);
-      line-height: 1.85;
-      margin-bottom: 32px;
-      max-width: 480px;
-    }
-
-    .product-value-prop {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 36px;
-    }
-
-    .value-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 14px;
-      color: var(--ink-2);
-      line-height: 1.6;
-    }
-
-    .value-item::before {
+    @media (max-width: 480px) { .product-real { padding: 18px; } }
+    .product-real::after {
       content: '';
-      flex-shrink: 0;
-      width: 18px;
-      height: 18px;
-      margin-top: 2px;
-      background: var(--sage-light);
-      border-radius: 50%;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237A9178' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
-      background-size: 10px;
-      background-repeat: no-repeat;
-      background-position: center;
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.04);
+      border-radius: 18px;
+      pointer-events: none;
+    }
+    .product-real .screenshot {
+      width: 52%;
+      max-width: 220px;
+      aspect-ratio: 9 / 19;
+      border-radius: 20px;
+      object-fit: cover;
+      object-position: top;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.08);
+      transform: translateY(10px);
+      transition: transform 0.55s var(--ease-soft);
+    }
+    @media (max-width: 480px) {
+      .product-real .screenshot { width: 58%; max-width: 180px; }
+    }
+    .product-visual:hover .product-real .screenshot { transform: translateY(-6px); }
+    .product-visual:hover .product-doodle { opacity: 0; transform: translateY(-5px); }
+    .product-visual:hover .product-real    { opacity: 1; transform: none; }
+    @media (hover: none) {
+      .product-visual:hover .product-doodle { opacity: 1; transform: none; }
+      .product-visual:hover .product-real    { opacity: 0; transform: translateY(8px); }
     }
 
+    .product-info { padding: 20px 4px 0; }
+    .product-topline { display: flex; align-items: center; gap: 12px; min-height: 38px; }
+    .product-icon {
+      width: 38px; height: 38px;
+      border-radius: 9px;
+      background: var(--card-color);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.06);
+      flex-shrink: 0;
+    }
+    .product-icon svg { width: 22px; height: 22px; color: #fff; }
+    .product-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(22px, 3.6vw, 30px);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      color: var(--ink);
+      margin: 0;
+    }
+    .product-tag {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--card-color);
+      margin: 12px 0 6px;
+      letter-spacing: 0.02em;
+    }
+    body.lang-zh .product-tag { letter-spacing: 0; }
+    .product-desc {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--ink-2);
+      margin: 0;
+      max-width: 440px;
+    }
     .product-link {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 14px;
-      color: var(--accent);
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--ink-2);
       border-bottom: 1px solid transparent;
-      padding-bottom: 2px;
+      padding: 4px 0;
+      min-height: 36px;
       transition: all 0.25s var(--ease-out);
     }
+    .product-link:hover { gap: 12px; color: var(--accent); border-bottom-color: var(--accent); }
+    @media (hover: none) { .product-link:hover { gap: 8px; } }
 
-    .product-link:hover {
-      gap: 14px;
-      border-bottom-color: var(--accent);
-    }
-
-    .product-link svg {
-      width: 16px;
-      height: 16px;
-      transition: transform 0.25s var(--ease-out);
-    }
-
-    .product-link:hover svg {
-      transform: translateX(3px);
-    }
-
-    /* ============================================
+    /* ============================================================
        JOURNEY
-       ============================================ */
-    .journey-section {
-      padding: 100px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .journey-header {
-      margin-bottom: 72px;
-    }
-
-    .journey-header h2 {
-      font-size: clamp(28px, 5vw, 44px);
-      color: var(--ink);
-    }
-
-    .journey-header p {
-      margin-top: 12px;
-      font-size: 15px;
-      color: var(--ink-2);
-    }
+       ============================================================ */
+    .journey { padding: 96px 0; border-top: 1px solid var(--border); }
+    @media (max-width: 768px) { .journey { padding: 72px 0; } }
+    .journey-head { text-align: center; margin-bottom: 64px; }
+    @media (max-width: 768px) { .journey-head { margin-bottom: 40px; } }
+    .journey-head h2 { margin-bottom: 12px; }
+    .journey-head p { font-size: 15px; color: var(--ink-2); letter-spacing: 0.04em; }
+    body.lang-zh .journey-head p { letter-spacing: 0; }
 
     .journey-steps {
       display: grid;
@@ -564,85 +665,55 @@
       gap: 0;
       position: relative;
     }
-
     .journey-steps::before {
       content: '';
       position: absolute;
       top: 22px;
-      left: 10%;
-      right: 10%;
+      left: 10%; right: 10%;
       height: 1px;
       background: var(--border);
     }
-
-    @media (max-width: 768px) {
-      .journey-steps {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
+    @media (max-width: 900px) {
+      .journey-steps { grid-template-columns: repeat(2, 1fr); gap: 36px 24px; }
       .journey-steps::before { display: none; }
+    }
+    @media (max-width: 480px) {
+      .journey-steps { grid-template-columns: 1fr; gap: 28px; }
     }
 
     .journey-step {
       position: relative;
-      padding: 0 16px;
+      padding: 0 12px;
       text-align: center;
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
     }
-
     .journey-step.visible { opacity: 1; transform: translateY(0); }
-    .journey-step:nth-child(2) { transition-delay: 0.1s; }
-    .journey-step:nth-child(3) { transition-delay: 0.2s; }
-    .journey-step:nth-child(4) { transition-delay: 0.3s; }
-    .journey-step:nth-child(5) { transition-delay: 0.4s; }
+    .journey-step:nth-child(2) { transition-delay: 0.08s; }
+    .journey-step:nth-child(3) { transition-delay: 0.16s; }
+    .journey-step:nth-child(4) { transition-delay: 0.24s; }
+    .journey-step:nth-child(5) { transition-delay: 0.32s; }
 
-    @media (max-width: 768px) {
-      .journey-step {
-        text-align: left;
-        padding: 0;
-        display: flex;
-        gap: 20px;
-        align-items: flex-start;
-      }
+    @media (max-width: 900px) {
+      .journey-step { text-align: left; padding: 0; display: flex; gap: 16px; align-items: flex-start; }
     }
 
     .step-node {
-      width: 44px;
-      height: 44px;
+      width: 44px; height: 44px;
       border-radius: 50%;
       background: var(--bg);
       border: 2px solid var(--border);
-      margin: 0 auto 20px;
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin: 0 auto 18px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 1;
       transition: all 0.3s var(--ease-out);
+      flex-shrink: 0;
     }
-
-    .step-node-inner {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--border);
-      transition: all 0.3s var(--ease-out);
-    }
-
-    .journey-step:hover .step-node {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 4px rgba(184, 92, 56, 0.1);
-    }
-
-    .journey-step:hover .step-node-inner {
-      background: var(--accent);
-    }
-
-    @media (max-width: 768px) {
-      .step-node { flex-shrink: 0; margin: 0; }
-    }
+    .step-node-inner { width: 12px; height: 12px; border-radius: 50%; background: var(--border); transition: all 0.3s var(--ease-out); }
+    .journey-step:hover .step-node { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(184,92,56,0.1); }
+    .journey-step:hover .step-node-inner { background: var(--accent); }
+    @media (max-width: 900px) { .step-node { margin: 0; } }
 
     .step-label {
       font-family: var(--font-mono);
@@ -650,505 +721,493 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--ink-3);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
-
+    body.lang-zh .step-label {
+      font-family: var(--font-cn);
+      letter-spacing: 0.18em;
+      font-weight: 600;
+      text-transform: none;
+      font-size: 12px;
+    }
     .step-title {
       font-family: var(--font-serif);
       font-size: 18px;
       color: var(--ink);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
-
-    .step-desc {
-      font-size: 13px;
-      color: var(--ink-2);
-      line-height: 1.65;
+    body.lang-zh .step-title {
+      font-family: var(--font-cn);
+      font-weight: 700;
+      letter-spacing: 0;
     }
+    .step-desc  { font-size: 13px; color: var(--ink-2); line-height: 1.65; }
 
-    @media (max-width: 768px) {
-      .step-title { font-size: 16px; }
-    }
-
-    /* ============================================
+    /* ============================================================
        SKILLS
-       ============================================ */
-    .skills-section {
-      padding: 100px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .skills-header {
-      margin-bottom: 60px;
-    }
-
-    .skills-header h2 {
-      font-size: clamp(28px, 5vw, 44px);
-      color: var(--ink);
-    }
-
-    .skills-header p {
-      margin-top: 12px;
-      font-size: 15px;
-      color: var(--ink-2);
-    }
+       ============================================================ */
+    .skills { padding: 96px 0; border-top: 1px solid var(--border); background: var(--bg-alt); }
+    @media (max-width: 768px) { .skills { padding: 72px 0; } }
+    .skills-head { text-align: center; margin-bottom: 56px; }
+    @media (max-width: 768px) { .skills-head { margin-bottom: 40px; } }
+    .skills-head h2 { margin-bottom: 12px; }
+    .skills-head p { font-size: 15px; color: var(--ink-2); letter-spacing: 0.04em; }
+    body.lang-zh .skills-head p { letter-spacing: 0; }
 
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 40px 48px;
+      gap: 36px 48px;
+      max-width: 920px;
+      margin: 0 auto;
     }
-
-    @media (max-width: 768px) {
-      .skills-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-    }
-
-    @media (max-width: 480px) {
-      .skills-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 768px) { .skills-grid { grid-template-columns: 1fr 1fr; gap: 28px 20px; } }
+    @media (max-width: 420px) { .skills-grid { grid-template-columns: 1fr; gap: 24px; } }
 
     .skill-group h3 {
       font-family: var(--font-sans);
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
+      font-weight: 700;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--ink-3);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
-
-    .skill-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    body.lang-zh .skill-group h3 {
+      font-family: var(--font-cn);
+      letter-spacing: 0.16em;
+      font-weight: 600;
+      text-transform: none;
+      font-size: 13px;
     }
-
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
     .skill-pill {
-      padding: 6px 14px;
-      background: var(--bg-alt);
+      padding: 7px 14px;
+      background: var(--bg);
       border: 1px solid var(--border-soft);
       border-radius: 100px;
       font-size: 13px;
       color: var(--ink-2);
       transition: all 0.25s var(--ease-out);
-      cursor: default;
     }
-
-    .skill-pill:hover {
-      background: var(--sage-light);
-      border-color: var(--sage);
-      color: var(--sage);
+    @media (hover: hover) {
+      .skill-pill:hover { background: var(--sage-light); border-color: var(--sage); color: var(--sage); }
     }
+    body.lang-zh .skill-pill { font-family: var(--font-cn); }
 
-    /* ============================================
-       CTA
-       ============================================ */
-    .cta-section {
-      padding: 120px 0;
+    /* ============================================================
+       CONTACT
+       ============================================================ */
+    .contact {
+      padding: 96px 24px 110px;
       text-align: center;
     }
-
-    .cta-section h2 {
-      font-size: clamp(32px, 5vw, 52px);
-      color: var(--ink);
-      margin-bottom: 20px;
-    }
-
-    .cta-section p {
-      font-size: 16px;
-      color: var(--ink-2);
-      max-width: 440px;
-      margin: 0 auto 48px;
-      line-height: 1.75;
-    }
-
-    .cta-buttons {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .cta-btn {
+    @media (max-width: 768px) { .contact { padding: 72px 20px 88px; } }
+    .contact h2 { margin-bottom: 28px; }
+    .contact-email {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 14px 32px;
-      border-radius: 100px;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.3s var(--ease-out);
-      cursor: pointer;
-    }
-
-    .cta-btn.primary {
-      background: var(--ink);
-      color: var(--bg);
-      border: 1px solid var(--ink);
-    }
-
-    .cta-btn.primary:hover {
-      background: var(--accent);
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .cta-btn.secondary {
-      background: transparent;
+      gap: 20px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(18px, 3.2vw, 38px);
+      letter-spacing: -1px;
       color: var(--ink);
-      border: 1px solid var(--border);
+      border-bottom: 1.5px solid var(--ink);
+      padding: 8px 4px 12px;
+      word-break: break-all;
+      transition: all 0.3s var(--ease-out);
+      max-width: 100%;
+    }
+    @media (max-width: 480px) {
+      .contact-email { gap: 14px; }
+    }
+    .contact-email:hover { color: var(--accent); border-bottom-color: var(--accent); gap: 28px; }
+    @media (hover: none) { .contact-email:hover { gap: 20px; } }
+    .contact-email .arrow {
+      font-family: var(--font-sans);
+      font-size: 32px;
+      display: inline-block;
+      transition: transform 0.3s var(--ease-out);
+      flex: none;
+    }
+    @media (max-width: 480px) { .contact-email .arrow { font-size: 26px; } }
+    .contact-email:hover .arrow { transform: translate(4px, -4px); }
+    body.lang-zh .contact-email {
+      font-family: var(--font-cn);
+      font-weight: 700;
+      letter-spacing: 0;
     }
 
-    .cta-btn.secondary:hover {
-      border-color: var(--ink);
-      transform: translateY(-2px);
-    }
-
-    /* ============================================
+    /* ============================================================
        FOOTER
-       ============================================ */
+       ============================================================ */
     footer {
       border-top: 1px solid var(--border);
-      padding: 40px 0;
-    }
-
-    footer .container {
+      padding: 24px 5%;
+      padding-bottom: max(24px, env(safe-area-inset-bottom));
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
       flex-wrap: wrap;
-    }
-
-    footer p {
-      font-family: var(--font-mono);
+      gap: 12px 16px;
+      max-width: 1440px;
+      margin: 0 auto;
       font-size: 11px;
       color: var(--ink-3);
-      letter-spacing: 0.06em;
     }
-
-    .footer-links {
-      display: flex;
-      gap: 24px;
+    .footer-brand {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 14px;
+      color: var(--ink);
     }
-
-    .footer-links a {
-      font-size: 13px;
-      color: var(--ink-3);
-      transition: color 0.2s;
-    }
-
+    body.lang-zh .footer-brand { font-family: var(--font-cn); font-weight: 600; }
+    .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .footer-links a { transition: color 0.2s; min-height: 32px; display: inline-flex; align-items: center; }
     .footer-links a:hover { color: var(--accent); }
 
-    /* ============================================
+    /* ============================================================
        ANIMATIONS
-       ============================================ */
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
+       ============================================================ */
+    @keyframes valleyDrift {
+      0%, to { transform: translateY(0); }
+      50%     { transform: translateY(-6px); }
+    }
+    @keyframes valleyJump {
+      0%, to { transform: translateY(0) scale(1); }
+      20%    { transform: translateY(3px) scale(1.04, 0.96); }
+      50%    { transform: translateY(-22px) scale(1.02); }
+      80%    { transform: translateY(0) scale(1.06, 0.94); }
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
-    /* Intersection observer reveal */
     .reveal {
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
     }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    /* Disable valley drift on small screens (saves battery, less distracting) */
+    @media (max-width: 480px) {
+      .valley-bg { animation: none; }
     }
 
-    /* ============================================
-       RESPONSIVE TWEAKS
-       ============================================ */
-    @media (max-width: 480px) {
-      .hero { padding: 100px 0 80px; }
-      .hero-desc { font-size: 15px; }
-      .app-frame { width: 180px; }
-      .cta-buttons { flex-direction: column; align-items: center; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Progress Bar -->
-  <div class="progress-bar" id="progressBar"></div>
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header class="site-header">
+    <a class="brand" href="#" data-i18n="brand">产品工程师</a>
 
-  <!-- Navigation -->
-  <nav class="site-nav">
-    <div class="container">
-      <span class="nav-logo">产品工程师</span>
-      <ul class="nav-links">
-        <li><a href="#about">关于</a></li>
-        <li><a href="#products">产品</a></li>
-        <li><a href="#journey">轨迹</a></li>
-        <li><a href="#skills">能力</a></li>
-        <li><a href="mailto:peer2peer.wang@gmail.com">联系</a></li>
-      </ul>
+    <nav class="site-nav" aria-label="主导航">
+      <a href="#about" data-i18n="nav-about">关于</a>
+      <a href="#products" data-i18n="nav-products">作品</a>
+      <a href="#journey" data-i18n="nav-journey">轨迹</a>
+      <a href="#skills" data-i18n="nav-skills">能力</a>
+      <a href="#contact" data-i18n="nav-contact">联系</a>
+    </nav>
+
+    <div class="header-right">
+      <!-- Language picker (desktop) -->
+      <div class="lang-picker">
+        <button class="lang-trigger" id="lang-trigger" type="button"
+                aria-label="选择语言" aria-haspopup="menu" aria-expanded="false" aria-controls="lang-menu">
+          <svg class="lang-globe" viewBox="0 0 20 20" aria-hidden="true">
+            <circle cx="10" cy="10" r="7.5"/>
+            <ellipse cx="10" cy="10" rx="3.3" ry="7.5"/>
+            <path d="M2.5 10h15"/>
+          </svg>
+          <span id="lang-current">简体中文</span>
+          <svg class="lang-chevron" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="m4 6 4 4 4-4"/>
+          </svg>
+        </button>
+        <div id="lang-menu" class="lang-menu" role="menu" aria-labelledby="lang-trigger" hidden>
+          <button type="button" role="menuitemradio" aria-checked="true" data-locale="zh" tabindex="-1">
+            <span data-i18n="lang-zh">简体中文</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="m3 8 3 3 7-7"/>
+            </svg>
+          </button>
+          <button type="button" role="menuitemradio" aria-checked="false" data-locale="en" tabindex="-1">
+            <span data-i18n="lang-en">English</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="m3 8 3 3 7-7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Hamburger (mobile only) -->
+      <button class="nav-toggle" id="nav-toggle" type="button"
+              aria-label="打开菜单" aria-expanded="false" aria-controls="nav-drawer">
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18"/>
+        </svg>
+      </button>
     </div>
-  </nav>
+  </header>
 
-  <!-- ==================== HERO ==================== -->
+  <!-- Mobile drawer -->
+  <div class="nav-drawer" id="nav-drawer" data-open="false" aria-hidden="true">
+    <nav class="nav-drawer-links" aria-label="移动导航">
+      <a href="#about"    data-i18n="nav-about"    data-nav-link>关于</a>
+      <a href="#products" data-i18n="nav-products" data-nav-link>作品</a>
+      <a href="#journey"  data-i18n="nav-journey"  data-nav-link>轨迹</a>
+      <a href="#skills"   data-i18n="nav-skills"   data-nav-link>能力</a>
+      <a href="#contact"  data-i18n="nav-contact"  data-nav-link>联系</a>
+    </nav>
+    <div class="nav-drawer-foot">
+      <button type="button" class="lang-trigger" data-locale-toggle="zh" aria-pressed="false">
+        <span data-i18n="lang-zh">简体中文</span>
+      </button>
+      <button type="button" class="lang-trigger" data-locale-toggle="en" aria-pressed="false">
+        <span data-i18n="lang-en">English</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
   <section class="hero" id="hero">
-    <div class="container">
-      <p class="hero-eyebrow">产品工程师 · AI Native</p>
-      <h1 class="hero-name">产品工程师</h1>
-      <p class="hero-title">用 AI 创造有温度的数字体验</p>
-      <div class="hero-divider"></div>
-      <p class="hero-desc">
-        从代码到产品，探索技术与人文的交汇点。<br>
-        四个独立 App 上线—<br>
-        相信好的产品来自对细节的极致追求。
-      </p>
-      <div class="hero-tags">
-        <span class="hero-tag">技术出身</span>
-        <span class="hero-tag">产品思维</span>
-        <span class="hero-tag">AI Native</span>
-        <span class="hero-tag">体验驱动</span>
-      </div>
+    <div class="hero-copy">
+      <p class="hero-eyebrow" data-i18n="hero-eyebrow">产品工程师 · 独立开发者</p>
+      <h1 class="hero-title" data-i18n-html="hero-title">用 AI 创造 <em>有温度的</em><br>数字体验。</h1>
+      <p class="hero-sub" data-i18n-html="hero-sub">四款独立 App · 已上线 · 自主设计开发<br>相信好的产品，来自对日常的重新提问。</p>
     </div>
-    <div class="scroll-hint">
-      <span>探索更多</span>
-      <div class="scroll-line"></div>
+
+    <div class="valley" id="valley" role="img" aria-label="Personal valley" tabindex="0">
+      <img class="valley-bg" src="/resume/bg.jpeg" alt="" width="1100" height="627" />
     </div>
   </section>
 
-  <!-- ==================== ABOUT ==================== -->
-  <section class="about-section" id="about">
+  <!-- ============================================================
+       ABOUT
+       ============================================================ -->
+  <section class="about" id="about">
     <div class="container">
-      <p class="section-label">About</p>
-      <p class="about-intro">
-        软件工程背景，扎实的工程能力底色。对「为什么做」比「怎么做」更感兴趣，
-        正在用 AI 工具探索用户体验的边界。
-      </p>
+      <div class="about-head reveal">
+        <h2 class="outlined" data-i18n-html="about-h2">ABOUT<em>— who</em></h2>
+        <p class="about-manifesto" data-i18n-html="about-manifesto">
+          软件工程背景，扎实的工程能力底色。<br>对「为什么做」比「怎么做」更感兴趣，<br>正在用 AI 工具探索用户体验的边界。
+        </p>
+      </div>
+
       <div class="about-grid">
-        <div class="about-item">
-          <h3>正在做什么</h3>
-          <p>独立开发四款 iOS 应用，探索 AI 时代工具的可能性——从感官创作到语音记录，从追问能力训练到个人知识沉淀。</p>
+        <div class="about-item reveal">
+          <h3 data-i18n="about-1-h">正在做什么</h3>
+          <p data-i18n="about-1-p">独立开发四款 iOS 应用，探索 AI 时代工具的可能性——从感官创作到语音记录，从追问能力训练到个人知识沉淀。</p>
         </div>
-        <div class="about-item">
-          <h3>相信什么</h3>
-          <p>产品是价值观的载体。一个工具的价值，不在于它有多少功能，而在于它能否帮助人成为更好的自己。</p>
+        <div class="about-item reveal">
+          <h3 data-i18n="about-2-h">相信什么</h3>
+          <p data-i18n="about-2-p">产品是价值观的载体。一个工具的价值，不在于它有多少功能，而在于它能否帮助人成为更好的自己。</p>
         </div>
-        <div class="about-item">
-          <h3>擅长什么</h3>
-          <p>Flutter · iOS · Android 跨端开发 · React · Python · AI 产品设计 · 用户体验研究 · 数据分析</p>
+        <div class="about-item reveal">
+          <h3 data-i18n="about-3-h">擅长什么</h3>
+          <p data-i18n="about-3-p">Flutter · iOS · Android 跨端开发 · React · Python · AI 产品设计 · 用户体验研究 · 数据分析</p>
         </div>
-        <div class="about-item">
-          <h3>联系方式</h3>
-          <p><a href="mailto:peer2peer.wang@gmail.com" style="color: var(--accent);">peer2peer.wang@gmail.com</a><br>GitHub: <a href="https://github.com/Cosmopolition" target="_blank" style="color: var(--accent);">@Cosmopolition</a></p>
+        <div class="about-item reveal">
+          <h3 data-i18n="about-4-h">联系方式</h3>
+          <p>
+            <a href="mailto:peer2peer.wang@gmail.com" class="about-link">peer2peer.wang@gmail.com</a><br>
+            GitHub: <a href="https://github.com/Cosmopolition" target="_blank" rel="noopener" class="about-link">@Cosmopolition</a>
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== PRODUCTS ==================== -->
-  <section class="products-section" id="products">
+  <!-- ============================================================
+       PRODUCTS
+       ============================================================ -->
+  <section class="products" id="products">
     <div class="container">
-      <div class="products-header reveal">
-        <p class="section-label">Products</p>
-        <h2>正在构建的产品</h2>
-        <p>四个独立 App，已上线，全部自主设计开发</p>
+      <div class="products-head reveal">
+        <h2 class="outlined" data-i18n-html="products-h2">PRODUCTS<em>— works</em></h2>
+        <p data-i18n="products-sub">四款独立 App · 已上线 · 自主设计开发</p>
       </div>
 
-      <!-- 产品 1: 感刻 -->
-      <div class="product-card reveal">
-        <div class="app-frame">
-          <div class="app-frame-inner">
-            <img src="/resume/app_screen_img/感刻.png" alt="感刻 App 截图" />
-            <div class="status-pill">
-              <div class="status-dot"></div>
-              已上线
-            </div>
-          </div>
-        </div>
-        <div class="product-meta">
-          <p class="product-index">01</p>
-          <h3 class="product-name">AIVO Awaken · 感刻</h3>
-          <p class="product-subtitle">感官创作 · 看见自己</p>
-          <p class="product-desc">
-            在信息过载的时代，帮助用户重新连接身体感知，创造一个「慢下来」的空间。
-          </p>
-          <div class="product-value-prop">
-            <div class="value-item">专注于当下，让创作回归身体</div>
-            <div class="value-item">碎片记录，汇聚成可回顾的生命档案</div>
-          </div>
-          <a href="https://apps.apple.com/cn/app/%E6%84%9F%E5%88%BB-%E6%84%9F%E5%AE%98%E5%88%9B%E4%BD%9C-%E7%9C%8B%E8%A7%81%E8%87%AA%E5%B7%B1/id6756660625" target="_blank" class="product-link">
-            在 App Store 体验
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-        </div>
-      </div>
+      <div class="product-grid">
 
-      <!-- 产品 2: 语生 -->
-      <div class="product-card reveal">
-        <div class="app-frame">
-          <div class="app-frame-inner">
-            <img src="/resume/app_screen_img/语生.png" alt="语生 App 截图" />
-            <div class="status-pill">
-              <div class="status-dot"></div>
-              已上线
+        <a class="product reveal" href="https://apps.apple.com/cn/app/id6756660625" target="_blank" rel="noopener" style="--card-color: var(--app-1);">
+          <div class="product-visual">
+            <div class="product-doodle">
+              <img src="/resume/images/awaken.jpeg" alt="" loading="lazy" width="600" height="600" />
+            </div>
+            <div class="product-real">
+              <img class="screenshot" src="/resume/app_screen_img/%E6%84%9F%E5%88%BB.png" alt="" loading="lazy" width="540" height="1140" />
             </div>
           </div>
-        </div>
-        <div class="product-meta">
-          <p class="product-index">02</p>
-          <h3 class="product-name">语生 Amurmur</h3>
-          <p class="product-subtitle">语音记录 · 个人知识库</p>
-          <p class="product-desc">
-            帮助用户在混乱中找到意义的语音记录工具，通过 AI 将碎片化的想法转化为可理解、可回顾、可执行的个人知识库。
-          </p>
-          <div class="product-value-prop">
-            <div class="value-item">记录即整理 — 说完就分类，不需要二次整理</div>
-            <div class="value-item">情感被看见 — AI 理解你的情绪，给予恰当的共鸣</div>
-            <div class="value-item">想法变行动 — 自动提取行动项，推动执行闭环</div>
+          <div class="product-info">
+            <div class="product-topline">
+              <span class="product-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M12 3v18M5 8c0-2 2-4 4-4M19 8c0-2-2-4-4-4"/>
+                </svg>
+              </span>
+              <h3 class="product-name" data-i18n="p1-name">感刻 AIVO Awaken</h3>
+            </div>
+            <p class="product-tag" data-i18n="p1-tag">感官创作 · 看见自己</p>
+            <p class="product-desc" data-i18n="p1-desc">在信息过载的时代，帮助用户重新连接身体感知，创造一个「慢下来」的空间。</p>
+            <span class="product-link" data-i18n="p1-link">在 App Store 体验 →</span>
           </div>
-          <a href="https://apps.apple.com/cn/app/%E8%AF%AD%E7%94%9F-ai-%E8%AF%AD%E9%9F%B3%E6%97%A5%E8%AE%B0/id6759279951" target="_blank" class="product-link">
-            在 App Store 体验
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-        </div>
-      </div>
+        </a>
 
-      <!-- 产品 3: 为啥 -->
-      <div class="product-card reveal">
-        <div class="app-frame">
-          <div class="app-frame-inner">
-            <img src="/resume/app_screen_img/为啥.webp" alt="为啥 App 截图" />
-            <div class="status-pill">
-              <div class="status-dot"></div>
-              已上线
+        <a class="product reveal" href="https://apps.apple.com/cn/app/id6759279951" target="_blank" rel="noopener" style="--card-color: var(--app-2);">
+          <div class="product-visual">
+            <div class="product-doodle">
+              <img src="/resume/images/amurmur.jpeg" alt="" loading="lazy" width="600" height="600" />
+            </div>
+            <div class="product-real">
+              <img class="screenshot" src="/resume/app_screen_img/%E8%AF%AD%E7%94%9F.png" alt="" loading="lazy" width="540" height="1140" />
             </div>
           </div>
-        </div>
-        <div class="product-meta">
-          <p class="product-index">03</p>
-          <h3 class="product-name">为啥</h3>
-          <p class="product-subtitle">深度思考 · 找回提问能力</p>
-          <p class="product-desc">
-            你 4 岁的时候，问题多到大人招架不住。现在呢？不是你失去了好奇心，是你被训练成了「给答案的人」。「为啥」帮你找回那个一直追问「为什么」的自己。
-          </p>
-          <div class="product-value-prop">
-            <div class="value-item">每天自由记录问题，用四种场景训练打破惯性</div>
-            <div class="value-item">AI 以七种视角追问你的问题：苏格拉底、孩子、批判者……</div>
-            <div class="value-item">所有问题完全本地存储，不上传、不联网</div>
+          <div class="product-info">
+            <div class="product-topline">
+              <span class="product-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <rect x="9" y="3" width="6" height="12" rx="3"/>
+                  <path d="M5 11a7 7 0 0 0 14 0"/>
+                </svg>
+              </span>
+              <h3 class="product-name" data-i18n="p2-name">语生 Amurmur</h3>
+            </div>
+            <p class="product-tag" data-i18n="p2-tag">语音记录 · 个人知识库</p>
+            <p class="product-desc" data-i18n="p2-desc">帮助用户在混乱中找到意义的语音记录工具，AI 将碎片化的想法转化为可理解、可回顾、可执行的个人知识库。</p>
+            <span class="product-link" data-i18n="p2-link">在 App Store 体验 →</span>
           </div>
-          <a href="https://apps.apple.com/cn/app/%E4%B8%BA%E5%95%A5/id6767553566" target="_blank" class="product-link">
-            在 App Store 体验
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-        </div>
-      </div>
+        </a>
 
-      <!-- 产品 4: 梦影 -->
-      <div class="product-card reveal">
-        <div class="app-frame">
-          <div class="app-frame-inner">
-            <img src="/resume/app_screen_img/dreamur.png" alt="梦影 App 截图" />
-            <div class="status-pill">
-              <div class="status-dot"></div>
-              已上线
+        <a class="product reveal" href="https://apps.apple.com/cn/app/id6767553566" target="_blank" rel="noopener" style="--card-color: var(--app-3);">
+          <div class="product-visual">
+            <div class="product-doodle">
+              <img src="/resume/images/ask.jpeg" alt="" loading="lazy" width="600" height="600" />
+            </div>
+            <div class="product-real">
+              <img class="screenshot" src="/resume/app_screen_img/%E4%B8%BA%E5%95%A5.webp" alt="" loading="lazy" width="540" height="1140" />
             </div>
           </div>
-        </div>
-        <div class="product-meta">
-          <p class="product-index">04</p>
-          <h3 class="product-name">梦影 Dreamur</h3>
-          <p class="product-subtitle">AI 解梦 · 潜意识探索</p>
-          <p class="product-desc">
-            端侧 AI 驱动的梦境记录与潜意识探索应用。语音或文字记录梦境，AI 将其转化为一幅大阿卡纳塔罗牌，集齐 22 张，绘制你的潜意识地图。
-          </p>
-          <div class="product-value-prop">
-            <div class="value-item">端侧 AI — Qwen3.5-0.8B 模型跑在本地，数据永远不出 iPhone</div>
-            <div class="value-item">荣格框架 — 用心理学原型而非占卜解读梦境</div>
-            <div class="value-item">长期追踪 — 发现潜意识的规律与曲线</div>
+          <div class="product-info">
+            <div class="product-topline">
+              <span class="product-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                  <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.7.6 1 1.5 1 2.3v1h6v-1c0-.8.3-1.7 1-2.3A7 7 0 0 0 12 2z"/>
+                </svg>
+              </span>
+              <h3 class="product-name" data-i18n="p3-name">为啥</h3>
+            </div>
+            <p class="product-tag" data-i18n="p3-tag">深度思考 · 找回提问能力</p>
+            <p class="product-desc" data-i18n="p3-desc">你 4 岁时问题多到大人招架不住。现在呢？不是你失去了好奇心，是你被训练成了「给答案的人」。「为啥」帮你找回那个一直追问「为什么」的自己。</p>
+            <span class="product-link" data-i18n="p3-link">在 App Store 体验 →</span>
           </div>
-          <a href="https://apps.apple.com/cn/app/%E6%A2%A6%E5%BD%B1-ai-%E8%A7%A3%E6%A2%A6%E6%97%A5%E8%AE%B0/id6757799220" target="_blank" class="product-link">
-            在 App Store 体验
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-        </div>
+        </a>
+
+        <a class="product reveal" href="https://apps.apple.com/cn/app/id6757799220" target="_blank" rel="noopener" style="--card-color: var(--app-4);">
+          <div class="product-visual">
+            <div class="product-doodle">
+              <img src="/resume/images/dreamurmur.jpeg" alt="" loading="lazy" width="600" height="600" />
+            </div>
+            <div class="product-real">
+              <img class="screenshot" src="/resume/app_screen_img/dreamur.png" alt="" loading="lazy" width="540" height="1140" />
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-topline">
+              <span class="product-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+                </svg>
+              </span>
+              <h3 class="product-name" data-i18n="p4-name">梦影 Dreamur</h3>
+            </div>
+            <p class="product-tag" data-i18n="p4-tag">AI 解梦 · 潜意识探索</p>
+            <p class="product-desc" data-i18n="p4-desc">端侧 AI 驱动的梦境记录与潜意识探索应用。语音或文字记录梦境，AI 转化为大阿卡纳塔罗牌，集齐 22 张，绘制你的潜意识地图。</p>
+            <span class="product-link" data-i18n="p4-link">在 App Store 体验 →</span>
+          </div>
+        </a>
+
       </div>
     </div>
   </section>
 
-  <!-- ==================== JOURNEY ==================== -->
-  <section class="journey-section" id="journey">
+  <!-- ============================================================
+       JOURNEY
+       ============================================================ -->
+  <section class="journey" id="journey">
     <div class="container">
-      <div class="journey-header reveal">
-        <p class="section-label">Journey</p>
-        <h2>成长轨迹</h2>
-        <p>从代码出发，抵达产品和人的交汇处</p>
+      <div class="journey-head reveal">
+        <h2 class="outlined" data-i18n-html="journey-h2">JOURNEY<em>— path</em></h2>
+        <p data-i18n="journey-sub">从代码出发，抵达产品和人的交汇处</p>
       </div>
       <div class="journey-steps">
         <div class="journey-step reveal">
           <div class="step-node"><div class="step-node-inner"></div></div>
-          <div>
-            <p class="step-label">起点</p>
-            <h3 class="step-title">技术深耕</h3>
-            <p class="step-desc">软件工程专业，积累扎实的工程能力底色</p>
+          <div class="step-body">
+            <p class="step-label" data-i18n="j1-label">起点</p>
+            <h3 class="step-title" data-i18n="j1-title">技术深耕</h3>
+            <p class="step-desc" data-i18n="j1-desc">软件工程专业，积累扎实的工程能力底色</p>
           </div>
         </div>
         <div class="journey-step reveal">
           <div class="step-node"><div class="step-node-inner"></div></div>
-          <div>
-            <p class="step-label">转折</p>
-            <h3 class="step-title">产品觉醒</h3>
-            <p class="step-desc">对「为什么做」比「怎么做」更感兴趣</p>
+          <div class="step-body">
+            <p class="step-label" data-i18n="j2-label">转折</p>
+            <h3 class="step-title" data-i18n="j2-title">产品觉醒</h3>
+            <p class="step-desc" data-i18n="j2-desc">对「为什么做」比「怎么做」更感兴趣</p>
           </div>
         </div>
         <div class="journey-step reveal">
           <div class="step-node"><div class="step-node-inner"></div></div>
-          <div>
-            <p class="step-label">实践</p>
-            <h3 class="step-title">从零到一</h3>
-            <p class="step-desc">把想法变成产品，打造 AIVO Awaken 感刻</p>
+          <div class="step-body">
+            <p class="step-label" data-i18n="j3-label">实践</p>
+            <h3 class="step-title" data-i18n="j3-title">从零到一</h3>
+            <p class="step-desc" data-i18n="j3-desc">把想法变成产品，打造 AIVO Awaken 感刻</p>
           </div>
         </div>
         <div class="journey-step reveal">
           <div class="step-node"><div class="step-node-inner"></div></div>
-          <div>
-            <p class="step-label">现在</p>
-            <h3 class="step-title">AI 产品</h3>
-            <p class="step-desc">语生、为啥、梦影 — 对抗信息熵增，探索内心世界</p>
+          <div class="step-body">
+            <p class="step-label" data-i18n="j4-label">现在</p>
+            <h3 class="step-title" data-i18n="j4-title">AI 产品</h3>
+            <p class="step-desc" data-i18n="j4-desc">语生、为啥、梦影 — 探索 AI 与内心</p>
           </div>
         </div>
         <div class="journey-step reveal">
           <div class="step-node"><div class="step-node-inner"></div></div>
-          <div>
-            <p class="step-label">未来</p>
-            <h3 class="step-title">持续探索</h3>
-            <p class="step-desc">把更多想法变成产品</p>
+          <div class="step-body">
+            <p class="step-label" data-i18n="j5-label">未来</p>
+            <h3 class="step-title" data-i18n="j5-title">持续探索</h3>
+            <p class="step-desc" data-i18n="j5-desc">把更多想法变成产品</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== SKILLS ==================== -->
-  <section class="skills-section" id="skills">
+  <!-- ============================================================
+       SKILLS
+       ============================================================ -->
+  <section class="skills" id="skills">
     <div class="container">
-      <div class="skills-header reveal">
-        <p class="section-label">Skills</p>
-        <h2>跨界能力</h2>
-        <p>技术、产品、AI — 三条线交织成现在的工作方式</p>
+      <div class="skills-head reveal">
+        <h2 class="outlined" data-i18n-html="skills-h2">SKILLS<em>— craft</em></h2>
+        <p data-i18n="skills-sub">技术 · 产品 · AI — 三条线交织成现在的工作方式</p>
       </div>
       <div class="skills-grid">
         <div class="skill-group reveal">
-          <h3>技术</h3>
+          <h3 data-i18n="sk1-h">技术</h3>
           <div class="skill-pills">
             <span class="skill-pill">Flutter</span>
             <span class="skill-pill">iOS / Swift</span>
@@ -1158,82 +1217,397 @@
           </div>
         </div>
         <div class="skill-group reveal">
-          <h3>产品</h3>
+          <h3 data-i18n="sk2-h">产品</h3>
           <div class="skill-pills">
-            <span class="skill-pill">产品设计</span>
-            <span class="skill-pill">用户研究</span>
-            <span class="skill-pill">体验设计</span>
-            <span class="skill-pill">数据分析</span>
-            <span class="skill-pill">项目管理</span>
+            <span class="skill-pill" data-i18n="sk2-p1">产品设计</span>
+            <span class="skill-pill" data-i18n="sk2-p2">用户研究</span>
+            <span class="skill-pill" data-i18n="sk2-p3">体验设计</span>
+            <span class="skill-pill" data-i18n="sk2-p4">数据分析</span>
+            <span class="skill-pill" data-i18n="sk2-p5">项目管理</span>
           </div>
         </div>
         <div class="skill-group reveal">
-          <h3>AI</h3>
+          <h3 data-i18n="sk3-h">AI</h3>
           <div class="skill-pills">
-            <span class="skill-pill">AI 产品设计</span>
-            <span class="skill-pill">Prompt 工程</span>
-            <span class="skill-pill">LLM 应用</span>
-            <span class="skill-pill">AI Native UX</span>
+            <span class="skill-pill" data-i18n="sk3-p1">AI 产品设计</span>
+            <span class="skill-pill" data-i18n="sk3-p2">Prompt 工程</span>
+            <span class="skill-pill" data-i18n="sk3-p3">LLM 应用</span>
+            <span class="skill-pill" data-i18n="sk3-p4">AI Native UX</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== CTA ==================== -->
-  <section class="cta-section">
+  <!-- ============================================================
+       CONTACT
+       ============================================================ -->
+  <section class="contact" id="contact">
     <div class="container">
-      <h2 class="reveal">一起创造点什么？</h2>
-      <p class="reveal">
-        如果你的团队正在做 AI / 创新产品，需要一个懂技术的产品经理，我们可以聊聊。
-      </p>
-      <div class="cta-buttons reveal">
-        <a href="mailto:peer2peer.wang@gmail.com" class="cta-btn primary">
-          联系我
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
-      </div>
+      <h2 class="outlined" data-i18n-html="contact-h2">CONTACT<em>— say hi</em></h2>
+      <a href="mailto:peer2peer.wang@gmail.com" class="contact-email">
+        <span class="email-text">peer2peer.wang@gmail.com</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
     </div>
   </section>
 
-  <!-- ==================== FOOTER ==================== -->
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
   <footer>
-    <div class="container">
-      <p>产品工程师 · AI Native</p>
-      <div class="footer-links">
-        <a href="https://github.com/Cosmopolition" target="_blank">GitHub</a>
-        <a href="mailto:peer2peer.wang@gmail.com">Email</a>
-        <a href="https://mingxinwang.com" target="_blank">博客</a>
-      </div>
+    <span class="footer-brand" data-i18n="brand">产品工程师</span>
+    <span data-i18n="footer-copy">© 2026 · 独立开发者</span>
+    <div class="footer-links">
+      <a href="https://github.com/Cosmopolition" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://mingxinwang.com" target="_blank" rel="noopener" data-i18n="footer-blog">博客</a>
+      <a href="mailto:peer2peer.wang@gmail.com">Email</a>
     </div>
   </footer>
 
   <script>
-    // ---- Scroll Progress Bar ----
-    (function() {
-      const bar = document.getElementById('progressBar');
-      function updateProgress() {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        bar.style.width = (scrollTop / docHeight * 100) + '%';
+    // ============================================================
+    // i18n — 简体中文 / English
+    // Strict language separation: no Chinese-English mixing in either mode.
+    // Brand names and universal tech terms (Flutter, AI, LLM, etc.) kept.
+    // ============================================================
+    const I18N = {
+      zh: {
+        'doc-title':       '产品工程师 · MingXin Wang',
+        'doc-desc':        '产品工程师 · 独立开发者 · 四款独立 App 已上线',
+        'og-title':        '产品工程师 · MingXin Wang',
+        'og-desc':         '产品工程师 · 独立开发者 · 四款独立 App 已上线',
+
+        'brand':           '产品工程师',
+        'lang-zh':         '简体中文',
+        'lang-en':         'English',
+        'nav-about':       '关于',
+        'nav-products':    '作品',
+        'nav-journey':     '轨迹',
+        'nav-skills':      '能力',
+        'nav-contact':     '联系',
+
+        'hero-eyebrow':    '产品工程师 · 独立开发者',
+        'hero-title':      '用 AI 创造 <em>有温度的</em><br>数字体验。',
+        'hero-sub':        '四款独立 App · 已上线 · 自主设计开发<br>相信好的产品，来自对日常的重新提问。',
+
+        'about-h2':        '关于<em>— 我</em>',
+        'about-manifesto': '软件工程背景，扎实的工程能力底色。<br>对「为什么做」比「怎么做」更感兴趣，<br>正在用 AI 工具探索用户体验的边界。',
+        'about-1-h':       '正在做什么',
+        'about-1-p':       '独立开发四款 iOS 应用，探索 AI 时代工具的可能性——从感官创作到语音记录，从追问能力训练到个人知识沉淀。',
+        'about-2-h':       '相信什么',
+        'about-2-p':       '产品是价值观的载体。一个工具的价值，不在于它有多少功能，而在于它能否帮助人成为更好的自己。',
+        'about-3-h':       '擅长什么',
+        'about-3-p':       'Flutter · iOS · Android 跨端开发 · React · Python · AI 产品设计 · 用户体验研究 · 数据分析',
+        'about-4-h':       '联系方式',
+
+        'products-h2':     '作品<em>— 独立 App</em>',
+        'products-sub':    '四款独立 App · 已上线 · 自主设计开发',
+        'p1-name':         '感刻 AIVO Awaken',
+        'p1-tag':          '感官创作 · 看见自己',
+        'p1-desc':         '在信息过载的时代，帮助用户重新连接身体感知，创造一个「慢下来」的空间。',
+        'p1-link':         '在 App Store 体验 →',
+        'p2-name':         '语生 Amurmur',
+        'p2-tag':          '语音记录 · 个人知识库',
+        'p2-desc':         '帮助用户在混乱中找到意义的语音记录工具，AI 将碎片化的想法转化为可理解、可回顾、可执行的个人知识库。',
+        'p2-link':         '在 App Store 体验 →',
+        'p3-name':         '为啥',
+        'p3-tag':          '深度思考 · 找回提问能力',
+        'p3-desc':         '你 4 岁时问题多到大人招架不住。现在呢？不是你失去了好奇心，是你被训练成了「给答案的人」。「为啥」帮你找回那个一直追问「为什么」的自己。',
+        'p3-link':         '在 App Store 体验 →',
+        'p4-name':         '梦影 Dreamur',
+        'p4-tag':          'AI 解梦 · 潜意识探索',
+        'p4-desc':         '端侧 AI 驱动的梦境记录与潜意识探索应用。语音或文字记录梦境，AI 转化为大阿卡纳塔罗牌，集齐 22 张，绘制你的潜意识地图。',
+        'p4-link':         '在 App Store 体验 →',
+
+        'journey-h2':      '轨迹<em>— 成长</em>',
+        'journey-sub':     '从代码出发，抵达产品和人的交汇处',
+        'j1-label':        '起点', 'j1-title': '技术深耕', 'j1-desc': '软件工程专业，积累扎实的工程能力底色',
+        'j2-label':        '转折', 'j2-title': '产品觉醒', 'j2-desc': '对「为什么做」比「怎么做」更感兴趣',
+        'j3-label':        '实践', 'j3-title': '从零到一', 'j3-desc': '把想法变成产品，打造 AIVO Awaken 感刻',
+        'j4-label':        '现在', 'j4-title': 'AI 产品',  'j4-desc': '语生、为啥、梦影 — 探索 AI 与内心',
+        'j5-label':        '未来', 'j5-title': '持续探索', 'j5-desc': '把更多想法变成产品',
+
+        'skills-h2':       '能力<em>— 三条线</em>',
+        'skills-sub':      '技术 · 产品 · AI — 三条线交织成现在的工作方式',
+        'sk1-h':           '技术',
+        'sk2-h':           '产品',
+        'sk2-p1':          '产品设计', 'sk2-p2': '用户研究', 'sk2-p3': '体验设计',
+        'sk2-p4':          '数据分析', 'sk2-p5': '项目管理',
+        'sk3-h':           'AI',
+        'sk3-p1':          'AI 产品设计', 'sk3-p2': 'Prompt 工程',
+        'sk3-p3':          'LLM 应用',   'sk3-p4': 'AI Native UX',
+
+        'contact-h2':      '联系<em>— 打个招呼</em>',
+        'footer-copy':     '© 2026 · 独立开发者',
+        'footer-blog':     '博客',
+      },
+
+      en: {
+        'doc-title':       'Product Engineer · MingXin Wang',
+        'doc-desc':        'Product engineer · Independent developer · Four shipped iOS apps',
+        'og-title':        'Product Engineer · MingXin Wang',
+        'og-desc':         'Product engineer · Independent developer · Four shipped iOS apps',
+
+        'brand':           'Product Engineer',
+        'lang-zh':         '简体中文',
+        'lang-en':         'English',
+        'nav-about':       'About',
+        'nav-products':    'Works',
+        'nav-journey':     'Journey',
+        'nav-skills':      'Skills',
+        'nav-contact':     'Contact',
+
+        'hero-eyebrow':    'Product Engineer · Independent',
+        'hero-title':      'Crafting <em>warm</em> digital<br>experiences with AI.',
+        'hero-sub':        'Four shipped iOS apps · Designed & built solo<br>Good products come from re-asking the everyday.',
+
+        'about-h2':        'ABOUT<em>— who</em>',
+        'about-manifesto': 'An engineer by training, with depth in the craft.<br>More interested in the <em>why</em> than the <em>how</em>.<br>Currently exploring the edge of UX with AI.',
+        'about-1-h':       'What I build',
+        'about-1-p':       'Solo-developing four iOS apps exploring what AI-native tools can be — sensory creation, voice notes, the lost art of asking why, and a personal knowledge base.',
+        'about-2-h':       'What I believe',
+        'about-2-p':       'A product carries values. Its worth isn\'t measured in features, but in whether it helps someone become a slightly better version of themselves.',
+        'about-3-h':       'What I do well',
+        'about-3-p':       'Flutter · iOS · Android cross-platform · React · Python · AI product design · UX research · Data analysis',
+        'about-4-h':       'Get in touch',
+
+        'products-h2':     'WORKS<em>— products</em>',
+        'products-sub':    'Four shipped apps · Designed & built solo',
+        'p1-name':         'AIVO Awaken',
+        'p1-tag':          'Sensory creation · See yourself',
+        'p1-desc':         'In an age of information overload, a space to slow down and reconnect with the body\'s quiet signals.',
+        'p1-link':         'Open in App Store →',
+        'p2-name':         'Amurmur',
+        'p2-tag':          'Voice notes · Personal knowledge',
+        'p2-desc':         'Voice notes that turn scattered thoughts into a searchable, actionable personal knowledge base — without manual cleanup.',
+        'p2-link':         'Open in App Store →',
+        'p3-name':         'Why',
+        'p3-tag':          'Deep thinking · Reclaim curiosity',
+        'p3-desc':         'At four, you asked why about everything. What happened? You were trained to give answers. <em>Why</em> helps you reclaim the questioner you used to be.',
+        'p3-link':         'Open in App Store →',
+        'p4-name':         'Dreamur',
+        'p4-tag':          'AI dream journal · Subconscious map',
+        'p4-desc':         'On-device AI dream journal. Speak or type a dream; the model turns it into a Major Arcana tarot card. Collect all 22 — your subconscious map takes shape.',
+        'p4-link':         'Open in App Store →',
+
+        'journey-h2':      'JOURNEY<em>— path</em>',
+        'journey-sub':     'From code, toward the meeting place of product and people.',
+        'j1-label':        'Origin',       'j1-title': 'Engineering depth', 'j1-desc': 'Started in software engineering, building the technical foundation.',
+        'j2-label':        'Turning point','j2-title': 'Product awakening', 'j2-desc': 'Got more curious about the why than the how.',
+        'j3-label':        'Practice',     'j3-title': 'From zero to one',   'j3-desc': 'Turned ideas into shipped products — starting with AIVO Awaken.',
+        'j4-label':        'Now',          'j4-title': 'AI-native products', 'j4-desc': 'Amurmur, Why, Dreamur — exploring AI and the inner world.',
+        'j5-label':        'Next',         'j5-title': 'Keep building',      'j5-desc': 'More ideas → more products.',
+
+        'skills-h2':       'SKILLS<em>— craft</em>',
+        'skills-sub':      'Tech · Product · AI — three threads woven into how I work.',
+        'sk1-h':           'Tech',
+        'sk2-h':           'Product',
+        'sk2-p1':          'Product design', 'sk2-p2': 'User research', 'sk2-p3': 'Experience design',
+        'sk2-p4':          'Data analysis',  'sk2-p5': 'Project management',
+        'sk3-h':           'AI',
+        'sk3-p1':          'AI product design', 'sk3-p2': 'Prompt engineering',
+        'sk3-p3':          'LLM applications',  'sk3-p4': 'AI-native UX',
+
+        'contact-h2':      'CONTACT<em>— say hi</em>',
+        'footer-copy':     '© 2026 · Independent Developer',
+        'footer-blog':     'Blog',
       }
-      window.addEventListener('scroll', updateProgress, { passive: true });
+    };
+
+    const LANG_LABELS = { zh: '简体中文', en: 'English' };
+
+    function setText(el, val) { el.textContent = val; }
+    function setHTML(el, val) { el.innerHTML = val; }
+    function setAttr(el, name, val) { el.setAttribute(name, val); }
+
+    function applyLang(lang) {
+      if (!I18N[lang]) lang = 'zh';
+      const dict = I18N[lang];
+
+      document.documentElement.lang = (lang === 'zh') ? 'zh-CN' : 'en';
+      document.body.classList.toggle('lang-zh', lang === 'zh');
+      document.body.classList.toggle('lang-en', lang === 'en');
+
+      // textContent
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (dict[key] !== undefined) setText(el, dict[key]);
+      });
+      // innerHTML
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.dataset.i18nHtml;
+        if (dict[key] !== undefined) setHTML(el, dict[key]);
+      });
+      // attribute (e.g. content="...", aria-label="...")
+      document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+        el.dataset.i18nAttr.split(';').forEach(pair => {
+          const [attr, key] = pair.split('|').map(s => s.trim());
+          if (!attr || !key) return;
+          if (dict[key] !== undefined) setAttr(el, attr, dict[key]);
+        });
+      });
+
+      // Picker UI
+      const cur = document.getElementById('lang-current');
+      if (cur) setText(cur, LANG_LABELS[lang]);
+      document.querySelectorAll('[data-locale]').forEach(btn => {
+        const checked = btn.dataset.locale === lang;
+        btn.setAttribute('aria-checked', checked ? 'true' : 'false');
+      });
+      // Drawer language buttons
+      document.querySelectorAll('[data-locale-toggle]').forEach(btn => {
+        btn.setAttribute('aria-pressed', btn.dataset.localeToggle === lang ? 'true' : 'false');
+      });
+
+      // Picker trigger aria-label
+      const trigger = document.getElementById('lang-trigger');
+      if (trigger) setAttr(trigger, 'aria-label', lang === 'zh' ? '选择语言' : 'Choose language');
+      const navToggle = document.getElementById('nav-toggle');
+      if (navToggle) setAttr(navToggle, 'aria-label', lang === 'zh' ? (navToggle.getAttribute('aria-expanded') === 'true' ? '关闭菜单' : '打开菜单') : (navToggle.getAttribute('aria-expanded') === 'true' ? 'Close menu' : 'Open menu'));
+
+      // Persist + URL
+      try { localStorage.setItem('lang', lang); } catch (e) {}
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        window.history.replaceState({}, '', url);
+      } catch (e) {}
+    }
+
+    // ----- Picker (desktop) -----
+    (function initLangPicker() {
+      const trigger = document.getElementById('lang-trigger');
+      const menu    = document.getElementById('lang-menu');
+      if (!trigger || !menu) return;
+
+      function openMenu() {
+        menu.hidden = false;
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+      function closeMenu() {
+        menu.hidden = true;
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+      function toggleMenu() {
+        if (menu.hidden) openMenu(); else closeMenu();
+      }
+
+      trigger.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { closeMenu(); trigger.focus(); }
+      });
+      document.addEventListener('click', (e) => {
+        if (!menu.hidden && !menu.contains(e.target) && e.target !== trigger) closeMenu();
+      });
+
+      menu.querySelectorAll('[data-locale]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          applyLang(btn.dataset.locale);
+          closeMenu();
+        });
+      });
     })();
 
-    // ---- Intersection Observer: Reveal animations ----
+    // ----- Drawer (mobile) -----
+    (function initNavDrawer() {
+      const toggle = document.getElementById('nav-toggle');
+      const drawer = document.getElementById('nav-drawer');
+      if (!toggle || !drawer) return;
+
+      function setOpen(open) {
+        drawer.dataset.open = open ? 'true' : 'false';
+        drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.classList.toggle('no-scroll', open);
+        // re-run i18n on toggle aria-label (depends on expanded state)
+        const lang = document.body.classList.contains('lang-en') ? 'en' : 'zh';
+        const label = open
+          ? (lang === 'zh' ? '关闭菜单' : 'Close menu')
+          : (lang === 'zh' ? '打开菜单' : 'Open menu');
+        toggle.setAttribute('aria-label', label);
+      }
+
+      toggle.addEventListener('click', () => {
+        setOpen(drawer.dataset.open !== 'true');
+      });
+
+      drawer.querySelectorAll('[data-nav-link]').forEach(a => {
+        a.addEventListener('click', () => setOpen(false));
+      });
+
+      drawer.querySelectorAll('[data-locale-toggle]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          applyLang(btn.dataset.localeToggle);
+          // Keep drawer open after language change so user can see the labels update.
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && drawer.dataset.open === 'true') setOpen(false);
+      });
+
+      // Close drawer on resize up to desktop
+      let lastW = window.innerWidth;
+      window.addEventListener('resize', () => {
+        const w = window.innerWidth;
+        if (lastW < 769 && w >= 769 && drawer.dataset.open === 'true') setOpen(false);
+        lastW = w;
+      }, { passive: true });
+    })();
+
+    // ----- Initial lang detection -----
+    (function initLang() {
+      let lang = 'zh';
+      try {
+        const saved = localStorage.getItem('lang');
+        if (saved && I18N[saved]) lang = saved;
+      } catch (e) {}
+      try {
+        const url = new URL(window.location.href);
+        const q = url.searchParams.get('lang');
+        if (q && I18N[q]) lang = q;
+        const h = (window.location.hash || '').replace('#', '');
+        if (h && I18N[h]) lang = h;
+      } catch (e) {}
+      applyLang(lang);
+    })();
+
+    // ============================================================
+    // Valley interactions (jump + reduced-motion aware)
+    // ============================================================
     (function() {
-      const els = document.querySelectorAll('.reveal, .journey-step, .product-card');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
+      const valley = document.getElementById('valley');
+      if (!valley) return;
+
+      function triggerJump() {
+        valley.classList.remove('jump');
+        void valley.offsetWidth;
+        valley.classList.add('jump');
+        setTimeout(() => valley.classList.remove('jump'), 800);
+      }
+      valley.addEventListener('click', triggerJump);
+      valley.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); triggerJump(); }
+      });
+    })();
+
+    // ============================================================
+    // Reveal on scroll
+    // ============================================================
+    (function() {
+      const els = document.querySelectorAll('.reveal, .journey-step');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(el => el.classList.add('visible'));
+        return;
+      }
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) e.target.classList.add('visible');
         });
       }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-      els.forEach(el => observer.observe(el));
+      els.forEach(el => obs.observe(el));
     })();
   </script>
 
