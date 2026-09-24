@@ -47,7 +47,7 @@
     {{- range $sorted }}
       {{- $qClass := printf "q-%d" (add $idx 1) -}}
       <article class="qr-issue {{ $qClass }}">
-        <a href="{{ .Permalink }}" style="display:block; color:inherit;">
+        <a href="{{ .RelPermalink }}" style="display:block; color:inherit;">
           <div class="qr-issue-head">
             <span class="qr-issue-num">No.<em>{{ .Params.issue_number }}</em></span>
             <time class="qr-issue-date">{{ .Date.Format "2006.01.02" }}</time>

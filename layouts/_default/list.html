@@ -32,7 +32,7 @@
         {{- end }}
       </div>
       <h3 class="bl-card-title">
-        <a href="{{ $page.Permalink }}">{{ $page.Title }}</a>
+        <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
       </h3>
       <p class="bl-card-excerpt">{{ $page.Summary | plainify | htmlUnescape | truncate 100 }}</p>
       <div class="bl-card-foot">

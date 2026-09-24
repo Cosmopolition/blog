@@ -1,0 +1,48 @@
+{{- /* 自定义兜底:总有 og-default.png / summary_large_image */ -}}
+
+{{- $ogImage := "" -}}
+{{- if .Params.cover.image -}}
+  {{- if (ne $.Params.cover.relative true) }}
+  {{- $ogImage = .Params.cover.image | absURL -}}
+  {{- else }}
+  {{- $ogImage = (path.Join .RelPermalink .Params.cover.image) | absURL -}}
+  {{- end }}
+{{- else }}
+  {{- with partial "_funcs/get-page-images" . }}
+    {{- with index . 0 }}
+    {{- $ogImage = .Permalink -}}
+    {{- end }}
+  {{- end }}
+  {{- if not $ogImage }}
+  {{- $ogImage = ("img/og-default.png" | absURL) }}
+  {{- end }}
+{{- end }}
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{{ $ogImage }}">
+
+{{- with or .Title site.Title site.Params.title | plainify }}
+<meta name="twitter:title" content="{{ . }}">
+{{- end }}
+
+{{- with or .Description .Summary (.Content | plainify | htmlUnescape | truncate 160) site.Params.description | plainify | htmlUnescape }}
+<meta name="twitter:description" content="{{ trim . "\n\r\t " }}">
+{{- end }}
+
+{{- $twitterSite := "" }}
+{{- with site.Params.social }}
+  {{- if reflect.IsMap . }}
+    {{- with .twitter }}
+      {{- $content := . }}
+      {{- if not (strings.HasPrefix $content "@") }}
+        {{- $content = printf "@%s" $content }}
+      {{- end }}
+      {{- $twitterSite = $content }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+{{- with $twitterSite }}
+<meta name="twitter:site" content="{{ . }}">
+<meta name="twitter:creator" content="{{ . }}">
+{{- end }}

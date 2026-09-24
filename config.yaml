@@ -1,4 +1,5 @@
 baseURL: 'https://mingxinwang.com'
+relativeURLs: true  # 内部链接输出为相对路径,本地服务也可正常跳转
 defaultContentLanguage: zh-cn
 title: 'MingXin Wang'
 theme: PaperMod

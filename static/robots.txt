@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# 防止爬虫索引搜索结果页和分页重复
+Disallow: /search/
+Disallow: /*?*
+
+Sitemap: https://mingxinwang.com/sitemap.xml

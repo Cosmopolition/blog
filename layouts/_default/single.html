@@ -65,17 +65,31 @@
 
   </article>
 
+  <!-- 评论:Giscus 用 cream paper card 包装 -->
+  {{- if site.Params.comments }}
+  <section class="bl-post-comments">
+    <header class="bl-post-comments-head">
+      <span class="comments-mark">§</span>
+      <span class="comments-title">想聊点什么?</span>
+      <span class="comments-sub">Comments · powered by Giscus &amp; GitHub</span>
+    </header>
+    <div class="bl-post-comments-body">
+      {{- partial "comments.html" . }}
+    </div>
+  </section>
+  {{- end }}
+
   <!-- 上一篇 / 下一篇 -->
   {{- if or $prev $next }}
   <nav class="bl-post-nav">
     {{- with $prev }}
-    <a class="bl-post-nav-link prev" href="{{ .Permalink }}">
+    <a class="bl-post-nav-link prev" href="{{ .RelPermalink }}">
       <span class="dir">← 上一篇</span>
       <span class="ttl">{{ .Title }}</span>
     </a>
     {{- end }}
     {{- with $next }}
-    <a class="bl-post-nav-link next" href="{{ .Permalink }}">
+    <a class="bl-post-nav-link next" href="{{ .RelPermalink }}">
       <span class="dir">下一篇 →</span>
       <span class="ttl">{{ .Title }}</span>
     </a>

@@ -58,7 +58,7 @@
       <div class="shelf-section">
 
         <div class="shelf-meta">
-          <span class="shelf-eyebrow">作品集 <em>· Atelier</em></span>
+          <span class="shelf-eyebrow">作品集</span>
           <span class="shelf-total"><em>{{ sub (len (where site.RegularPages "Section" "in" (slice "qurious" "posts"))) 0 }}</em> works</span>
         </div>
 
@@ -135,7 +135,7 @@
                 </div>
                 {{- /* 3 本横叠 = Qurious 最近 3 期 */ -}}
                 {{- range $i, $q := first 3 $qurIssues }}
-                <a href="{{ $q.Permalink }}" class="stack-book s{{ sub 4 (add $i 1) }}" data-title="Qurious · {{ $q.Params.issue_number }}"></a>
+                <a href="{{ $q.RelPermalink }}" class="stack-book s{{ sub 4 (add $i 1) }}" data-title="Qurious · {{ $q.Params.issue_number }}"></a>
                 {{- end }}
               </div>
 
@@ -232,7 +232,7 @@
             <span>{{ if $page.ReadingTime }}{{ $page.ReadingTime }} min · {{ end }}{{ $page.WordCount }} 字</span>
             <span class="read">Read →</span>
           </div>
-          <a class="note-link" href="{{ $page.Permalink }}" aria-label="阅读全文：{{ $page.Title }}"></a>
+          <a class="note-link" href="{{ $page.RelPermalink }}" aria-label="阅读全文：{{ $page.Title }}"></a>
         </article>
         {{- end }}
       </div>

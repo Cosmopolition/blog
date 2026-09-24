@@ -315,16 +315,33 @@ html[data-theme="light"] .list, html[data-theme="dark"] .list {
   color: var(--bl-ink);
 }
 .bl-post-body p { margin-bottom: 24px; }
+/* Drop cap:仅首段第一个字符。
+   对拉丁字符用 Spectral italic;对 CJK 自动 fallback 到系统中文字体(无 italic 但仍居首),
+   保持视觉张力但不破坏中文排版。*/
 .bl-post-body p:first-of-type::first-letter {
-  font-family: var(--bl-serif);
-  font-size: 4.5em;
+  font-family: var(--bl-serif), var(--bl-cn-serif), serif;
+  font-size: 3.6em;
   font-weight: 400;
   font-style: italic;
   float: left;
-  line-height: 0.85;
-  margin: 6px 10px 0 -4px;
+  line-height: 0.9;
+  margin: 6px 12px 0 -4px;
   color: var(--bl-accent);
+  font-feature-settings: 'liga' 1, 'kern' 1;
 }
+/* 如果首段不是文字而是 HTML 元素(标题/代码/列表),drop cap 不应被其下文本继承 */
+.bl-post-body h1:first-of-type + p::first-letter,
+.bl-post-body h2:first-of-type + p::first-letter,
+.bl-post-body h3:first-of-type + p::first-letter,
+.bl-post-body h4:first-of-type + p::first-letter,
+.bl-post-body blockquote:first-of-type + p::first-letter,
+.bl-post-body pre:first-of-type + p::first-letter {
+  /* 仍继承默认 drop cap,因为 ::first-letter 只对当前段落生效 */
+}
+/* 若首段是 blockquote 或 list,不应用 drop cap */
+.bl-post-body blockquote:first-of-type,
+.bl-post-body ul:first-of-type,
+.bl-post-body ol:first-of-type { clear: both; }
 .bl-post-body h2 {
   font-family: var(--bl-cn-serif);
   font-size: 26px;
@@ -362,6 +379,283 @@ html[data-theme="light"] .list, html[data-theme="dark"] .list {
   transition: opacity 0.2s;
 }
 .bl-post-body a:hover { opacity: 0.7; }
+
+/* H3 - 中章节(无 § 前缀,绿色 › 引出) */
+.bl-post-body h3 {
+  font-family: var(--bl-cn-serif);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  color: var(--bl-ink);
+  margin: 40px 0 14px;
+  padding-top: 8px;
+}
+.bl-post-body h3::before {
+  content: '›';
+  font-family: var(--bl-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--bl-accent);
+  margin-right: 10px;
+  font-size: 1.1em;
+}
+
+/* H4 - 小章节 */
+.bl-post-body h4 {
+  font-family: var(--bl-cn-serif);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--bl-ink);
+  margin: 28px 0 10px;
+}
+.bl-post-body h4::before {
+  content: '— ';
+  color: var(--bl-faded);
+  font-weight: 400;
+}
+
+/* H5 / H6 - 罕见,保持基础样式 */
+.bl-post-body h5 {
+  font-family: var(--bl-cn-serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--bl-ink-2);
+  margin: 24px 0 8px;
+}
+.bl-post-body h6 {
+  font-family: var(--bl-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bl-faded);
+  margin: 20px 0 6px;
+}
+
+/* 列表 */
+.bl-post-body ul,
+.bl-post-body ol {
+  margin: 16px 0 28px;
+  padding-left: 28px;
+  line-height: 1.95;
+}
+.bl-post-body ul { list-style: none; }
+.bl-post-body ul > li {
+  position: relative;
+  padding-left: 6px;
+  margin-bottom: 6px;
+}
+.bl-post-body ul > li::before {
+  content: '·';
+  color: var(--bl-accent);
+  font-size: 1.5em;
+  font-weight: 700;
+  position: absolute;
+  left: -18px;
+  top: -6px;
+  line-height: 1;
+}
+/* 嵌套 ul */
+.bl-post-body ul ul { margin: 8px 0 8px; }
+.bl-post-body ul ul > li::before { content: '◦'; font-size: 1.1em; }
+
+.bl-post-body ol {
+  list-style: none;
+  counter-reset: bl-ol;
+  padding-left: 36px;
+}
+.bl-post-body ol > li {
+  position: relative;
+  padding-left: 6px;
+  margin-bottom: 6px;
+  counter-increment: bl-ol;
+}
+.bl-post-body ol > li::before {
+  content: counter(bl-ol);
+  font-family: var(--bl-mono);
+  font-size: 0.82em;
+  font-weight: 600;
+  color: var(--bl-accent);
+  position: absolute;
+  left: -30px;
+  top: 2px;
+  background: var(--bg-light);
+  border: 1px solid var(--bl-accent);
+  border-radius: 2px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 表格 */
+.bl-post-body table {
+  width: 100%;
+  margin: 32px 0;
+  border-collapse: collapse;
+  font-family: var(--bl-cn-serif);
+  font-size: 15px;
+  line-height: 1.6;
+  border: 1px solid rgba(74, 62, 44, 0.18);
+  background: var(--bg-light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.bl-post-body th {
+  padding: 14px 18px;
+  text-align: left;
+  font-family: var(--bl-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bl-accent);
+  background: var(--bg-warm);
+  border-bottom: 2px solid var(--bl-accent);
+}
+.bl-post-body td {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(74, 62, 44, 0.1);
+  vertical-align: top;
+  color: var(--bl-ink-2);
+}
+.bl-post-body tr:last-child td { border-bottom: none; }
+.bl-post-body tr:nth-child(even) td { background: rgba(241, 234, 215, 0.4); }
+
+/* 水平分割线 — Renaissance 风格装饰 */
+.bl-post-body hr {
+  border: none;
+  height: auto;
+  margin: 48px auto;
+  text-align: center;
+  position: relative;
+  background: none;
+}
+.bl-post-body hr::before {
+  content: '· · ·';
+  font-family: var(--bl-serif);
+  font-size: 18px;
+  letter-spacing: 1.4em;
+  color: var(--bl-faded);
+  font-style: italic;
+}
+
+/* 代码块 */
+.bl-post-body pre {
+  position: relative;
+  margin: 28px 0;
+  padding: 22px 22px 22px;
+  background: #1c1814;
+  color: #e3d8be;
+  border-radius: 4px;
+  border: 1px solid #0a0704;
+  box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.4);
+  overflow-x: auto;
+  font-family: var(--bl-mono);
+  font-size: 14px;
+  line-height: 1.75;
+}
+.bl-post-body pre::before {
+  content: 'code';
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  font-family: var(--bl-mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: rgba(227, 216, 190, 0.35);
+  text-transform: uppercase;
+}
+.bl-post-body pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+  border-radius: 0;
+}
+/* 行内 code */
+.bl-post-body :not(pre) > code {
+  font-family: var(--bl-mono);
+  font-size: 0.88em;
+  padding: 2px 7px;
+  background: var(--bg-warm);
+  border: 1px solid rgba(74, 62, 44, 0.14);
+  color: var(--bl-ink);
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* 图片 */
+.bl-post-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 32px auto;
+  border-radius: 2px;
+  box-shadow: 0 8px 20px -10px rgba(34, 27, 20, 0.2);
+}
+.bl-post-body figure { margin: 32px 0; }
+.bl-post-body figcaption {
+  font-family: var(--bl-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-align: center;
+  color: var(--bl-faded);
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* 任务列表 (Markdown task list) */
+.bl-post-body ul.contains-task-list { padding-left: 4px; }
+.bl-post-body input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--bl-accent);
+  border-radius: 2px;
+  background: var(--bg-paper);
+  margin-right: 8px;
+  vertical-align: -3px;
+  position: relative;
+  cursor: pointer;
+}
+.bl-post-body input[type="checkbox"]:checked {
+  background: var(--bl-accent);
+}
+.bl-post-body input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: -3px;
+  left: 1px;
+  color: var(--bg-paper);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
+.bl-post-body ul.contains-task-list > li::before { display: none; }
+
+/* 键盘按键 kbd */
+.bl-post-body kbd {
+  display: inline-block;
+  padding: 2px 7px;
+  font-family: var(--bl-mono);
+  font-size: 0.85em;
+  background: var(--bg-light);
+  border: 1px solid rgba(74, 62, 44, 0.25);
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  color: var(--bl-ink);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* 引用块 (扩展样式 — blockquote 已在前面定义基础) */
+.bl-post-body blockquote p { margin-bottom: 8px; }
+.bl-post-body blockquote p:last-child { margin-bottom: 0; }
 
 /* ==========================================================
    详情页 · 头部 folio / tag chips / 文末印章 / 上下篇导航
@@ -523,6 +817,60 @@ html[data-theme="light"] .list, html[data-theme="dark"] .list {
   text-transform: uppercase;
   color: var(--bl-faded);
   margin-right: 8px;
+}
+
+/* ==========================================================
+   评论 · Giscus 用 cream paper card 包装(深度融合 Renaissance 视觉)
+   ========================================================== */
+.bl-post-comments {
+  max-width: 720px;
+  margin: 56px auto 0;
+  padding: 0 clamp(20px, 4vw, 56px);
+}
+.bl-post-comments-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 0 24px 18px;
+  border-bottom: 1px solid rgba(74, 62, 44, 0.18);
+  margin-bottom: 0;
+}
+.bl-post-comments-head .comments-mark {
+  font-family: var(--bl-serif);
+  font-size: 26px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--bl-accent);
+  line-height: 1;
+}
+.bl-post-comments-head .comments-title {
+  font-family: var(--bl-cn-serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--bl-ink);
+  letter-spacing: -0.01em;
+}
+.bl-post-comments-head .comments-sub {
+  font-family: var(--bl-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bl-faded);
+  margin-left: auto;
+}
+.bl-post-comments-body {
+  background: var(--bg-light);
+  border: 1px solid rgba(74, 62, 44, 0.18);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 24px;
+  box-shadow: 0 8px 20px -10px rgba(34, 27, 20, 0.12);
+}
+/* Giscus 容器内边距调整(原 partial 留 .giscus-container) */
+.bl-post-comments-body .giscus-container { margin: 0; padding: 0; }
+.bl-post-comments-body .giscus,
+.bl-post-comments-body .giscus-frame {
+  width: 100%;
 }
 
 /* 上一篇 / 下一篇 */

@@ -45,54 +45,25 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!-- ==========================================================
-     SEO: OG description / image · Twitter Card · Article meta
+     SEO 增强(补 PaperMod 没覆盖的)
+     - og:image 兜底 → 由 layouts/_partials/templates/opengraph.html 处理
+     - twitter:card 兜底 → 由 layouts/_partials/templates/twitter_cards.html 处理
+     - JSON-LD E-A-T 信号(无重复,无覆盖)
      ========================================================== -->
+
 {{- $desc := "" -}}
 {{- if .Description -}}
   {{- $desc = .Description -}}
 {{- else if .Summary -}}
   {{- $desc = (.Summary | plainify | htmlUnescape | truncate 160) -}}
-{{- else -}}
-  {{- $desc = (.Content | plainify | htmlUnescape | truncate 160) -}}
 {{- end -}}
 
-{{- /* OG image: frontmatter images[0] > 默认 og-default.png */ -}}
 {{- $ogImage := "" -}}
 {{- with .Params.images -}}
   {{- $ogImage = index . 0 | absURL -}}
 {{- else -}}
   {{- $ogImage = ("img/og-default.png" | absURL) -}}
 {{- end -}}
-
-<meta property="og:description" content="{{ $desc }}">
-<meta property="og:image" content="{{ $ogImage }}">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-
-<!-- Twitter Card (X / Twitter / Mastodon 等都能识别) -->
-<meta name="twitter:card" content="summary_large_image">
-{{- with site.Params.social.twitter }}
-<meta name="twitter:site" content="{{ . }}">
-<meta name="twitter:creator" content="{{ . }}">
-{{- end }}
-<meta name="twitter:title" content="{{ .Title }}">
-<meta name="twitter:description" content="{{ $desc }}">
-<meta name="twitter:image" content="{{ $ogImage }}">
-
-<!-- 文章专属(open graph article 协议) -->
-{{- if or (eq .Section "posts") (eq .Section "qurious") }}
-<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
-{{- with .Lastmod }}
-<meta property="article:modified_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}">
-{{- end }}
-<meta property="article:author" content="MingXin Wang">
-{{- with .Params.categories }}
-<meta property="article:section" content="{{ index . 0 }}">
-{{- end }}
-{{- range .Params.tags }}
-<meta property="article:tag" content="{{ . }}">
-{{- end }}
-{{- end }}
 
 <!-- JSON-LD: 全站 Person(author) — Google E-A-T 信号 -->
 <script type="application/ld+json">
@@ -113,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 </script>
 
-{{- /* JSON-LD: BlogPosting(博客 / Qurious 文章专用)— 补 author + image */ -}}
+{{- /* JSON-LD: BlogPosting / Article(博客 / Qurious 文章)— 补 author + image */ -}}
 {{- if or (eq .Section "posts") (eq .Section "qurious") }}
 {{- $articleType := "BlogPosting" -}}
 {{- if eq .Section "qurious" }}{{ $articleType = "Article" }}{{ end -}}
@@ -122,7 +93,9 @@ document.addEventListener('DOMContentLoaded', function() {
   "@context": "https://schema.org",
   "@type": "{{ $articleType }}",
   "headline": "{{ .Title }}",
-  "description": "{{ $desc }}",
+  {{- with $desc }}
+  "description": "{{ . }}",
+  {{- end }}
   "image": "{{ $ogImage }}",
   "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
   {{- with .Lastmod }}
@@ -145,15 +118,15 @@ document.addEventListener('DOMContentLoaded', function() {
     "@type": "WebPage",
     "@id": "{{ .Permalink }}"
   },
-  "inLanguage": "zh-CN",
-  {{- with .Params.tags }}
+  "inLanguage": "zh-CN"
+  {{- with .Params.tags }},
   "keywords": "{{ delimit . ", " }}"
   {{- end }}
 }
 </script>
 {{- end }}
 
-{{- /* JSON-LD: WebSite + SearchAction (仅首页)— 让 Google 出现 sitelinks 搜索框 */ -}}
+{{- /* JSON-LD: WebSite (仅首页) */ -}}
 {{- if .IsHome }}
 <script type="application/ld+json">
 {
@@ -166,6 +139,11 @@ document.addEventListener('DOMContentLoaded', function() {
   "publisher": {
     "@type": "Person",
     "name": "MingXin Wang"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://mingxinwang.com/search/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
   }
 }
 </script>
