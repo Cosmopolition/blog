@@ -10,6 +10,9 @@ markup:
     renderer:
       unsafe: true
 
+# 允许渲染未来日期的文章(用于行程预告/活动计划类内容,如乌镇攻略)
+buildFuture: true
+
 # 多语言架构预留(暂只启用中文,未来扩展取消注释即可)
 # languages:
 #   zh-cn:
