@@ -34,8 +34,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500;700;800&family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet">
 
-  <link rel="preload" as="image" href="/resume/images_webp/bg.webp" fetchpriority="high" />
-
   <style>
     /* ============================================================
        RESUME — WARM × Rethinking (production)
@@ -390,52 +388,54 @@
       font-size: 14px;
     }
 
-    /* ---- Valley ---- */
+    /* ---- Valley (live canvas scene — no image asset) ---- */
     .valley {
       position: relative;
       width: 100%;
       max-width: 1100px;
       aspect-ratio: 4096 / 2336;
-      max-height: 660px;
       margin: 24px auto 0;
-      cursor: pointer;
-      user-select: none;
       overflow: hidden;
       border-radius: 6px;
-      background: #fff;
+      background: #EDE7DC;
       box-shadow:
         0 0 0 1px rgba(0,0,0,0.04),
         0 18px 48px rgba(0,0,0,0.08),
         0 4px 12px rgba(0,0,0,0.04);
     }
-    .valley-bg {
+    .valley canvas {
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center;
-      transition: transform 0.6s var(--ease-out);
-      animation: valleyDrift 9s ease-in-out infinite;
     }
-    .valley:hover .valley-bg { transform: scale(1.015); }
-    .valley.jump .valley-bg { animation: valleyJump 0.7s cubic-bezier(0.2, 0.7, 0.3, 1); }
 
-    /* Mobile valley: keep aspect-ratio, cap height so it stays landscape */
+    /* Mobile valley: cap the WIDTH, never the height.
+       A max-height that binds squashes the scene — the ridges flatten
+       and the near bank collapses into a black bar. Capping width keeps
+       4096/2336 intact and still yields the intended compact hero:
+       340px tall -> 596 wide, 240 -> 420, 200 -> 350. */
     @media (max-width: 768px) {
       .valley {
         margin: 20px auto 0;
-        max-height: 340px;
+        max-width: 596px;
         border-radius: 8px;
       }
     }
     @media (max-width: 480px) {
       .valley {
-        max-height: 240px;
+        max-width: 420px;
       }
     }
     @media (max-width: 380px) {
       .valley {
-        max-height: 200px;
+        max-width: 350px;
+      }
+    }
+    /* landscape phones: a 844px-wide hero would be 480px tall on a 390px screen */
+    @media (orientation: landscape) and (max-height: 560px) {
+      .valley {
+        max-width: 460px;
+        margin: 12px auto 0;
       }
     }
 
@@ -870,28 +870,12 @@
     /* ============================================================
        ANIMATIONS
        ============================================================ */
-    @keyframes valleyDrift {
-      0%, to { transform: translateY(0); }
-      50%     { transform: translateY(-6px); }
-    }
-    @keyframes valleyJump {
-      0%, to { transform: translateY(0) scale(1); }
-      20%    { transform: translateY(3px) scale(1.04, 0.96); }
-      50%    { transform: translateY(-22px) scale(1.02); }
-      80%    { transform: translateY(0) scale(1.06, 0.94); }
-    }
-
     .reveal {
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* Disable valley drift on small screens (saves battery, less distracting) */
-    @media (max-width: 480px) {
-      .valley-bg { animation: none; }
-    }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -988,9 +972,9 @@
       <p class="hero-sub" data-i18n-html="hero-sub">四款独立 App · 已上线 · 自主设计开发<br>相信好的产品，来自对日常的重新提问。</p>
     </div>
 
-    <div class="valley" id="valley" role="img" aria-label="Personal valley" tabindex="0">
-      <img class="valley-bg" src="/resume/images_webp/bg.webp" alt="" width="1100" height="627" />
-    </div>
+    <div class="valley" id="valley" role="img" tabindex="0"
+         aria-label="一片由代码实时绘制的山谷：层叠山峦在雾中由远及近逐渐清晰，湖面映着天光，晨昏随当地时间变化。"
+         data-i18n-attr="aria-label|hero-valley-label"></div>
   </section>
 
   <!-- ============================================================
@@ -1290,6 +1274,7 @@
         'hero-eyebrow':    '产品工程师 · 独立开发者',
         'hero-title':      '用 AI 创造 <em>有温度的</em><br>数字体验。',
         'hero-sub':        '四款独立 App · 已上线 · 自主设计开发<br>相信好的产品，来自对日常的重新提问。',
+        'hero-valley-label': '一片由代码实时绘制的山谷：层叠山峦在雾中由远及近逐渐清晰，湖面映着天光，晨昏随当地时间变化。',
 
         'about-h2':        '关于<em>— 我</em>',
         'about-manifesto': '软件工程背景，扎实的工程能力底色。<br>对「为什么做」比「怎么做」更感兴趣，<br>正在用 AI 工具探索用户体验的边界。',
@@ -1361,6 +1346,7 @@
         'hero-eyebrow':    'Product Engineer · Independent',
         'hero-title':      'Crafting <em>warm</em> digital<br>experiences with AI.',
         'hero-sub':        'Four shipped iOS apps · Designed & built solo<br>Good products come from re-asking the everyday.',
+        'hero-valley-label': 'A valley drawn live in code: layered ridges fading into mist, light on the water, shifting with your local time of day.',
 
         'about-h2':        'ABOUT<em>— who</em>',
         'about-manifesto': 'An engineer by training, with depth in the craft.<br>More interested in the <em>why</em> than the <em>how</em>.<br>Currently exploring the edge of UX with AI.',
@@ -1575,22 +1561,622 @@
     })();
 
     // ============================================================
-    // Valley interactions (jump + reduced-motion aware)
     // ============================================================
+    // Valley — live canvas scene.
+    // Replaces the old 295KB bg.webp: the landscape is computed per frame
+    // and its palette follows the visitor's local time.
+    // ============================================================
+/* ============================================================
+   Valley — a code-generated landscape for the /resume/ hero.
+   No image assets: sky, ridges, mist, water and foreground are
+   all computed per frame. The palette follows the visitor's
+   local time (day / dusk / night) with smooth crossfades.
+
+   Scale discipline: every length in the scene is a fraction of
+   the canvas height. Fixed pixel lengths do not survive a phone
+   (a 240px-tall hero with 40px grass reads as a picket fence).
+   ============================================================ */
+(function () {
+'use strict';
+
+const PALETTES = {
+  day: {
+    skyTop:'#D5DEDE', skyMid:'#EBE3D6', skyLow:'#F8EDDC',
+    sun:'#FEF6E6', glow:'#E9A87B', glowA:0.60,
+    ridges:['#C4C2B6','#ACAEA0','#919788','#767F6C','#4F5849','#333A2C'],
+    hazeCol:'#F1EADB', mist:0.66,
+    waterTop:'#B7BCAE', waterBot:'#4E5647',
+    fg:'#1B2016', refl:0.34, stars:0, disc:0.42
+  },
+  dusk: {
+    skyTop:'#46445C', skyMid:'#96696A', skyLow:'#E9A874',
+    sun:'#FFEAC6', glow:'#E0704A', glowA:0.76,
+    ridges:['#8B7878','#736662','#5C514D','#463D39','#322B28','#1F1A18'],
+    hazeCol:'#D9996F', mist:0.54,
+    waterTop:'#8B7670', waterBot:'#241F1D',
+    fg:'#131110', refl:0.38, stars:0.4, disc:0.55
+  },
+  night: {
+    skyTop:'#121828', skyMid:'#212C46', skyLow:'#4A566E',
+    sun:'#F1EFE2', glow:'#BCC6D8', glowA:0.38,
+    ridges:['#364056','#2C3547','#232A38','#1A202D','#121622','#0A0D14'],
+    hazeCol:'#6B7690', mist:0.44,
+    waterTop:'#39455F', waterBot:'#0B0F1B',
+    fg:'#06080C', refl:0.42, stars:1, disc:0.7
+  }
+};
+
+/* Local-time schedule. Transitions crossfade over 90 minutes. */
+const DAY_KEYS = [
+  { h: 0,    p: 'night' },
+  { h: 4.5,  p: 'night' },
+  { h: 6.0,  p: 'day'   },
+  { h: 16.5, p: 'day'   },
+  { h: 18.0, p: 'dusk'  },
+  { h: 19.5, p: 'dusk'  },
+  { h: 21.0, p: 'night' },
+  { h: 24,   p: 'night' }
+];
+
+/* ---------- colour helpers ---------- */
+function hash1(i){ const s = Math.sin(i * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); }
+function parseCol(c){
+  if (c[0] === '#') { const n = parseInt(c.slice(1), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
+  const m = c.match(/[\d.]+/g); return [+m[0], +m[1], +m[2]];
+}
+function lerpCol(c1, c2, t){
+  const a = parseCol(c1), b = parseCol(c2);
+  return `rgb(${Math.round(a[0] + (b[0] - a[0]) * t)},${Math.round(a[1] + (b[1] - a[1]) * t)},${Math.round(a[2] + (b[2] - a[2]) * t)})`;
+}
+function hexA(h, a){ const c = parseCol(h); return `rgba(${c[0]},${c[1]},${c[2]},${a})`; }
+function mix(c1, c2, t){ return lerpCol(c1, c2, t); }
+
+function blendPal(a, b, t){
+  const o = {};
+  for (const k in a){
+    const va = a[k], vb = b[k];
+    if (typeof va === 'number') o[k] = va + (vb - va) * t;
+    else if (Array.isArray(va)) o[k] = va.map((v, i) => lerpCol(v, vb[i], t));
+    else o[k] = lerpCol(va, vb, t);
+  }
+  return o;
+}
+function paletteForHour(h){
+  const K = DAY_KEYS;
+  for (let i = 0; i < K.length - 1; i++){
+    if (h >= K[i].h && h <= K[i + 1].h){
+      if (K[i].p === K[i + 1].p) return PALETTES[K[i].p];
+      const t = (h - K[i].h) / (K[i + 1].h - K[i].h);
+      return blendPal(PALETTES[K[i].p], PALETTES[K[i + 1].p], t);
+    }
+  }
+  return PALETTES.day;
+}
+
+/* ---------- noise ---------- */
+function makeNoise(seed){
+  const N = 512, tab = new Float32Array(N);
+  for (let i = 0; i < N; i++) tab[i] = hash1(i + seed * 57.3);
+  return x => {
+    const i = Math.floor(x), f = x - i, u = f * f * (3 - 2 * f);
+    const a = tab[((i % N) + N) % N], b = tab[(((i + 1) % N) + N) % N];
+    return a + (b - a) * u;
+  };
+}
+function fbm(n, x, oct){
+  let v = 0, amp = 0.5, f = 1, s = 0;
+  for (let i = 0; i < oct; i++){ v += n(x * f) * amp; s += amp; amp *= 0.5; f *= 2.03; }
+  return v / s;
+}
+/* deterministic RNG — the foreground must not reshuffle every frame */
+function mulberry32(a){
+  return function(){
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+/* ---------- scene ---------- */
+const RIDGES = 6, WATER = 0.745;
+/* the foreground buffer is scaled down for free defocus, but never below
+   this many device pixels — below that the blades alias into spikes */
+const FG_MIN_DEV = 300;
+const DROP_COL = '#C2703F';
+/* four trees in two clumps — a grove, not scattered debris */
+const TREES = [
+  { x:0.126, layer:2, h:0.030, seed:5.9 },
+  { x:0.161, layer:2, h:0.024, seed:3.1 },
+  { x:0.792, layer:2, h:0.028, seed:6.9 },
+  { x:0.824, layer:2, h:0.022, seed:8.2 }
+];
+
+function mountValleyScene(root, opts){
+  opts = opts || {};
+  const cv = document.createElement('canvas');
+  cv.setAttribute('aria-hidden', 'true');
+  cv.style.cssText = 'display:block;width:100%;height:100%';
+  root.insertBefore(cv, root.firstChild);
+  const ctx = cv.getContext('2d', { alpha: false });
+
+  let W = 0, H = 0, dpr = 1, fgScale = 0.22;
+  let P = PALETTES.day;
+  let sky = null, grain = null, skySig = '';
+  const noises = [];
+  for (let i = 0; i < RIDGES; i++) noises.push(makeNoise(100 + i * 13.7));
+  const treeNoises = TREES.map(tr => makeNoise(tr.seed * 13));
+  const groundNoise = makeNoise(42);
+  const pointer = { x: -9999, y: -9999, on: false, mouse: false };
+  const ripples = [];   /* expanding rings on the water  */
+  const drops = [];     /* motes falling toward the lake  */
+  const impacts = [];   /* things pushing the grass aside */
+  let blades = [];
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const forcedHour = opts.hour;
+
+  /* ---- sky / grain are static per palette ---- */
+  function buildSky(){
+    sky = document.createElement('canvas');
+    sky.width = Math.max(2, Math.round(W * dpr));
+    sky.height = Math.max(2, Math.round(H * dpr));
+    const s = sky.getContext('2d');
+    s.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const g = s.createLinearGradient(0, 0, 0, H * 0.74);
+    g.addColorStop(0, P.skyTop); g.addColorStop(0.52, P.skyMid); g.addColorStop(1, P.skyLow);
+    s.fillStyle = g; s.fillRect(0, 0, W, H * 0.74);
+
+    const sx = W * 0.715, sy = H * 0.215;
+    const gl = s.createRadialGradient(sx, sy, 0, sx, sy, H * 0.66);
+    gl.addColorStop(0, hexA(P.glow, P.glowA));
+    gl.addColorStop(0.16, hexA(P.glow, P.glowA * 0.44));
+    gl.addColorStop(0.52, hexA(P.glow, P.glowA * 0.12));
+    gl.addColorStop(1, hexA(P.glow, 0));
+    s.fillStyle = gl; s.fillRect(0, 0, W, 0.78 * H);
+
+    if (P.disc > 0){
+      const dg = s.createRadialGradient(sx, sy, 0, sx, sy, H * 0.075);
+      dg.addColorStop(0, hexA(P.sun, P.disc));
+      dg.addColorStop(0.55, hexA(P.sun, P.disc * 0.45));
+      dg.addColorStop(1, hexA(P.sun, 0));
+      s.fillStyle = dg; s.beginPath(); s.arc(sx, sy, H * 0.075, 0, 6.2832); s.fill();
+    }
+    /* high wispy clouds — soft horizontal smudges, not banded stripes */
+    for (let i = 0; i < 6; i++){
+      const cy = H * (0.045 + i * 0.052);
+      const cx = W * (0.10 + hash1(i * 3.7) * 0.80);
+      const rx = W * (0.12 + hash1(i * 5.1) * 0.22);
+      const ry = H * (0.010 + hash1(i * 7.3) * 0.014);
+      const a = (0.13 + hash1(i * 2.3) * 0.11) * (1 - i / 9);
+      const cg = s.createRadialGradient(0, 0, 0, 0, 0, rx);
+      cg.addColorStop(0, hexA('#FFFFFF', a));
+      cg.addColorStop(0.5, hexA('#FFFFFF', a * 0.42));
+      cg.addColorStop(1, hexA('#FFFFFF', 0));
+      s.save();
+      s.translate(cx, cy); s.scale(1, ry / rx);
+      s.fillStyle = cg;
+      s.beginPath(); s.arc(0, 0, rx, 0, 6.2832); s.fill();
+      s.restore();
+    }
+
+    grain = document.createElement('canvas'); grain.width = 180; grain.height = 180;
+    const gc = grain.getContext('2d'), id = gc.createImageData(180, 180);
+    for (let i = 0; i < id.data.length; i += 4){
+      const v = 116 + Math.random() * 38;
+      id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 255;
+    }
+    gc.putImageData(id, 0, 0);
+  }
+
+  /* ---- grass blades: stable across frames, scaled to the scene ---- */
+  function buildBlades(){
+    const rnd = mulberry32(0x5EED17);
+    const n = Math.round(Math.min(130, Math.max(80, W * 0.16)));
+    blades = new Array(n);
+    for (let i = 0; i < n; i++){
+      const len = H * (0.019 + rnd() * 0.0543);
+      blades[i] = {
+        x: rnd() * W,
+        base: H * (0.900 + rnd() * 0.105),
+        len,
+        w: Math.max(0.9, len * 0.085),
+        ph: rnd() * 6.283,
+        sp: 0.7 + rnd() * 0.8
+      };
+    }
+  }
+
+  function resize(){
+    const r = root.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    fgScale = Math.max(0.22, Math.min(0.5, FG_MIN_DEV / (W * dpr)));
+    buildBlades();
+    skySig = '';
+    /* assigning canvas.width wipes the bitmap — when no rAF loop is running
+       (reduced-motion, paused) nothing would repaint it, leaving a black box */
+    if (!raf){ updatePalette(); frame(sceneTime, 0); }
+  }
+  const ro = new ResizeObserver(resize);
+  ro.observe(root);
+
+  /* ---- palette from local time ---- */
+  function localHour(){
+    if (typeof forcedHour === 'number') return forcedHour;
+    const d = new Date();
+    return d.getHours() + d.getMinutes() / 60 + d.getSeconds() / 3600;
+  }
+  function updatePalette(){
+    const h = localHour();
+    P = paletteForHour(h);
+    const sig = P.skyTop + P.skyMid + P.skyLow + P.glow + P.hazeCol + P.waterTop;
+    if (sig !== skySig){ skySig = sig; buildSky(); }
+  }
+
+  /* ---- ridges ---- */
+  function ridgeShape(layer, t){
+    const n = noises[layer];
+    const base = H * (0.470 + layer * 0.0475);
+    const amp = H * (0.125 - layer * 0.0115);
+    const freq = 0.0015 + layer * 0.0008;
+    const drift = t * (0.5 + layer * 0.2);
+    const pts = []; const step = 3;
+    for (let x = -10; x <= W + 10; x += step){
+      const v = Math.pow(fbm(n, x * freq + drift, 4), 1.22);
+      pts.push([x, base - amp * (v * 2 - 1)]);
+    }
+    return pts;
+  }
+
+  function drawTree(tr, pts, ti){
+    const x = tr.x * W;
+    const y = pts[Math.max(0, Math.min(pts.length - 1, Math.round((x + 10) / 3)))][1];
+    const h = H * tr.h, r = h * 0.46;
+    const hazed = mix(P.ridges[tr.layer], P.hazeCol, (1 - tr.layer / (RIDGES - 1)) * 0.78);
+    const col = mix(hazed, '#15190F', 0.20);
+    ctx.save(); ctx.fillStyle = col;
+    const n = treeNoises[ti];
+    ctx.beginPath();
+    for (let i = 0; i <= 26; i++){
+      const a = (i / 26) * Math.PI * 2;
+      const wob = 1 + 0.30 * (fbm(n, a * 3.6 + tr.seed, 3) - 0.5) * 2
+                     + 0.12 * (fbm(n, a * 8 + tr.seed * 2, 2) - 0.5) * 2;
+      const px = x + Math.cos(a) * r * wob, py = y - h * 0.30 + Math.sin(a) * r * wob * 1.15;
+      i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+    }
+    ctx.closePath(); ctx.fill(); ctx.restore();
+  }
+
+  /* ---- foreground, drawn small then upscaled = defocus ---- */
+  const fg = document.createElement('canvas');
+  function buildForeground(t){
+    fg.width = Math.max(2, Math.round(W * fgScale));
+    fg.height = Math.max(2, Math.round(H * fgScale));
+    const f = fg.getContext('2d');
+    f.setTransform(fgScale, 0, 0, fgScale, 0, 0);
+    f.clearRect(0, 0, W, H);
+
+    /* near bank — the top edge melts into the haze instead of
+       ending in a hard black bar */
+    const gg = f.createLinearGradient(0, H * 0.78, 0, H);
+    gg.addColorStop(0, mix(P.hazeCol, P.fg, 0.42));
+    gg.addColorStop(0.45, mix(P.hazeCol, P.fg, 0.80));
+    gg.addColorStop(1, P.fg);
+    f.fillStyle = gg;
+    f.beginPath(); f.moveTo(-10, H + 10);
+    for (let x = -10; x <= W + 10; x += 4){
+      const v = fbm(groundNoise, x * 0.0040 + t * 0.08, 3);
+      f.lineTo(x, H * (0.895 + (v - 0.5) * 0.050));
+    }
+    f.lineTo(W + 10, H + 10); f.closePath(); f.fill();
+
+    for (let i = 0; i < blades.length; i++){
+      const b = blades[i];
+      let push = 0;
+      /* the pointer parts the grass (mouse only — a finger dragging
+         across the screen would make the page feel broken) */
+      if (pointer.on && pointer.mouse){
+        const dx = b.x - pointer.x, dy = b.base - pointer.y;
+        const d = Math.hypot(dx, dy);
+        const R = H * 0.16;
+        if (d > 0.5 && d < R) push += (dx / d) * (1 - d / R) * R * 0.55;
+      }
+      /* something landing in the grass shoves it aside */
+      for (let j = 0; j < impacts.length; j++){
+        const im = impacts[j];
+        const dx = b.x - im.x, dy = b.base - im.y;
+        const d = Math.hypot(dx, dy);
+        if (d > 0.5 && d < im.r) push += (dx / d) * (1 - d / im.r) * (1 - im.t) * im.r * 0.75;
+      }
+      const wind = Math.sin(t * 0.55 + b.ph - b.x * 0.006) * 0.32
+                 + Math.sin(t * 1.4 + b.ph * 2.1) * 0.11;
+      const bend = (wind + 0.36) * b.len;
+      const tip = b.x + bend + push;
+      f.beginPath();
+      f.moveTo(b.x - b.w, b.base);
+      f.quadraticCurveTo(b.x - b.w * 0.35 + (bend + push) * 0.35, b.base - b.len * 0.55, tip, b.base - b.len);
+      f.quadraticCurveTo(b.x + b.w * 0.35 + (bend + push) * 0.35, b.base - b.len * 0.55, b.x + b.w, b.base);
+      f.closePath(); f.fill();
+    }
+
+    /* haze only on the pixels we actually painted */
+    f.globalCompositeOperation = 'source-atop';
+    const hz = f.createLinearGradient(0, H * 0.80, 0, H * 0.99);
+    hz.addColorStop(0, hexA(P.hazeCol, 0.50));
+    hz.addColorStop(0.5, hexA(P.hazeCol, 0.14));
+    hz.addColorStop(1, hexA(P.hazeCol, 0));
+    f.fillStyle = hz;
+    f.fillRect(0, 0, W, H);
+    f.globalCompositeOperation = 'source-over';
+  }
+
+  /* ---- frame ---- */
+  function frame(t, dt){
+    if (!sky) buildSky();
+
+    /* advance interaction state */
+    for (let i = drops.length - 1; i >= 0; i--){
+      const d = drops[i];
+      d.t += dt;
+      if (d.t >= d.dur){
+        ripples.push({ x: d.x, y: H * WATER, r: 3, v: Math.max(110, H * 0.42) });
+        drops.splice(i, 1);
+      }
+    }
+    for (let i = ripples.length - 1; i >= 0; i--){
+      const rp = ripples[i];
+      rp.r += rp.v * dt;
+      if (rp.r > rp.v * 1.3) ripples.splice(i, 1);
+    }
+    for (let i = impacts.length - 1; i >= 0; i--){
+      const im = impacts[i];
+      im.t += dt / im.life;
+      im.r = im.max * (0.15 + 0.85 * Math.min(1, im.t * 1.6));
+      if (im.t >= 1) impacts.splice(i, 1);
+    }
+
+    ctx.drawImage(sky, 0, 0, W, H);
+
+    /* stars sit on top of the baked sky so they stay crisp */
+    if (P.stars > 0){
+      for (let i = 0; i < 110; i++){
+        const x = hash1(i * 3.1) * W, y = hash1(i * 7.7) * H * 0.44;
+        const a = (0.22 + 0.78 * hash1(i * 1.3)) * P.stars * (1 - y / (H * 0.44));
+        ctx.fillStyle = `rgba(255,255,255,${a.toFixed(3)})`;
+        ctx.beginPath(); ctx.arc(x, y, 0.5 + hash1(i * 5.5) * 1.0, 0, 6.2832); ctx.fill();
+      }
+    }
+
+    const shapes = [];
+    for (let i = 0; i < RIDGES; i++) shapes.push(ridgeShape(i, t));
+
+    for (let i = 0; i < RIDGES; i++){
+      const col = mix(P.ridges[i], P.hazeCol, (1 - i / (RIDGES - 1)) * 0.78);
+      ctx.save();
+      ctx.beginPath();
+      shapes[i].forEach((p, k) => k ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]));
+      ctx.lineTo(W + 10, H * WATER + 2); ctx.lineTo(-10, H * WATER + 2); ctx.closePath();
+      const gg = ctx.createLinearGradient(0, H * 0.36, 0, H * WATER);
+      gg.addColorStop(0, col);
+      gg.addColorStop(0.50, mix(col, P.hazeCol, 0.14));
+      gg.addColorStop(1, mix(col, P.hazeCol, 0.58));
+      ctx.fillStyle = gg; ctx.fill();
+      ctx.restore();
+
+      /* mist between layers — strongest where the layers are farthest apart */
+      const by = H * (0.470 + i * 0.0475);
+      const ma = P.mist * (0.42 - i * 0.055);
+      const mg = ctx.createLinearGradient(0, by - H * 0.058, 0, by + H * 0.048);
+      mg.addColorStop(0, hexA(P.hazeCol, 0));
+      mg.addColorStop(0.52, hexA(P.hazeCol, ma));
+      mg.addColorStop(1, hexA(P.hazeCol, 0));
+      ctx.fillStyle = mg; ctx.fillRect(0, by - H * 0.058, W, H * 0.106);
+    }
+
+    for (let i = 0; i < TREES.length; i++) drawTree(TREES[i], shapes[TREES[i].layer], i);
+
+    /* motes falling toward the lake */
+    for (let i = 0; i < drops.length; i++){
+      const d = drops[i];
+      const p = Math.min(1, d.t / d.dur);
+      const y = d.y0 + (d.y1 - d.y0) * (p * p);
+      const r = Math.max(1.5, H * 0.0055);
+      const g = ctx.createRadialGradient(d.x, y, 0, d.x, y, r * 8);
+      g.addColorStop(0, hexA(DROP_COL, 0.50));
+      g.addColorStop(1, hexA(DROP_COL, 0));
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(d.x, y, r * 8, 0, 6.2832); ctx.fill();
+      ctx.fillStyle = hexA('#FFF3DF', 0.94);
+      ctx.beginPath(); ctx.arc(d.x, y, r, 0, 6.2832); ctx.fill();
+    }
+
+    /* water */
+    const wy = H * WATER;
+    const wg = ctx.createLinearGradient(0, wy, 0, H);
+    wg.addColorStop(0, mix(P.waterTop, P.hazeCol, 0.45));
+    wg.addColorStop(0.35, P.waterTop);
+    wg.addColorStop(1, P.waterBot);
+    ctx.fillStyle = wg; ctx.fillRect(0, wy, W, H - wy);
+
+    ctx.save();
+    ctx.beginPath(); ctx.rect(0, wy, W, H - wy); ctx.clip();
+    ctx.globalAlpha = P.refl;
+    for (let i = 0; i < RIDGES - 2; i++){
+      ctx.beginPath();
+      shapes[i].forEach((p, k) => {
+        const yy = wy + (wy - p[1]) * 0.60;
+        const wob = Math.sin(yy * 0.055 + t * 0.85 + i) * 3.0;
+        k ? ctx.lineTo(p[0] + wob, yy) : ctx.moveTo(p[0] + wob, yy);
+      });
+      ctx.lineTo(W + 10, H); ctx.lineTo(-10, H); ctx.closePath();
+      ctx.fillStyle = mix(P.ridges[i], P.hazeCol, 0.30); ctx.fill();
+    }
+    ctx.restore();
+
+    /* sun column */
+    const sx = W * 0.715;
+    ctx.save(); ctx.beginPath(); ctx.rect(0, wy, W, H - wy); ctx.clip();
+    for (let i = 0; i < 80; i++){
+      const u = i / 80, yy = wy + u * (H - wy);
+      const w = (8 + Math.abs(Math.sin(u * 12 + t * 0.45)) * 52) * (1 - u * 0.30);
+      const a = (1 - u) * (1 - u) * 0.42 * (0.55 + 0.45 * Math.sin(u * 20 + t * 1.0));
+      ctx.fillStyle = hexA(P.glow, Math.max(0, a));
+      ctx.fillRect(sx - w / 2 + Math.sin(u * 26 + t * 0.75) * 9, yy, w, Math.max(1.3, H * 0.0024));
+    }
+    ctx.restore();
+
+    /* shimmer */
+    ctx.save(); ctx.beginPath(); ctx.rect(0, wy, W, H - wy); ctx.clip();
+    for (let i = 0; i < 34; i++){
+      const yy = wy + hash1(i * 4.7) * (H - wy), x = hash1(i * 9.1) * W, w = 18 + hash1(i * 6.1) * 110;
+      ctx.fillStyle = hexA('#FFFFFF', 0.04 + 0.07 * hash1(i * 3.3));
+      ctx.fillRect(x, yy, w, 1.1);
+    }
+    ctx.restore();
+
+    /* ripples — a ring spreading where something touched the water */
+    if (ripples.length){
+      ctx.save();
+      ctx.beginPath(); ctx.rect(0, wy, W, H - wy); ctx.clip();
+      for (let i = 0; i < ripples.length; i++){
+        const rp = ripples[i];
+        const p = Math.min(1, rp.r / (rp.v * 1.3));
+        const a = Math.pow(1 - p, 1.5) * 0.55;
+        const ry = Math.max(1.1, rp.r * 0.15);
+        const cy = Math.max(wy + ry * 0.6, rp.y);
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = hexA('#FFFFFF', a);
+        ctx.beginPath(); ctx.ellipse(rp.x, cy, rp.r, ry, 0, 0, 6.2832); ctx.stroke();
+        ctx.strokeStyle = hexA('#FFFFFF', a * 0.42);
+        ctx.beginPath(); ctx.ellipse(rp.x, cy, rp.r * 0.52, ry * 0.52, 0, 0, 6.2832); ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    /* shoreline haze dissolves the hard water line */
+    const eg = ctx.createLinearGradient(0, wy - H * 0.085, 0, wy + H * 0.075);
+    eg.addColorStop(0, hexA(P.hazeCol, 0));
+    eg.addColorStop(0.42, hexA(P.hazeCol, 0.72));
+    eg.addColorStop(0.62, hexA(P.hazeCol, 0.42));
+    eg.addColorStop(1, hexA(P.hazeCol, 0));
+    ctx.fillStyle = eg; ctx.fillRect(0, wy - H * 0.085, W, H * 0.16);
+
+    /* foreground */
+    buildForeground(t);
+    ctx.save();
+    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(fg, 0, 0, W, H);
+    ctx.restore();
+
+    /* birds */
+    ctx.save();
+    ctx.strokeStyle = mix(P.ridges[0], P.hazeCol, 0.30);
+    ctx.lineWidth = 1.1; ctx.lineCap = 'round';
+    const birds = [[0.285,0.185,1],[0.335,0.235,0.8],[0.405,0.150,0.62],[0.545,0.115,0.5],[0.60,0.205,0.42]];
+    for (let i = 0; i < birds.length; i++){
+      const bx = birds[i][0], by = birds[i][1], sc = birds[i][2];
+      const x = bx * W + Math.sin(t * 0.11 + i) * W * 0.018;
+      const y = by * H + Math.sin(t * 0.42 + i * 2) * 2.6;
+      const f = 2.4 + Math.sin(t * 1.8 + i) * 1.3;
+      ctx.beginPath();
+      ctx.moveTo(x - 5.5 * sc, y); ctx.quadraticCurveTo(x - 2.8 * sc, y - f * sc, x, y);
+      ctx.quadraticCurveTo(x + 2.8 * sc, y - f * sc, x + 5.5 * sc, y);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    /* grain + vignette */
+    if (grain){
+      ctx.save();
+      ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = 0.28;
+      ctx.fillStyle = ctx.createPattern(grain, 'repeat'); ctx.fillRect(0, 0, W, H);
+      ctx.restore();
+    }
+    ctx.save();
+    const vg = ctx.createRadialGradient(W * 0.5, H * 0.42, H * 0.25, W * 0.5, H * 0.5, H * 0.98);
+    vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(18,16,12,0.30)');
+    ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+    ctx.restore();
+  }
+
+  /* ---- loop ---- */
+  let running = true, visible = true, last = 0, raf = 0, sceneTime = 0;
+  function loop(ts){
+    raf = requestAnimationFrame(loop);
+    if (!running || !visible){ last = ts; return; }
+    /* reduced motion: idle until the user touches the scene */
+    const busy = drops.length || ripples.length || impacts.length;
+    if (reduce.matches && !busy){ cancelAnimationFrame(raf); raf = 0; last = ts; return; }
+    /* small screens draw fewer frames — the scene is slow-moving, nobody can tell */
+    if (ts - last < (W < 520 ? 45 : 28)) return;
+    const dt = Math.min(0.05, (ts - last) / 1000);
+    last = ts;
+    if (!reduce.matches) sceneTime += dt;
+    updatePalette();
+    frame(sceneTime, dt);
+  }
+  function start(){
+    if (reduce.matches){ updatePalette(); frame(sceneTime, 0); raf = 0; return; }
+    if (!raf) raf = requestAnimationFrame(loop);
+  }
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0.01 }).observe(root);
+
+  /* ---- interaction ---- */
+  function spawnAt(cx, cy){
+    const wy = H * WATER, gy = H * 0.895;
+    if (cy >= gy){
+      /* into the near bank — the grass is shoved aside */
+      impacts.push({ x: cx, y: cy, r: H * 0.02, max: Math.max(60, H * 0.20), t: 0, life: 0.85 });
+    } else if (cy >= wy){
+      /* straight onto the water — a ring spreads from the contact point */
+      ripples.push({ x: cx, y: cy, r: 3, v: Math.max(110, H * 0.42) });
+    } else {
+      /* into the air — a mote falls and splashes when it lands */
+      drops.push({ x: cx, y0: cy, y1: wy, t: 0, dur: 0.28 + 0.55 * (1 - cy / Math.max(1, wy)) });
+    }
+  }
+
+  root.addEventListener('pointermove', e => {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    const r = root.getBoundingClientRect();
+    pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top;
+    pointer.on = true; pointer.mouse = true;
+  });
+  root.addEventListener('pointerleave', () => { pointer.on = false; });
+  /* click, not pointerdown: the browser cancels the click when a touch
+     gesture turns into a scroll, so dragging across the hero never
+     fires a stray splash */
+  root.addEventListener('click', e => {
+    const r = root.getBoundingClientRect();
+    spawnAt(e.clientX - r.left, e.clientY - r.top);
+    if (reduce.matches && !raf) raf = requestAnimationFrame(loop);
+  });
+  root.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      spawnAt(W * 0.5, H * 0.52);
+      if (reduce.matches && !raf) raf = requestAnimationFrame(loop);
+    }
+  });
+
+  resize();
+  start();
+  /* palette follows the clock even when the tab is idle */
+  setInterval(() => { if (!raf){ updatePalette(); frame(sceneTime, 0); } }, 60000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && !raf && !reduce.matches) start(); });
+
+  return { destroy(){ ro.disconnect(); if (raf) cancelAnimationFrame(raf); } };
+}
+
+window.mountValleyScene = mountValleyScene;
+})();
+
     (function() {
       const valley = document.getElementById('valley');
-      if (!valley) return;
-
-      function triggerJump() {
-        valley.classList.remove('jump');
-        void valley.offsetWidth;
-        valley.classList.add('jump');
-        setTimeout(() => valley.classList.remove('jump'), 800);
-      }
-      valley.addEventListener('click', triggerJump);
-      valley.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); triggerJump(); }
-      });
+      if (valley && window.mountValleyScene) window.mountValleyScene(valley);
     })();
 
     // ============================================================
