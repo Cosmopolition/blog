@@ -185,6 +185,37 @@ window.RESUME_WORKS = [
 ,
       platform: 'Web · Three-player table'
     }
+  },
+  {
+    id: 'photojournal',
+    image: 'images_webp/photojournal.webp',
+    color: '#e2c4bd',
+    link: '#小程序://照片手记/ExUxH01uDt8dMam',
+    kind: 'app',
+    brand: 'PHOTO NOTE',
+    geometry: '<span class="pages" aria-hidden="true"></span>',
+    cta: { zh: '在微信中打开', en: 'Open in WeChat' },
+    note: {
+      zh: '微信小程序「日子成页照片手记」：在微信里点开可直接进入；其他浏览器请在微信搜索「日子成页照片手记」。',
+      en: 'A WeChat mini program, “日子成页照片手记”: the link opens inside WeChat. Elsewhere, search “日子成页照片手记” in WeChat.'
+    },
+    zh:{
+      name: '日子成页照片手记', word: '一天<br>一页。',
+      tag: '微信小程序 · 照片手记',
+      lead: '选张照片，写一句话，今天就成了一页。',
+      description: '选一张照片，写一句话，换一种纸色和字体，就排成一张纸页卡片，导出 1080×1440 的高清 PNG，没有水印。笺集里按日历、网格或列表翻回从前，跨着日期也能搜到那一句。照片和文字只留在自己的手机里，不上传，也没有云端。',
+      focus: '照片排版 / 本地笺集',
+      platform: '微信小程序'
+    },
+    en:{
+      name: 'Photo Note', word: 'ONE<br>DAY.',
+      heroWord: 'ONE<br>DAY.',
+      tag: 'Mini program · Photo journal',
+      lead: 'Pick a photo, write a line, and the day becomes a page.',
+      description: 'Pick a photo, write a line, choose a paper tone and a font, and the day lays itself out as a card you can export as a 1080×1440 PNG — no watermark. Your notes live in a calendar, a grid, or a list, searchable across every date you wrote. Photos and words stay on your phone: nothing is uploaded, and there is no cloud.',
+      focus: 'Photo layout / Local journal',
+      platform: 'WeChat mini program'
+    }
   }
 ];
 
