@@ -39,4 +39,5 @@ _plans/
 
 # 设计稿参考（仅供开发参考，不部署到生产）
 static/_design/
+docs/game-design/
 
