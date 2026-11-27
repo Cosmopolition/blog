@@ -216,6 +216,37 @@ window.RESUME_WORKS = [
       focus: 'Photo layout / Local journal',
       platform: 'WeChat mini program'
     }
+  },
+  {
+    id: 'inspirebox',
+    image: 'images_webp/inspirebox.webp',
+    color: '#cdc4e2',
+    mark: '异想盒',
+    link: '',
+    kind: 'experiment',
+    brand: 'INSPIREBOX',
+    geometry: '',
+    cta: { zh: '即将上线', en: 'Coming soon' },
+    note: {
+      zh: '项目名与细节暂未公开。它还在开发中，等准备好了，这个位置会换成下载入口。',
+      en: 'The name and the details are not public yet. It is still in development; this slot will become a download link once it is ready.'
+    },
+    zh:{
+      name: '异想盒（未公开）', word: '跳出<br>盒子。',
+      tag: '合作项目 · 多端开发中',
+      lead: '和伙伴一起做的多端应用，iOS、Android、鸿蒙一起推进。',
+      description: '和伙伴一起做的多端应用，iOS、Android 与鸿蒙同步推进。盒子里的东西还没到揭晓的时候，就先把它放在这儿——等打开那天，再补上细节。',
+      focus: '多端协作 / 合作开发',
+      platform: 'iOS · Android · 鸿蒙'
+    },
+    en:{
+      name: 'InspireBox (Unannounced)', word: 'THINK<br>OUTSIDE.',
+      tag: 'Collaboration · In development',
+      lead: 'A multi-platform app built with a partner — iOS, Android, and HarmonyOS, together.',
+      description: 'A multi-platform app built with a partner, shipping for iOS, Android, and HarmonyOS. What is inside the box stays inside the box for now; the details arrive when it opens.',
+      focus: 'Multi-platform / Collaboration',
+      platform: 'iOS · Android · HarmonyOS'
+    }
   }
 ];
 
